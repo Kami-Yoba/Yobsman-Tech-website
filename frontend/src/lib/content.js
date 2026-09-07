@@ -1,10 +1,10 @@
 import {
-  Headphones, TrendingUp, Code2, Monitor, Brain, Smartphone, BadgeCheck, Globe, Wrench,
+  Headphones, TrendingUp, Code2, Monitor, Brain, Smartphone, BadgeCheck, Globe, Wrench, Plane,
 } from "lucide-react";
 
 export const ICONS = {
   Headset: Headphones, ChartLineUp: TrendingUp, Code: Code2, Desktop: Monitor,
-  Brain, DeviceMobile: Smartphone, SealCheck: BadgeCheck, GlobeHemisphereWest: Globe,
+  Brain, DeviceMobile: Smartphone, SealCheck: BadgeCheck, GlobeHemisphereWest: Globe, Plane,
 };
 export const iconFor = (name) => ICONS[name] || Wrench;
 
@@ -33,6 +33,7 @@ export const SOLUTIONS = [
   { title: "Quality Assurance", desc: "Functional, performance and automated testing that protects your reputation.", tags: ["Testing", "Automation", "Audits"] },
   { title: "Technical Support", desc: "Service desk, troubleshooting and maintenance for teams of any size.", tags: ["Service Desk", "SLA", "Remote"] },
   { title: "Remote Technology Consulting", desc: "Expert guidance delivered remotely, in your timezone and your language.", tags: ["Advisory", "CTO-as-a-Service", "Global"] },
+  { title: "On-Board Courier (OBC)", desc: "Time-critical hand-carry delivery via vetted courier partners — flight cost upfront, balance after proof of delivery.", tags: ["OBC", "Hand-carry", "Time-critical"] },
 ];
 
 export const INDUSTRIES = [

@@ -52,7 +52,7 @@ export default function Contact() {
                   <Field label={t("form.serviceInterest")} htmlFor="c-service">
                     <select id="c-service" data-testid="contact-service-select" className={inputCls} value={form.service} onChange={set("service")}>
                       <option value="">—</option>
-                      {["IT Support / Service Desk", "Data Analysis", "Software Development", "Computer Maintenance", "AI Integration", "Mobile Application Development", "Quality Assurance & Testing", "Remote IT Consultation", "KAGAYO"].map((s) => <option key={s} value={s}>{s}</option>)}
+                      {["IT Support / Service Desk", "Data Analysis", "Software Development", "Computer Maintenance", "AI Integration", "Mobile Application Development", "Quality Assurance & Testing", "Remote IT Consultation", "On-Board Courier (OBC)", "KAGAYO"].map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </Field>
                   <Field label={t("form.contactMethod")} htmlFor="c-method">

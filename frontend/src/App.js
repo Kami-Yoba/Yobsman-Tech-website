@@ -24,6 +24,7 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import Admin from "@/pages/Admin";
+import Obc from "@/pages/Obc";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ function App() {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/obc" element={<Obc />} />
             </Routes>
           </Layout>
           <Toaster theme="light" position="bottom-right" toastOptions={{

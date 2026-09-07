@@ -37,6 +37,7 @@ Build a premium, futuristic, monochrome (black/grey/white) corporate website for
 - Cookie consent banner (necessary/analytics/marketing), SEO head with JSON-LD + hreflang, robots.txt, sitemap.xml
 - Logos: processed user-provided Yobsman-Tech + KAGAYO logos (inverted white variants generated for dark backgrounds)
 - 2026-09-07: Full theme inversion to white-dominant design per user request (light sections now default; dark zinc-950 kept as accent for buttons, tiles and contrast cards); original black Yobsman-Tech logo restored and enlarged in navbar (h-11/14) and footer (h-14); KAGAYO hero uses black logo, device mockups keep white logo on black screens
+- 2026-09-07: Added On-Board Courier (OBC) partner service — dedicated /obc page with two-milestone payment model (flight cost upfront, service balance after proof of delivery), 6-step process, trust cards; added as SRV-09 in services (DB upsert-by-code), Solutions card, footer link, contact dropdown; quote/book pages pick it up automatically via API
 
 ## Verification status (2026-09-07)
 - curl-verified: services/jobs content, register, login, me, quote submit, contact submit, availability, booking, my-appointments, admin stats/lists, unauthenticated admin block (401)

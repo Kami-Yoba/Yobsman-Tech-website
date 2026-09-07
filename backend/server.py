@@ -720,6 +720,8 @@ SERVICES = [
      "desc": "Software quality assurance, functional, performance, usability and automated testing."},
     {"code": "SRV-08", "icon": "GlobeHemisphereWest", "title": "Remote IT Consultation",
      "desc": "Professional technology consultation delivered remotely to clients across different countries and time zones."},
+    {"code": "SRV-09", "icon": "Plane", "title": "On-Board Courier (OBC)",
+     "desc": "Time-critical hand-carry delivery by vetted courier partners. The requester pays the flight cost upfront; all remaining service costs are settled only after proof of delivery."},
 ]
 
 LEADERSHIP = [
@@ -832,8 +834,10 @@ async def seed_admin():
 
 
 async def seed_content():
-    if await db.services.count_documents({}) == 0:
-        await db.services.insert_many([{**s, "id": new_id(), "order": i + 1} for i, s in enumerate(SERVICES)])
+    existing_codes = {s["code"] async for s in db.services.find({}, {"code": 1})}
+    new_services = [{**s, "id": new_id(), "order": i + 1} for i, s in enumerate(SERVICES) if s["code"] not in existing_codes]
+    if new_services:
+        await db.services.insert_many(new_services)
     if await db.leadership.count_documents({}) == 0:
         await db.leadership.insert_many([{**m, "id": new_id(), "order": i + 1} for i, m in enumerate(LEADERSHIP)])
     if await db.partners.count_documents({}) == 0:
