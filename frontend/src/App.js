@@ -25,6 +25,9 @@ import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import Admin from "@/pages/Admin";
 import Obc from "@/pages/Obc";
+import Legal from "@/pages/Legal";
+import Track from "@/pages/Track";
+import { ThemeProvider, useTheme } from "@/context/ThemeContext";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,43 +37,59 @@ function ScrollToTop() {
   return null;
 }
 
+function ThemedToaster() {
+  const { theme } = useTheme();
+  return (
+    <Toaster theme={theme} position="bottom-right" toastOptions={{
+      style: theme === "dark"
+        ? { background: "#0D0D10", border: "1px solid rgba(255,255,255,0.1)", color: "#FAFAFA" }
+        : { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.1)", color: "#18181b" },
+    }} />
+  );
+}
+
 function App() {
   return (
-    <I18nProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/solutions" element={<Solutions />} />
-              <Route path="/kagayo" element={<Kagayo />} />
-              <Route path="/partners" element={<Partners />} />
-              <Route path="/leadership" element={<Leadership />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/careers/:id" element={<JobDetail />} />
-              <Route path="/insights" element={<Insights />} />
-              <Route path="/insights/:slug" element={<Insights />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/quote" element={<Quote />} />
-              <Route path="/book" element={<Book />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/obc" element={<Obc />} />
-            </Routes>
-          </Layout>
-          <Toaster theme="light" position="bottom-right" toastOptions={{
-            style: { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.1)", color: "#18181b" },
-          }} />
-        </BrowserRouter>
-      </AuthProvider>
-    </I18nProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/solutions" element={<Solutions />} />
+                <Route path="/kagayo" element={<Kagayo />} />
+                <Route path="/partners" element={<Partners />} />
+                <Route path="/leadership" element={<Leadership />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/careers/:id" element={<JobDetail />} />
+                <Route path="/insights" element={<Insights />} />
+                <Route path="/insights/:slug" element={<Insights />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/quote" element={<Quote />} />
+                <Route path="/book" element={<Book />} />
+                <Route path="/obc" element={<Obc />} />
+                <Route path="/track/:token" element={<Track />} />
+                <Route path="/privacy" element={<Legal page="privacy" />} />
+                <Route path="/terms" element={<Legal page="terms" />} />
+                <Route path="/cookies" element={<Legal page="cookies" />} />
+                <Route path="/accessibility" element={<Legal page="accessibility" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin" element={<Admin />} />
+              </Routes>
+            </Layout>
+            <ThemedToaster />
+          </BrowserRouter>
+        </AuthProvider>
+      </I18nProvider>
+    </ThemeProvider>
   );
 }
 

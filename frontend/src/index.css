@@ -142,6 +142,23 @@
     animation: float-slow 7s ease-in-out infinite;
 }
 
+html[data-theme="dark"] body {
+    background: #050507;
+}
+.theme-root {
+    background: #FAFAFA;
+}
+html[data-theme="dark"] .theme-root {
+    filter: invert(1) hue-rotate(180deg);
+}
+html[data-theme="dark"] .theme-root img[data-photo] {
+    filter: invert(1) hue-rotate(180deg);
+}
+html[data-theme="dark"] [data-testid="navbar"],
+html[data-theme="dark"] [data-testid="cookie-banner"] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .marquee-track, .pulse-dot, .float-slow {
         animation: none !important;

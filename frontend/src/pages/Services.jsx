@@ -37,12 +37,12 @@ export default function Services() {
                     <h2 className="font-display text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-tight">{s.title}</h2>
                     <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed max-w-xl">{s.desc}</p>
                   </div>
-                  <div className="md:col-span-4 flex md:justify-end gap-3">
-                    <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`service-quote-${s.code}`} className={linkBtnCls.solid}>
-                      {t("common.requestQuote")} <ArrowRight size={15} />
-                    </Link>
-                    <Link to={`/book?service=${encodeURIComponent(s.title)}`} className={linkBtnCls.ghost}>
+                  <div className="md:col-span-4 flex flex-col items-stretch md:items-end gap-3">
+                    <Link to={`/book?service=${encodeURIComponent(s.title)}`} data-testid={`service-book-${s.code}`} className={`${linkBtnCls.ghost} justify-center`}>
                       {t("common.bookAppointment")} <ArrowUpRight size={15} />
+                    </Link>
+                    <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`service-quote-${s.code}`} className={`${linkBtnCls.solid} justify-center`}>
+                      {t("common.requestQuote")} <ArrowRight size={15} />
                     </Link>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import { CheckCircle, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { api, errMsg } from "../lib/api";
 import { useI18n } from "../i18n";
-import { PageHero, Field, inputCls, CTAButton } from "../components/FormUI";
+import { PageHero, Field, inputCls, CTAButton, linkBtnCls } from "../components/FormUI";
 
 const BUDGETS = ["< €5,000", "€5,000 – €15,000", "€15,000 – €50,000", "€50,000+", "To be discussed"];
 const TIMELINES = ["ASAP", "1–3 months", "3–6 months", "6+ months", "Flexible"];
@@ -18,7 +18,9 @@ export default function Quote() {
     full_name: "", company: "", email: "", phone: "", country: "", contact_method: "email",
     service: params.get("service") || "", project_type: "", budget: "", description: "",
     timeline: "", language: "en", consent: false, website: "",
+    obc_origin: "", obc_destination: "", obc_weight: "", obc_deadline: "",
   });
+  const isOBC = form.service === "On-Board Courier (OBC)";
   const [file, setFile] = useState(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(null);
@@ -42,7 +44,7 @@ export default function Quote() {
         attachment = up.data.file;
       }
       const { data } = await api.post("/quotes", { ...form, attachment });
-      setDone(data.message);
+      setDone(data);
       toast.success("Quote request received");
     } catch (err) {
       toast.error(errMsg(err));
@@ -60,7 +62,13 @@ export default function Quote() {
             <div data-testid="quote-success" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-12 sm:p-16 text-center">
               <CheckCircle size={44} className="mx-auto text-zinc-800 mb-5" />
               <h2 className="font-display text-2xl font-semibold text-zinc-950 mb-4">Request received</h2>
-              <p className="text-zinc-600 leading-relaxed max-w-xl mx-auto">{done}</p>
+              <p className="text-zinc-600 leading-relaxed max-w-xl mx-auto">{done.message}</p>
+              {done.tracking_url && (
+                <div className="mt-8">
+                  <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-4">OBC mission created — save this link</p>
+                  <a href={done.tracking_url} data-testid="quote-tracking-link" className={linkBtnCls.solid}>Track your shipment</a>
+                </div>
+              )}
             </div>
           ) : (
             <form onSubmit={submit} data-testid="quote-form" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 sm:p-10 space-y-5">
@@ -108,6 +116,22 @@ export default function Quote() {
                     {languages.map((l) => <option key={l.code} value={l.code}>{l.native}</option>)}
                   </select>
                 </Field>
+                {isOBC && (
+                  <>
+                    <Field label="Origin (city, country)" htmlFor="q-origin">
+                      <input id="q-origin" data-testid="quote-obc-origin" required className={inputCls} value={form.obc_origin} onChange={set("obc_origin")} placeholder="e.g. Helsinki, Finland" />
+                    </Field>
+                    <Field label="Destination (city, country)" htmlFor="q-dest">
+                      <input id="q-dest" data-testid="quote-obc-destination" required className={inputCls} value={form.obc_destination} onChange={set("obc_destination")} placeholder="e.g. Lagos, Nigeria" />
+                    </Field>
+                    <Field label="Shipment weight" htmlFor="q-weight">
+                      <input id="q-weight" data-testid="quote-obc-weight" className={inputCls} value={form.obc_weight} onChange={set("obc_weight")} placeholder="e.g. 4 kg" />
+                    </Field>
+                    <Field label="Delivery deadline" htmlFor="q-deadline">
+                      <input id="q-deadline" data-testid="quote-obc-deadline" type="date" className={`${inputCls} [color-scheme:light]`} value={form.obc_deadline} onChange={set("obc_deadline")} />
+                    </Field>
+                  </>
+                )}
               </div>
               <Field label={t("form.description")} htmlFor="q-desc"><textarea id="q-desc" data-testid="quote-description-input" required rows={5} className={inputCls} value={form.description} onChange={set("description")} /></Field>
               <Field label={t("form.attachment")} htmlFor="q-file">

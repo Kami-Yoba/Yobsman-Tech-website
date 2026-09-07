@@ -18,8 +18,8 @@ export default function Footer() {
     { title: t("footer.support"), links: [
       [t("nav.contact"), "/contact"], [t("nav.quote"), "/quote"], [t("nav.book"), "/book"]] },
     { title: t("footer.legal"), links: [
-      [t("footer.privacy"), "/contact"], [t("footer.terms"), "/contact"],
-      [t("footer.cookiePolicy"), "/contact"], [t("footer.accessibility"), "/contact"]] },
+      [t("footer.privacy"), "/privacy"], [t("footer.terms"), "/terms"],
+      [t("footer.cookiePolicy"), "/cookies"], [t("footer.accessibility"), "/accessibility"]] },
   ];
   const socials = [
     ["LinkedIn", Linkedin, "social-linkedin"], ["X", Twitter, "social-x"],

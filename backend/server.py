@@ -225,6 +225,10 @@ class QuoteIn(BaseModel):
     timeline: str = Field(default="", max_length=80)
     language: str = Field(default="en", max_length=8)
     attachment: str = Field(default="", max_length=200)
+    obc_origin: str = Field(default="", max_length=120)
+    obc_destination: str = Field(default="", max_length=120)
+    obc_weight: str = Field(default="", max_length=40)
+    obc_deadline: str = Field(default="", max_length=40)
     consent: bool
     website: str = ""  # honeypot
 
@@ -453,7 +457,18 @@ async def submit_quote(data: QuoteIn, request: Request):
                                     email_template("New quotation request", body))
     asyncio.create_task(send_email(doc["email"], "Your quote request — Yobsman-Tech",
         email_template("Request received", "<p>Thank you for contacting Yobsman-Tech. Your quote request has been received. Our team will review your requirements and contact you shortly.</p>")))
-    return {"ok": True, "id": doc["id"], "email_status": email_status,
+    tracking_url = ""
+    if "On-Board Courier" in doc["service"]:
+        token = secrets.token_urlsafe(16)
+        await db.missions.insert_one({
+            "id": new_id(), "token": token, "quote_id": doc["id"], "service": doc["service"],
+            "full_name": doc["full_name"], "origin": doc.get("obc_origin", ""),
+            "destination": doc.get("obc_destination", ""), "weight": doc.get("obc_weight", ""),
+            "deadline": doc.get("obc_deadline", ""), "pod_file": "", "pod_note": "", "pod_at": "",
+            "created_at": now().isoformat()})
+        await db.quotes.update_one({"id": doc["id"]}, {"$set": {"mission_token": token}})
+        tracking_url = f"/track/{token}"
+    return {"ok": True, "id": doc["id"], "email_status": email_status, "tracking_url": tracking_url,
             "message": "Thank you for contacting Yobsman-Tech. Your quote request has been received. Our team will review your requirements and contact you shortly."}
 
 
@@ -617,6 +632,48 @@ async def apply_job(request: Request, job_id: str = Form(...), name: str = Form(
             f"<p>Hello {doc['name']},</p><p>Thank you for applying for <b>{doc['job_title']}</b> at Yobsman-Tech. Our talent team will review your application and contact you if your profile matches our requirements.</p>")))
     doc.pop("_id", None)
     return {"ok": True, "id": doc["id"], "message": "Your application has been submitted successfully."}
+
+
+# ---------------- OBC Tracking ----------------
+from fastapi.responses import FileResponse
+
+
+@api.get("/track/{token}")
+async def get_mission(token: str):
+    m = await db.missions.find_one({"token": token}, {"_id": 0})
+    if not m:
+        raise HTTPException(404, "Mission not found")
+    q = await db.quotes.find_one({"id": m["quote_id"]}, {"status": 1})
+    m["status"] = (q or {}).get("status", "new")
+    return m
+
+
+@api.get("/track/{token}/pod-image")
+async def pod_image(token: str):
+    m = await db.missions.find_one({"token": token})
+    if not m or not m.get("pod_file"):
+        raise HTTPException(404, "No proof of delivery yet")
+    path = UPLOAD_DIR / m["pod_file"]
+    if not path.exists():
+        raise HTTPException(404, "File missing")
+    return FileResponse(path)
+
+
+@api.post("/track/{token}/pod")
+async def upload_pod(token: str, request: Request, photo: UploadFile = File(...), note: str = Form("")):
+    rate_limit(f"pod:{request.client.host}", 5, 300)
+    m = await db.missions.find_one({"token": token})
+    if not m:
+        raise HTTPException(404, "Mission not found")
+    fname = await save_upload(photo)
+    await db.missions.update_one({"token": token},
+        {"$set": {"pod_file": fname, "pod_note": note[:500], "pod_at": now().isoformat()}})
+    await db.quotes.update_one({"id": m["quote_id"]}, {"$set": {"status": "balance_due"}})
+    asyncio.create_task(send_email(QUOTE_EMAIL, f"POD received — balance due — {m['full_name']}",
+        email_template("Proof of delivery received",
+            f"<p>Mission <b>{m['origin']} → {m['destination']}</b> for <b>{m['full_name']}</b> has been marked delivered.</p>"
+            f"<p>The balance invoice can now be issued. Courier note: {note[:500] or '—'}</p>")))
+    return {"ok": True}
 
 
 # ---------------- Admin ----------------

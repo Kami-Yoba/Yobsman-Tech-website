@@ -8,7 +8,7 @@ import { useI18n } from "../i18n";
 import { Field, inputCls, CTAButton } from "../components/FormUI";
 
 const STATUS_OPTIONS = {
-  quotes: ["new", "in_review", "quoted", "closed"],
+  quotes: ["new", "in_review", "quoted", "flight_paid", "in_transit", "balance_due", "closed"],
   contacts: ["new", "in_progress", "resolved"],
   appointments: ["confirmed", "completed", "cancelled"],
   applications: ["received", "reviewing", "interview", "rejected", "hired"],
@@ -136,6 +136,12 @@ export default function Admin() {
                 <div className="lg:col-span-4">
                   <p className="font-display font-semibold text-sm text-zinc-900">{r.full_name || r.name} — {r.service || r.subject || r.job_title}</p>
                   <p className="text-xs text-zinc-500 mt-1 truncate">{r.email} {r.country ? `· ${r.country}` : ""}</p>
+                  {r.mission_token && (
+                    <a data-testid={`admin-track-${r.id}`} href={`/track/${r.mission_token}`} target="_blank" rel="noopener noreferrer"
+                      className="text-[11px] font-mono text-zinc-500 underline underline-offset-2 hover:text-zinc-950">
+                      OBC tracking ↗
+                    </a>
+                  )}
                 </div>
                 <p className="lg:col-span-5 text-xs text-zinc-600 truncate">{r.description || r.message || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
                 <p className="lg:col-span-2 font-mono text-[10px] text-zinc-600">{(r.created_at || "").slice(0, 10)}</p>

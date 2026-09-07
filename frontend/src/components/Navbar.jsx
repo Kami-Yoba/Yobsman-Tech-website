@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, Sun, Moon } from "lucide-react";
 import { useI18n } from "../i18n";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import LanguageSelector from "./LanguageSelector";
 
 const LINKS = [
@@ -14,6 +15,7 @@ const LINKS = [
 export default function Navbar() {
   const { t } = useI18n();
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -42,6 +44,10 @@ export default function Navbar() {
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
+          <button data-testid="theme-toggle" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="p-2 text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
           <LanguageSelector />
           <Link to="/book" data-testid="nav-book-btn" className="text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
             {t("nav.book")}
@@ -63,6 +69,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex lg:hidden items-center gap-3">
+          <button data-testid="theme-toggle-mobile" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+            className="p-2 text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           <LanguageSelector />
           <button data-testid="nav-menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}
             className="p-2 text-zinc-700 hover:text-zinc-950 transition-colors duration-200">

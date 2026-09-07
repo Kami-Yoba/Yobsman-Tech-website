@@ -35,7 +35,7 @@ export default function Insights() {
           </Link>
           <p className="mono-label mb-4">{post.category} · {post.published_at} · {post.author}</p>
           <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-zinc-950 leading-[1.08]">{post.title}</h1>
-          <img src={post.image} alt={post.title} loading="lazy" className="w-full aspect-[2/1] object-cover rounded-2xl border border-black/10 mt-10 grayscale" />
+          <img src={post.image} alt={post.title} loading="lazy" data-photo className="w-full aspect-[2/1] object-cover rounded-2xl border border-black/10 mt-10 grayscale" />
           <div className="mt-10 space-y-6">
             {post.content.split("\n\n").map((p, i) => (
               <p key={i} className="text-base text-zinc-700 leading-relaxed">{p}</p>
@@ -57,7 +57,7 @@ export default function Insights() {
               <Link to={`/insights/${p.slug}`} data-testid={`post-card-${p.slug}`}
                 className="group block rounded-2xl border border-black/10 bg-[#FFFFFF] overflow-hidden hover:border-black/30 hover:-translate-y-1 transition-[border-color,transform] duration-500">
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img src={p.image} alt={p.title} loading="lazy" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform] duration-700" />
+                  <img src={p.image} alt={p.title} loading="lazy" data-photo className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform] duration-700" />
                 </div>
                 <div className="p-6">
                   <p className="mono-label mb-3">{p.category} · {p.published_at}</p>

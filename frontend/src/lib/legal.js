@@ -1,0 +1,58 @@
+export const LEGAL = {
+  privacy: {
+    title: "Privacy Policy",
+    updated: "Last updated: September 2026",
+    intro: "Yobsman-Tech (\"we\", \"us\") is committed to protecting your personal data. This policy explains what we collect, why, and the rights you have under the EU General Data Protection Regulation (GDPR) and applicable Finnish law.",
+    sections: [
+      { h: "1. Data controller", p: "The data controller is Yobsman-Tech, headquartered in Espoo / Helsinki, Finland. You can reach us at any time at info@yobsman-tech.com regarding privacy matters." },
+      { h: "2. Data we collect", p: "We collect data you provide directly: contact details (name, email, phone, company, country) submitted through contact, quotation, appointment and job application forms; account registration data (name, email, password — stored only as a secure hash); project descriptions and optional attachments; appointment details including timezone and language preferences; and OBC shipment details (origin, destination, weight, deadline) where relevant." },
+      { h: "3. Purposes and legal bases", p: "We process data to respond to enquiries and prepare quotations (GDPR Art. 6(1)(b) — steps prior to a contract), to deliver booked consultations and services (Art. 6(1)(b)), to manage your account (Art. 6(1)(b)), to send service communications (Art. 6(1)(f) — legitimate interest), and to meet legal obligations (Art. 6(1)(c)). Marketing and analytics processing occurs only with your consent (Art. 6(1)(a))." },
+      { h: "4. Recipients and processors", p: "Your data is processed by our hosting and email infrastructure providers under data-processing agreements. Form submissions are delivered to info@yobsman-tech.com (enquiries) and quote@yobsman-tech.com (quotations). We never sell personal data." },
+      { h: "5. International transfers", p: "As a global company, some processing may occur outside the EU/EEA. Where it does, we rely on adequacy decisions or Standard Contractual Clauses to protect your data." },
+      { h: "6. Retention", p: "Enquiry and quotation data is retained for up to 24 months after last contact; account data for the life of your account; job applications for up to 12 months unless you consent to longer retention; appointment records for up to 24 months." },
+      { h: "7. Your rights", p: "You have the right to access, rectify or erase your data, to restrict or object to processing, to data portability, and to withdraw consent at any time. To exercise these rights, email info@yobsman-tech.com. You also have the right to lodge a complaint with the Office of the Data Protection Ombudsman (Finland) or your local supervisory authority." },
+      { h: "8. Security", p: "We apply encryption in transit, hashed password storage, role-based access control, rate limiting and audit logging for administrative actions to protect your data." },
+    ],
+  },
+  terms: {
+    title: "Terms & Conditions",
+    updated: "Last updated: September 2026",
+    intro: "These terms govern the use of the Yobsman-Tech website and the services described on it. By using the site or engaging our services, you accept these terms.",
+    sections: [
+      { h: "1. Services", p: "Yobsman-Tech provides IT support, data analysis, software development, computer maintenance, AI integration, mobile application development, quality assurance, remote IT consultation and On-Board Courier (OBC) partner services. Specific engagements are governed by individual quotations and agreements." },
+      { h: "2. Quotations", p: "Quote requests submitted through this website are non-binding. A quotation becomes binding only when confirmed in writing by Yobsman-Tech and accepted by the client." },
+      { h: "3. Appointments", p: "Consultations booked through the website are confirmed subject to availability. You may cancel or request rescheduling through your dashboard or by contacting us. Appointment times are displayed in your selected timezone and stored in UTC." },
+      { h: "4. On-Board Courier (OBC) payment terms", p: "For OBC partner services, the requester pays the courier's flight cost upfront at booking confirmation. All remaining service costs — courier fee, handling and ground coordination — are invoiced only after proof of delivery (POD) has been received and verified. Title to delivery confirmation rests on signed and/or photographic POD. If delivery is not completed, the balance of service costs is not charged." },
+      { h: "5. Accounts", p: "You are responsible for safeguarding your account credentials. We may suspend accounts that are misused or compromised. You may request account deletion at any time via info@yobsman-tech.com." },
+      { h: "6. Acceptable use", p: "You must not misuse the website, attempt unauthorized access, submit unlawful content, or interfere with the platform's operation." },
+      { h: "7. Intellectual property", p: "All content on this website — including the Yobsman-Tech and KAGAYO brands, text, design and code — is the property of Yobsman-Tech and may not be reproduced without written permission." },
+      { h: "8. Liability", p: "The website is provided \"as is\". To the maximum extent permitted by law, Yobsman-Tech is not liable for indirect or consequential damages arising from use of the website. Nothing in these terms limits liability that cannot be limited under applicable law." },
+      { h: "9. Governing law", p: "These terms are governed by the laws of Finland and applicable EU regulation. Disputes are primarily settled in the District Court of Helsinki." },
+    ],
+  },
+  cookies: {
+    title: "Cookie Policy",
+    updated: "Last updated: September 2026",
+    intro: "This policy explains how Yobsman-Tech uses cookies and similar technologies, in line with the EU ePrivacy Directive and GDPR.",
+    sections: [
+      { h: "1. What we use", p: "We use a small number of cookies and browser storage entries to operate the site and remember your preferences." },
+      { h: "2. Necessary (always on)", p: "Authentication tokens (secure, httpOnly cookies) keep you signed in. Browser storage remembers your language, theme and cookie preferences. These are required for the site to function and cannot be disabled." },
+      { h: "3. Analytics (optional)", p: "With your consent, analytics cookies help us understand how visitors use the site so we can improve it. These are off by default and enabled only through the cookie banner." },
+      { h: "4. Marketing (optional)", p: "With your consent, marketing cookies may be used to measure campaigns. These are off by default." },
+      { h: "5. Managing preferences", p: "You can change your choices at any time by clearing the \"yt_consent\" entry in your browser storage — the preference banner will reappear. You can also block cookies via your browser settings; the site remains usable with only necessary cookies." },
+      { h: "6. Contact", p: "Questions about this policy: info@yobsman-tech.com." },
+    ],
+  },
+  accessibility: {
+    title: "Accessibility Statement",
+    updated: "Last updated: September 2026",
+    intro: "Yobsman-Tech is committed to making its website accessible to everyone, including people with disabilities. Our target is WCAG 2.2 Level AA conformance.",
+    sections: [
+      { h: "1. Measures we take", p: "Semantic HTML and proper heading hierarchy; full keyboard navigability; visible focus states; accessible forms with labels and error feedback; sufficient color contrast in both light and dark themes; alt text on meaningful images; ARIA attributes where appropriate." },
+      { h: "2. Motion", p: "The site honors the prefers-reduced-motion system setting: marquee, particle, float and entrance animations are disabled or minimized for users who prefer reduced motion." },
+      { h: "3. Languages and direction", p: "The site supports 18 languages including full right-to-left (RTL) layout for Arabic, with locale-aware formatting." },
+      { h: "4. Known limitations", p: "Some third-party content and older documents may not yet fully meet our target. We continuously remediate identified issues." },
+      { h: "5. Feedback", p: "If you encounter an accessibility barrier, tell us at info@yobsman-tech.com — describe the page and the problem, and we will respond and fix it as a priority." },
+    ],
+  },
+};

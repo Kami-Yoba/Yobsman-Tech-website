@@ -25,10 +25,12 @@ export default function Layout({ children }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-zinc-800">
+    <div className="min-h-screen text-zinc-800">
       <Navbar />
-      <main id="main-content">{children}</main>
-      {!bare && <Footer />}
+      <div className="theme-root">
+        <main id="main-content">{children}</main>
+        {!bare && <Footer />}
+      </div>
       <CookieConsent />
     </div>
   );

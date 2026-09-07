@@ -284,7 +284,7 @@ export default function Home() {
               <Reveal key={m.id} delay={i * 0.06}>
                 <Link to="/leadership" data-testid={`leader-card-${i}`} className="group block rounded-2xl border border-black/10 overflow-hidden bg-[#FFFFFF] hover:border-black/30 transition-[border-color] duration-500">
                   <div className="aspect-[4/5] overflow-hidden">
-                    <img src={m.photo} alt={m.name} loading="lazy"
+                    <img src={m.photo} alt={m.name} loading="lazy" data-photo
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform] duration-700" />
                   </div>
                   <div className="p-5">

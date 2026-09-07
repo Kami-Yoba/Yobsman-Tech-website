@@ -11,7 +11,7 @@ function LeaderCard({ m, i }) {
     <Reveal delay={i * 0.06}>
       <article data-testid={`leadership-card-${i}`} className="group rounded-2xl border border-black/10 bg-[#FFFFFF] overflow-hidden hover:border-black/30 transition-[border-color] duration-500">
         <div className="aspect-[4/5] overflow-hidden">
-          <img src={m.photo} alt={`${m.name}, ${m.position}`} loading="lazy"
+          <img src={m.photo} alt={`${m.name}, ${m.position}`} loading="lazy" data-photo
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform] duration-700" />
         </div>
         <div className="p-6">
