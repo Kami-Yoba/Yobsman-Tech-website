@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+
+Sitemap: https://yobsman-tech.com/sitemap.xml

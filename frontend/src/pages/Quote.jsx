@@ -1,0 +1,133 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { CheckCircle, Upload } from "lucide-react";
+import { toast } from "sonner";
+import { api, errMsg } from "../lib/api";
+import { useI18n } from "../i18n";
+import { PageHero, Field, inputCls, CTAButton } from "../components/FormUI";
+
+const BUDGETS = ["< €5,000", "€5,000 – €15,000", "€15,000 – €50,000", "€50,000+", "To be discussed"];
+const TIMELINES = ["ASAP", "1–3 months", "3–6 months", "6+ months", "Flexible"];
+const PROJECT_TYPES = ["New build", "Modernization", "Ongoing support", "Consultation", "Other"];
+
+export default function Quote() {
+  const { t, languages } = useI18n();
+  const [params] = useSearchParams();
+  const [services, setServices] = useState([]);
+  const [form, setForm] = useState({
+    full_name: "", company: "", email: "", phone: "", country: "", contact_method: "email",
+    service: params.get("service") || "", project_type: "", budget: "", description: "",
+    timeline: "", language: "en", consent: false, website: "",
+  });
+  const [file, setFile] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(null);
+
+  useEffect(() => {
+    document.title = "Request a Quote — Yobsman-Tech";
+    api.get("/content/services").then((r) => setServices(r.data)).catch(() => {});
+  }, []);
+
+  const set = (k) => (e) => setForm({ ...form, [k]: e.target.type === "checkbox" ? e.target.checked : e.target.value });
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      let attachment = "";
+      if (file) {
+        const fd = new FormData();
+        fd.append("file", file);
+        const up = await api.post("/upload", fd);
+        attachment = up.data.file;
+      }
+      const { data } = await api.post("/quotes", { ...form, attachment });
+      setDone(data.message);
+      toast.success("Quote request received");
+    } catch (err) {
+      toast.error(errMsg(err));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div data-testid="quote-page">
+      <PageHero eyebrow="Quotation" title={t("quote.title")} desc={t("quote.desc")} />
+      <section className="pb-24 sm:pb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-8">
+          {done ? (
+            <div data-testid="quote-success" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-12 sm:p-16 text-center">
+              <CheckCircle size={44} className="mx-auto text-zinc-200 mb-5" />
+              <h2 className="font-display text-2xl font-semibold text-zinc-50 mb-4">Request received</h2>
+              <p className="text-zinc-400 leading-relaxed max-w-xl mx-auto">{done}</p>
+            </div>
+          ) : (
+            <form onSubmit={submit} data-testid="quote-form" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 sm:p-10 space-y-5">
+              <input type="text" name="website" value={form.website} onChange={set("website")} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <div className="grid sm:grid-cols-2 gap-5">
+                <Field label={t("form.fullName")} htmlFor="q-name"><input id="q-name" data-testid="quote-name-input" required className={inputCls} value={form.full_name} onChange={set("full_name")} /></Field>
+                <Field label={t("form.company")} htmlFor="q-company"><input id="q-company" data-testid="quote-company-input" className={inputCls} value={form.company} onChange={set("company")} /></Field>
+                <Field label={t("form.email")} htmlFor="q-email"><input id="q-email" data-testid="quote-email-input" type="email" required className={inputCls} value={form.email} onChange={set("email")} /></Field>
+                <Field label={t("form.phone")} htmlFor="q-phone"><input id="q-phone" data-testid="quote-phone-input" className={inputCls} value={form.phone} onChange={set("phone")} /></Field>
+                <Field label={t("form.country")} htmlFor="q-country"><input id="q-country" data-testid="quote-country-input" className={inputCls} value={form.country} onChange={set("country")} /></Field>
+                <Field label={t("form.contactMethod")} htmlFor="q-method">
+                  <select id="q-method" data-testid="quote-method-select" className={inputCls} value={form.contact_method} onChange={set("contact_method")}>
+                    <option value="email">{t("form.emailMethod")}</option>
+                    <option value="phone">{t("form.phoneMethod")}</option>
+                  </select>
+                </Field>
+                <Field label={t("form.service")} htmlFor="q-service">
+                  <select id="q-service" data-testid="quote-service-select" required className={inputCls} value={form.service} onChange={set("service")}>
+                    <option value="">{t("form.selectService")}</option>
+                    {services.map((s) => <option key={s.id} value={s.title}>{s.title}</option>)}
+                    <option value="KAGAYO">KAGAYO</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </Field>
+                <Field label={t("form.projectType")} htmlFor="q-ptype">
+                  <select id="q-ptype" data-testid="quote-project-type-select" className={inputCls} value={form.project_type} onChange={set("project_type")}>
+                    <option value="">—</option>
+                    {PROJECT_TYPES.map((p) => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                </Field>
+                <Field label={t("form.budget")} htmlFor="q-budget">
+                  <select id="q-budget" data-testid="quote-budget-select" className={inputCls} value={form.budget} onChange={set("budget")}>
+                    <option value="">—</option>
+                    {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                  </select>
+                </Field>
+                <Field label={t("form.timeline")} htmlFor="q-timeline">
+                  <select id="q-timeline" data-testid="quote-timeline-select" className={inputCls} value={form.timeline} onChange={set("timeline")}>
+                    <option value="">—</option>
+                    {TIMELINES.map((tl) => <option key={tl} value={tl}>{tl}</option>)}
+                  </select>
+                </Field>
+                <Field label={t("form.language")} htmlFor="q-lang">
+                  <select id="q-lang" data-testid="quote-language-select" className={inputCls} value={form.language} onChange={set("language")}>
+                    {languages.map((l) => <option key={l.code} value={l.code}>{l.native}</option>)}
+                  </select>
+                </Field>
+              </div>
+              <Field label={t("form.description")} htmlFor="q-desc"><textarea id="q-desc" data-testid="quote-description-input" required rows={5} className={inputCls} value={form.description} onChange={set("description")} /></Field>
+              <Field label={t("form.attachment")} htmlFor="q-file">
+                <label className="flex items-center gap-3 rounded-xl border border-dashed border-white/20 px-4 py-3 text-sm text-zinc-400 hover:border-white/50 cursor-pointer transition-colors duration-300">
+                  <Upload size={15} />
+                  <span data-testid="quote-file-label">{file ? file.name : "PDF, DOC, TXT — max 5MB"}</span>
+                  <input id="q-file" data-testid="quote-file-input" type="file" accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg" className="sr-only" onChange={(e) => setFile(e.target.files[0] || null)} />
+                </label>
+              </Field>
+              <label className="flex items-start gap-3 text-xs text-zinc-400 cursor-pointer">
+                <input data-testid="quote-consent-checkbox" type="checkbox" required checked={form.consent} onChange={set("consent")} className="mt-0.5 accent-white" />
+                {t("form.consent")}
+              </label>
+              <CTAButton data-testid="quote-submit-btn" type="submit" disabled={busy} className="w-full sm:w-auto">
+                {busy ? t("common.submitting") : t("form.submitQuote")}
+              </CTAButton>
+            </form>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}

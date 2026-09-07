@@ -1,0 +1,68 @@
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuth } from "../context/AuthContext";
+import { useI18n } from "../i18n";
+import { errMsg } from "../lib/api";
+import { Field, inputCls, CTAButton } from "../components/FormUI";
+
+export default function Register() {
+  const { t, languages, lang } = useI18n();
+  const { user, register } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", language: lang });
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    document.title = "Register — Yobsman-Tech";
+    if (user) navigate("/dashboard");
+  }, [user, navigate]);
+
+  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (form.password !== form.confirm) {
+      setError("Passwords do not match");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await register(form.name, form.email, form.password, form.language);
+      toast.success(t("dashboard.welcome"));
+      navigate("/dashboard");
+    } catch (err) {
+      setError(errMsg(err));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div data-testid="register-page" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+      <div className="absolute inset-0 grid-bg" aria-hidden="true" />
+      <div className="absolute inset-0 spotlight" aria-hidden="true" />
+      <div className="relative w-full max-w-md rounded-2xl glass p-8 sm:p-10 my-32">
+        <img src="/assets/yobsman-logo-white.png" alt="Yobsman-Tech" className="h-9 mb-8" />
+        <h1 className="font-display text-3xl font-bold text-zinc-50">{t("auth.registerTitle")}</h1>
+        <p className="text-sm text-zinc-500 mt-2 mb-8">{t("auth.registerSub")}</p>
+        <form onSubmit={submit} className="space-y-5" data-testid="register-form">
+          <Field label={t("form.fullName")} htmlFor="r-name"><input id="r-name" data-testid="register-name-input" required minLength={2} className={inputCls} value={form.name} onChange={set("name")} autoComplete="name" /></Field>
+          <Field label={t("form.email")} htmlFor="r-email"><input id="r-email" data-testid="register-email-input" type="email" required className={inputCls} value={form.email} onChange={set("email")} autoComplete="email" /></Field>
+          <Field label={t("auth.password")} htmlFor="r-pass"><input id="r-pass" data-testid="register-password-input" type="password" required minLength={8} className={inputCls} value={form.password} onChange={set("password")} autoComplete="new-password" /></Field>
+          <Field label={t("auth.confirmPassword")} htmlFor="r-confirm"><input id="r-confirm" data-testid="register-confirm-input" type="password" required minLength={8} className={inputCls} value={form.confirm} onChange={set("confirm")} autoComplete="new-password" /></Field>
+          <Field label={t("form.language")} htmlFor="r-lang">
+            <select id="r-lang" data-testid="register-language-select" className={inputCls} value={form.language} onChange={set("language")}>
+              {languages.map((l) => <option key={l.code} value={l.code}>{l.native}</option>)}
+            </select>
+          </Field>
+          {error && <p data-testid="register-error" role="alert" className="text-xs text-red-400">{error}</p>}
+          <CTAButton data-testid="register-submit-btn" type="submit" disabled={busy} className="w-full">{busy ? t("common.submitting") : t("auth.registerBtn")}</CTAButton>
+        </form>
+        <p className="mt-6 text-xs text-zinc-500">{t("auth.haveAccount")} <Link to="/login" className="text-zinc-200 underline underline-offset-4 decoration-white/30 hover:text-white">{t("nav.login")}</Link></p>
+      </div>
+    </div>
+  );
+}
