@@ -70,7 +70,11 @@ export default function Register() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <button data-testid="google-signin-btn" type="button"
-              onClick={() => toast.info("Google sign-in is being rolled out. Please use email for now.")}
+              onClick={() => {
+                // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
+                const redirectUrl = window.location.origin + "/dashboard";
+                window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+              }}
               className="flex items-center justify-center gap-2 rounded-xl border border-black/15 py-3 text-sm font-medium text-zinc-800 hover:border-black/50 hover:bg-black/5 transition-[border-color,background-color] duration-300">
               <Chrome size={16} /> Google
             </button>

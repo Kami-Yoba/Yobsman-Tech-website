@@ -14,6 +14,8 @@ const STATUS_OPTIONS = {
   applications: ["received", "reviewing", "interview", "rejected", "hired"],
 };
 const ROLES = ["user", "admin", "hr", "support", "sales", "content"];
+const NEXT_STAGE = { new: "in_review", in_review: "quoted", quoted: "flight_paid", flight_paid: "in_transit", in_transit: "balance_due", balance_due: "closed" };
+
 const CONTENT_COLLS = {
   jobs: { fields: ["title", "department", "location", "country", "employment_type", "work_mode", "deadline", "responsibilities", "requirements", "benefits"] },
   leadership: { fields: ["name", "position", "bio", "expertise", "photo", "linkedin"] },
@@ -145,11 +147,17 @@ export default function Admin() {
                 </div>
                 <p className="lg:col-span-5 text-xs text-zinc-600 truncate">{r.description || r.message || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
                 <p className="lg:col-span-2 font-mono text-[10px] text-zinc-600">{(r.created_at || "").slice(0, 10)}</p>
-                <div className="lg:col-span-1">
+                <div className="lg:col-span-1 flex flex-col gap-2 items-start">
                   <select data-testid={`admin-status-${r.id}`} value={r.status} onChange={(e) => updateItem(tab, r.id, { status: e.target.value })}
                     className={`${inputCls} !py-1.5 !px-3 !text-xs`}>
                     {(STATUS_OPTIONS[tab] || []).map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
+                  {tab === "quotes" && r.mission_token && NEXT_STAGE[r.status] && (
+                    <button data-testid={`admin-advance-${r.id}`} onClick={() => updateItem("quotes", r.id, { status: NEXT_STAGE[r.status] })}
+                      className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-950 underline underline-offset-2">
+                      Advance → {NEXT_STAGE[r.status].replace(/_/g, " ")}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

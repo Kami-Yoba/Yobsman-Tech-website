@@ -28,6 +28,7 @@ import Obc from "@/pages/Obc";
 import Legal from "@/pages/Legal";
 import Track from "@/pages/Track";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
+import AuthCallback from "@/components/AuthCallback";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,6 +49,44 @@ function ThemedToaster() {
   );
 }
 
+function AppRoutes() {
+  const location = useLocation();
+  // Emergent Google OAuth returns with #session_id= in the URL fragment — process before normal routing
+  if (location.hash?.includes("session_id=")) return <AuthCallback />;
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/kagayo" element={<Kagayo />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/leadership" element={<Leadership />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/:id" element={<JobDetail />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/insights/:slug" element={<Insights />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/quote" element={<Quote />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/obc" element={<Obc />} />
+        <Route path="/track/:token" element={<Track />} />
+        <Route path="/privacy" element={<Legal page="privacy" />} />
+        <Route path="/terms" element={<Legal page="terms" />} />
+        <Route path="/cookies" element={<Legal page="cookies" />} />
+        <Route path="/accessibility" element={<Legal page="accessibility" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </Layout>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -55,36 +94,7 @@ function App() {
         <AuthProvider>
           <BrowserRouter>
             <ScrollToTop />
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/solutions" element={<Solutions />} />
-                <Route path="/kagayo" element={<Kagayo />} />
-                <Route path="/partners" element={<Partners />} />
-                <Route path="/leadership" element={<Leadership />} />
-                <Route path="/careers" element={<Careers />} />
-                <Route path="/careers/:id" element={<JobDetail />} />
-                <Route path="/insights" element={<Insights />} />
-                <Route path="/insights/:slug" element={<Insights />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/quote" element={<Quote />} />
-                <Route path="/book" element={<Book />} />
-                <Route path="/obc" element={<Obc />} />
-                <Route path="/track/:token" element={<Track />} />
-                <Route path="/privacy" element={<Legal page="privacy" />} />
-                <Route path="/terms" element={<Legal page="terms" />} />
-                <Route path="/cookies" element={<Legal page="cookies" />} />
-                <Route path="/accessibility" element={<Legal page="accessibility" />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/admin" element={<Admin />} />
-              </Routes>
-            </Layout>
+            <AppRoutes />
             <ThemedToaster />
           </BrowserRouter>
         </AuthProvider>

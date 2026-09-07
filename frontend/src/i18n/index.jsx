@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { en } from "./en";
 import { translations } from "./translations";
+import { legalObc } from "./legalObc";
 import { LANGUAGES } from "./languages";
 
 const I18nContext = createContext(null);
@@ -27,7 +28,8 @@ export function I18nProvider({ children }) {
   }, [lang, active.dir]);
 
   const t = useCallback((key) => {
-    const local = translations[lang] ? lookup(translations[lang], key) : undefined;
+    const merged = lang !== "en" ? { ...translations[lang], ...legalObc[lang] } : null;
+    const local = merged ? lookup(merged, key) : undefined;
     if (local !== undefined) return local;
     const fallback = lookup(en, key);
     return fallback !== undefined ? fallback : key;

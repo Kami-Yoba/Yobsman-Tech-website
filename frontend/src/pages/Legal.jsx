@@ -2,17 +2,23 @@ import { useEffect } from "react";
 import { Reveal } from "../components/Reveal";
 import { PageHero } from "../components/FormUI";
 import { LEGAL } from "../lib/legal";
+import { useI18n } from "../i18n";
 
 export default function Legal({ page }) {
+  const { t } = useI18n();
   const doc = LEGAL[page] || LEGAL.privacy;
+  const lTitle = t(`legal.${page}.title`);
+  const lIntro = t(`legal.${page}.intro`);
+  const heads = t(`legal.${page}.h`);
+  const headFor = (i, fallback) => (Array.isArray(heads) && heads[i]) || fallback;
 
   useEffect(() => {
-    document.title = `${doc.title} — Yobsman-Tech`;
-  }, [doc.title]);
+    document.title = `${lTitle} — Yobsman-Tech`;
+  }, [lTitle]);
 
   return (
     <div data-testid={`legal-${page}`}>
-      <PageHero eyebrow="Legal" title={doc.title} desc={doc.intro} />
+      <PageHero eyebrow="Legal" title={lTitle} desc={lIntro} />
       <section className="pb-24 sm:pb-32">
         <div className="max-w-3xl mx-auto px-4 sm:px-8">
           <p className="mono-label mb-10">{doc.updated}</p>
@@ -20,7 +26,7 @@ export default function Legal({ page }) {
             {doc.sections.map((s, i) => (
               <Reveal key={s.h} delay={i * 0.03}>
                 <div className="py-8 border-t border-black/10">
-                  <h2 className="font-display text-xl font-semibold text-zinc-950">{s.h}</h2>
+                  <h2 className="font-display text-xl font-semibold text-zinc-950">{headFor(i, s.h)}</h2>
                   <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed">{s.p}</p>
                 </div>
               </Reveal>

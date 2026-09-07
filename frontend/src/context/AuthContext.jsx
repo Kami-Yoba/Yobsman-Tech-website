@@ -7,6 +7,8 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null); // null=loading, false=guest, object=authed
 
   useEffect(() => {
+    // Returning from Emergent Google OAuth: let AuthCallback exchange session_id first
+    if (window.location.hash?.includes("session_id=")) return;
     api.get("/auth/me")
       .then((r) => setUser(r.data))
       .catch(async () => {

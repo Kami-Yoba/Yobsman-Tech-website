@@ -299,7 +299,7 @@ async def login(data: LoginIn, response: Response, request: Request):
         if locked_until and datetime.fromisoformat(locked_until) > now():
             raise HTTPException(429, "Account temporarily locked. Try again in 15 minutes.")
     user = await db.users.find_one({"email": email})
-    if not user or not verify_password(data.password, user["password_hash"]):
+    if not user or not user.get("password_hash") or not verify_password(data.password, user["password_hash"]):
         await db.login_attempts.update_one({"identifier": ident},
             {"$inc": {"count": 1}, "$set": {"locked_until": (now() + timedelta(minutes=15)).isoformat()}},
             upsert=True)
@@ -310,10 +310,45 @@ async def login(data: LoginIn, response: Response, request: Request):
 
 
 @api.post("/auth/logout")
-async def logout(response: Response):
+async def logout(request: Request, response: Response):
+    token = request.cookies.get("session_token")
+    if token:
+        await db.user_sessions.delete_many({"session_token": token})
     response.delete_cookie("access_token", path="/")
     response.delete_cookie("refresh_token", path="/")
+    response.delete_cookie("session_token", path="/")
     return {"ok": True}
+
+
+@api.post("/auth/google/session")
+async def google_session(request: Request, response: Response):
+    import httpx
+    body = await request.json()
+    session_id = (body.get("session_id") or "").strip()
+    if not session_id:
+        raise HTTPException(400, "Missing session_id")
+    async with httpx.AsyncClient(timeout=15) as http_client:
+        r = await http_client.get(
+            "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
+            headers={"X-Session-ID": session_id})
+    if r.status_code != 200:
+        raise HTTPException(401, "Google sign-in could not be verified")
+    data = r.json()
+    email = data["email"].lower()
+    user = await db.users.find_one({"email": email})
+    if not user:
+        user = {"id": new_id(), "name": data.get("name") or email.split("@")[0], "email": email,
+                "password_hash": "", "role": "user", "language": "en", "phone": "", "company": "",
+                "country": "", "notify_email": True, "notify_appointments": True,
+                "email_verified": True, "picture": data.get("picture", ""), "oauth_provider": "google",
+                "created_at": now().isoformat()}
+        await db.users.insert_one(user)
+    await db.user_sessions.insert_one({"user_id": user["id"], "session_token": data["session_token"],
+        "expires_at": (now() + timedelta(days=7)).isoformat(), "created_at": now().isoformat()})
+    response.set_cookie("session_token", data["session_token"], httponly=True, secure=True,
+                        samesite="none", max_age=604800, path="/")
+    set_auth_cookies(response, user)
+    return public_user(user)
 
 
 @api.get("/auth/me")

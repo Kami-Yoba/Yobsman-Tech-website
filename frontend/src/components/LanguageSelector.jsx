@@ -24,11 +24,11 @@ export default function LanguageSelector() {
       </button>
       {open && (
         <div data-testid="language-menu" role="listbox" aria-label="Select language"
-          className="absolute end-0 top-full mt-2 w-52 max-h-80 overflow-y-auto glass rounded-xl p-2 shadow-2xl z-50">
+          className="absolute right-0 top-full mt-2 w-60 max-h-72 overflow-y-auto glass rounded-xl p-2 shadow-2xl z-50">
           {languages.map((l) => (
             <button key={l.code} data-testid={`lang-option-${l.code}`} role="option" aria-selected={l.code === lang}
               onClick={() => { setLang(l.code); setOpen(false); }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${l.code === lang ? "bg-black/10 text-zinc-950" : "text-zinc-600 hover:bg-black/5 hover:text-zinc-950"}`}>
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${l.code === lang ? "bg-black/10 text-zinc-950" : "text-zinc-600 hover:bg-zinc-950 hover:text-white"}`}>
               <span>{l.native}</span>
               {l.code === lang && <Check size={14} />}
             </button>

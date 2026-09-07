@@ -82,21 +82,21 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div data-testid="mobile-menu" className="lg:hidden bg-[#FAFAFA]/95 backdrop-blur-2xl border-t border-black/10">
-          <div className="px-6 py-6 flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
+        <div data-testid="mobile-menu" className="lg:hidden absolute right-3 top-full mt-2 w-72 max-h-[70vh] overflow-y-auto rounded-2xl border border-black/10 bg-[#FAFAFA]/95 backdrop-blur-2xl shadow-2xl">
+          <div className="p-3 flex flex-col gap-1">
             {LINKS.map(([key, to]) => (
               <button key={key} data-testid={`mobile-nav-${key}`} onClick={() => { setOpen(false); navigate(to); }}
-                className="text-start py-3 text-lg text-zinc-700 hover:text-zinc-950 border-b border-black/5 transition-colors duration-200">
+                className="text-start px-4 py-3 rounded-xl text-base text-zinc-700 hover:bg-zinc-950 hover:text-white transition-colors duration-200">
                 {t(`nav.${key}`)}
               </button>
             ))}
-            <div className="flex gap-3 pt-5">
+            <div className="flex gap-3 p-3 border-t border-black/5 mt-1">
               <button data-testid="mobile-nav-login" onClick={() => { setOpen(false); navigate(user ? (user.role === "admin" ? "/admin" : "/dashboard") : "/login"); }}
-                className="flex-1 rounded-full border border-black/20 text-zinc-950 text-sm py-3">
+                className="flex-1 rounded-full border border-black/20 text-zinc-950 text-sm py-3 hover:border-black/60 transition-colors duration-200">
                 {user ? t("nav.dashboard") : t("nav.login")}
               </button>
               <button data-testid="mobile-nav-quote" onClick={() => { setOpen(false); navigate("/quote"); }}
-                className="flex-1 rounded-full bg-zinc-950 text-white text-sm font-semibold py-3">
+                className="flex-1 rounded-full bg-zinc-950 text-white text-sm font-semibold py-3 hover:bg-zinc-800 transition-colors duration-200">
                 {t("nav.quote")}
               </button>
             </div>
