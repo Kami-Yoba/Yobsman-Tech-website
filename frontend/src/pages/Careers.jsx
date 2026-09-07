@@ -59,20 +59,20 @@ export default function Careers() {
           {jobs.length === 0 ? (
             <p data-testid="jobs-empty" className="text-zinc-500 text-sm py-16 text-center">{t("careersPage.noJobs")}</p>
           ) : (
-            <div data-testid="jobs-list" className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+            <div data-testid="jobs-list" className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
               {jobs.map((j, i) => (
                 <Reveal key={j.id} delay={i * 0.03}>
                   <Link to={`/careers/${j.id}`} data-testid={`job-card-${j.id}`}
-                    className="group grid md:grid-cols-12 gap-3 md:items-center bg-[#0A0A0C] hover:bg-[#141418] px-6 sm:px-8 py-7 transition-colors duration-300">
+                    className="group grid md:grid-cols-12 gap-3 md:items-center bg-[#F4F4F5] hover:bg-[#E9E9EC] px-6 sm:px-8 py-7 transition-colors duration-300">
                     <div className="md:col-span-5">
-                      <h2 className="font-display text-lg sm:text-xl font-semibold text-zinc-100 group-hover:text-white">{j.title}</h2>
+                      <h2 className="font-display text-lg sm:text-xl font-semibold text-zinc-900 group-hover:text-zinc-950">{j.title}</h2>
                       <p className="text-xs text-zinc-500 mt-1">{j.department}</p>
                     </div>
-                    <p className="md:col-span-3 text-sm text-zinc-400">{j.location}, {j.country}</p>
+                    <p className="md:col-span-3 text-sm text-zinc-600">{j.location}, {j.country}</p>
                     <p className="md:col-span-2 text-xs text-zinc-500">{j.employment_type} · {j.work_mode}</p>
                     <div className="md:col-span-2 md:text-end">
                       <span className="font-mono text-[10px] tracking-widest uppercase text-zinc-600 block">{t("careersPage.deadline")}: {j.deadline}</span>
-                      <ArrowUpRight size={16} className="hidden md:inline-block mt-1 text-zinc-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                      <ArrowUpRight size={16} className="hidden md:inline-block mt-1 text-zinc-600 group-hover:text-zinc-950 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
                     </div>
                   </Link>
                 </Reveal>

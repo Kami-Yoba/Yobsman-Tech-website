@@ -9,23 +9,23 @@ function LeaderCard({ m, i }) {
   const [open, setOpen] = useState(false);
   return (
     <Reveal delay={i * 0.06}>
-      <article data-testid={`leadership-card-${i}`} className="group rounded-2xl border border-white/10 bg-[#0D0D10] overflow-hidden hover:border-white/30 transition-[border-color] duration-500">
+      <article data-testid={`leadership-card-${i}`} className="group rounded-2xl border border-black/10 bg-[#FFFFFF] overflow-hidden hover:border-black/30 transition-[border-color] duration-500">
         <div className="aspect-[4/5] overflow-hidden">
           <img src={m.photo} alt={`${m.name}, ${m.position}`} loading="lazy"
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[filter,transform] duration-700" />
         </div>
         <div className="p-6">
-          <h2 className="font-display text-lg font-semibold text-zinc-50">{m.name}</h2>
+          <h2 className="font-display text-lg font-semibold text-zinc-950">{m.name}</h2>
           <p className="text-xs text-zinc-500 mt-1">{m.position}</p>
           <p className="font-mono text-[10px] tracking-widest uppercase text-zinc-600 mt-3">{m.expertise}</p>
           <button data-testid={`leader-bio-toggle-${i}`} onClick={() => setOpen(!open)} aria-expanded={open}
-            className="mt-4 inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors duration-200">
+            className="mt-4 inline-flex items-center gap-1.5 text-xs text-zinc-600 hover:text-zinc-950 transition-colors duration-200">
             {open ? <Minus size={13} /> : <Plus size={13} />} {open ? "Close biography" : "Read biography"}
           </button>
-          {open && <p className="mt-4 text-sm text-zinc-400 leading-relaxed border-t border-white/10 pt-4">{m.bio}</p>}
+          {open && <p className="mt-4 text-sm text-zinc-600 leading-relaxed border-t border-black/10 pt-4">{m.bio}</p>}
           {m.linkedin && (
             <a href={m.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${m.name} on LinkedIn`}
-              className="mt-4 inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-white transition-colors duration-200">
+              className="mt-4 inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-950 transition-colors duration-200">
               <Linkedin size={13} /> LinkedIn
             </a>
           )}

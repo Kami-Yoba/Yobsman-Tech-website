@@ -45,8 +45,8 @@ export default function Register() {
       <div className="absolute inset-0 grid-bg" aria-hidden="true" />
       <div className="absolute inset-0 spotlight" aria-hidden="true" />
       <div className="relative w-full max-w-md rounded-2xl glass p-8 sm:p-10 my-32">
-        <img src="/assets/yobsman-logo-white.png" alt="Yobsman-Tech" className="h-9 mb-8" />
-        <h1 className="font-display text-3xl font-bold text-zinc-50">{t("auth.registerTitle")}</h1>
+        <img src="/assets/yobsman-logo.png" alt="Yobsman-Tech" className="h-12 mb-8" />
+        <h1 className="font-display text-3xl font-bold text-zinc-950">{t("auth.registerTitle")}</h1>
         <p className="text-sm text-zinc-500 mt-2 mb-8">{t("auth.registerSub")}</p>
         <form onSubmit={submit} className="space-y-5" data-testid="register-form">
           <Field label={t("form.fullName")} htmlFor="r-name"><input id="r-name" data-testid="register-name-input" required minLength={2} className={inputCls} value={form.name} onChange={set("name")} autoComplete="name" /></Field>
@@ -61,7 +61,7 @@ export default function Register() {
           {error && <p data-testid="register-error" role="alert" className="text-xs text-red-400">{error}</p>}
           <CTAButton data-testid="register-submit-btn" type="submit" disabled={busy} className="w-full">{busy ? t("common.submitting") : t("auth.registerBtn")}</CTAButton>
         </form>
-        <p className="mt-6 text-xs text-zinc-500">{t("auth.haveAccount")} <Link to="/login" className="text-zinc-200 underline underline-offset-4 decoration-white/30 hover:text-white">{t("nav.login")}</Link></p>
+        <p className="mt-6 text-xs text-zinc-500">{t("auth.haveAccount")} <Link to="/login" className="text-zinc-800 underline underline-offset-4 decoration-black/30 hover:text-zinc-950">{t("nav.login")}</Link></p>
       </div>
     </div>
   );

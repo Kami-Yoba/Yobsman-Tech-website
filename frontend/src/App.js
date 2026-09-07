@@ -63,8 +63,8 @@ function App() {
               <Route path="/admin" element={<Admin />} />
             </Routes>
           </Layout>
-          <Toaster theme="dark" position="bottom-right" toastOptions={{
-            style: { background: "#0D0D10", border: "1px solid rgba(255,255,255,0.1)", color: "#FAFAFA" },
+          <Toaster theme="light" position="bottom-right" toastOptions={{
+            style: { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.1)", color: "#18181b" },
           }} />
         </BrowserRouter>
       </AuthProvider>

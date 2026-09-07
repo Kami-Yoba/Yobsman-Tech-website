@@ -40,8 +40,8 @@ export default function Login() {
       <div className="absolute inset-0 grid-bg" aria-hidden="true" />
       <div className="absolute inset-0 spotlight" aria-hidden="true" />
       <div className="relative w-full max-w-md rounded-2xl glass p-8 sm:p-10 my-32">
-        <img src="/assets/yobsman-logo-white.png" alt="Yobsman-Tech" className="h-9 mb-8" />
-        <h1 className="font-display text-3xl font-bold text-zinc-50">{t("auth.loginTitle")}</h1>
+        <img src="/assets/yobsman-logo.png" alt="Yobsman-Tech" className="h-12 mb-8" />
+        <h1 className="font-display text-3xl font-bold text-zinc-950">{t("auth.loginTitle")}</h1>
         <p className="text-sm text-zinc-500 mt-2 mb-8">{t("auth.loginSub")}</p>
         <form onSubmit={submit} className="space-y-5" data-testid="login-form">
           <Field label={t("form.email")} htmlFor="l-email"><input id="l-email" data-testid="login-email-input" type="email" required className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></Field>
@@ -50,9 +50,9 @@ export default function Login() {
           <CTAButton data-testid="login-submit-btn" type="submit" disabled={busy} className="w-full">{busy ? t("common.submitting") : t("auth.loginBtn")}</CTAButton>
         </form>
         <div className="mt-6 flex flex-col gap-2 text-xs text-zinc-500">
-          <Link to="/forgot-password" data-testid="forgot-password-link" className="hover:text-white transition-colors duration-200">{t("auth.forgotPassword")}</Link>
-          <p>{t("auth.noAccount")} <Link to="/register" data-testid="register-link" className="text-zinc-200 underline underline-offset-4 decoration-white/30 hover:text-white">{t("nav.register")}</Link></p>
-          <p className="text-zinc-600 mt-3 border-t border-white/5 pt-4">{t("auth.oauthNote")}</p>
+          <Link to="/forgot-password" data-testid="forgot-password-link" className="hover:text-zinc-950 transition-colors duration-200">{t("auth.forgotPassword")}</Link>
+          <p>{t("auth.noAccount")} <Link to="/register" data-testid="register-link" className="text-zinc-800 underline underline-offset-4 decoration-black/30 hover:text-zinc-950">{t("nav.register")}</Link></p>
+          <p className="text-zinc-600 mt-3 border-t border-black/5 pt-4">{t("auth.oauthNote")}</p>
         </div>
       </div>
     </div>

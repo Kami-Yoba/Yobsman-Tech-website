@@ -28,8 +28,8 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-16">
           <Reveal>
             <p className="mono-label mb-4">Who we are</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-zinc-50 tracking-tight">Engineers, analysts and consultants united by one standard</h2>
-            <p className="mt-6 text-zinc-400 leading-relaxed">
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-zinc-950 tracking-tight">Engineers, analysts and consultants united by one standard</h2>
+            <p className="mt-6 text-zinc-600 leading-relaxed">
               We are a technology partner for organizations that take their digital operations seriously. From service desk
               and computer maintenance to custom software, AI integration and quality assurance, our teams deliver
               dependable technology across borders, languages and time zones.
@@ -37,8 +37,8 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mono-label mb-4">Our story</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-zinc-50 tracking-tight">Born in Finland. Built for the world.</h2>
-            <p className="mt-6 text-zinc-400 leading-relaxed">
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-zinc-950 tracking-tight">Born in Finland. Built for the world.</h2>
+            <p className="mt-6 text-zinc-600 leading-relaxed">
               Founded in Espoo — Finland's technology heartland — Yobsman-Tech grew from a local IT practice into an
               international operation. Our subsidiary KAGAYO extends that mission into legal technology, making the law
               accessible through a mobile and web platform.
@@ -53,8 +53,8 @@ export default function About() {
           <SectionHead light eyebrow="Mission · Vision · Values" title="What drives every line of code" />
           <div className="grid md:grid-cols-2 gap-5 mb-14">
             <Reveal><div className="rounded-2xl bg-white border border-black/10 p-8 h-full">
-              <p className="mono-label !text-zinc-400 mb-3">Our mission</p>
-              <p className="text-lg text-zinc-700 leading-relaxed">To engineer dependable, future-focused technology that helps organizations operate, grow and transform — anywhere in the world.</p>
+              <p className="mono-label !text-zinc-600 mb-3">Our mission</p>
+              <p className="text-lg text-zinc-500 leading-relaxed">To engineer dependable, future-focused technology that helps organizations operate, grow and transform — anywhere in the world.</p>
             </div></Reveal>
             <Reveal delay={0.08}><div className="rounded-2xl bg-zinc-950 text-white p-8 h-full">
               <p className="mono-label mb-3">Our vision</p>
@@ -77,14 +77,14 @@ export default function About() {
       <section className="py-24 sm:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow="Timeline" title="From Espoo to everywhere" />
-          <div className="relative border-s border-white/10 ms-2 space-y-12">
+          <div className="relative border-s border-black/10 ms-2 space-y-12">
             {TIMELINE.map((e, i) => (
               <Reveal key={e.year} delay={i * 0.05}>
                 <div className="relative ps-10">
                   <span className="absolute -start-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-white" />
                   <span className="font-mono text-sm text-zinc-500">{e.year}</span>
-                  <h3 className="font-display text-xl font-semibold text-zinc-100 mt-1">{e.title}</h3>
-                  <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">{e.desc}</p>
+                  <h3 className="font-display text-xl font-semibold text-zinc-900 mt-1">{e.title}</h3>
+                  <p className="text-sm text-zinc-600 mt-2 max-w-2xl leading-relaxed">{e.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -92,15 +92,15 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 border-t border-white/5">
+      <section className="py-24 border-t border-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow="Global presence" title="Operating hubs" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {HUBS.map((h, i) => (
               <Reveal key={h.city} delay={i * 0.05}>
-                <div className="rounded-2xl border border-white/10 bg-[#0D0D10] p-7 h-full">
+                <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-7 h-full">
                   <span className="mono-label">{h.coords}</span>
-                  <h3 className="font-display text-xl font-semibold text-zinc-100 mt-3">{h.city}</h3>
+                  <h3 className="font-display text-xl font-semibold text-zinc-900 mt-3">{h.city}</h3>
                   <p className="text-sm text-zinc-500">{h.country} — {h.role}</p>
                 </div>
               </Reveal>
@@ -109,16 +109,16 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 border-t border-white/5">
+      <section className="py-24 border-t border-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow="Our technology approach" title="Why organizations choose Yobsman-Tech" />
           <div className="space-y-0">
             {WHY.map((w, i) => (
               <Reveal key={w.n} delay={i * 0.05}>
-                <div className="grid md:grid-cols-12 gap-4 items-baseline py-8 border-t border-white/10">
+                <div className="grid md:grid-cols-12 gap-4 items-baseline py-8 border-t border-black/10">
                   <span className="md:col-span-2 font-mono text-sm text-zinc-600">{w.n}</span>
-                  <h3 className="md:col-span-4 font-display text-2xl font-semibold text-zinc-100">{w.title}</h3>
-                  <p className="md:col-span-6 text-sm text-zinc-400 leading-relaxed">{w.desc}</p>
+                  <h3 className="md:col-span-4 font-display text-2xl font-semibold text-zinc-900">{w.title}</h3>
+                  <p className="md:col-span-6 text-sm text-zinc-600 leading-relaxed">{w.desc}</p>
                 </div>
               </Reveal>
             ))}

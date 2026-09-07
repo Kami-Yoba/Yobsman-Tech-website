@@ -1,7 +1,7 @@
 export default function Marquee({ items, light = false }) {
   const row = [...items, ...items];
   return (
-    <div data-testid="marquee" className={`overflow-hidden border-y py-5 ${light ? "border-black/10 bg-[#F4F4F5]" : "border-white/10 bg-[#050507]"}`} aria-hidden="true">
+    <div data-testid="marquee" className={`overflow-hidden border-y py-5 ${light ? "border-black/10 bg-[#F4F4F5]" : "border-black/10 bg-[#FAFAFA]"}`} aria-hidden="true">
       <div className="marquee-track flex w-max items-center gap-10">
         {row.map((item, i) => (
           <span key={i} className="flex items-center gap-10">

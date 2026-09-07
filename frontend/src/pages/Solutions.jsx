@@ -18,15 +18,15 @@ export default function Solutions() {
           {SOLUTIONS.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.04}>
               <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`solution-card-${i}`}
-                className="group block h-full rounded-2xl border border-white/10 bg-[#0D0D10] p-8 hover:border-white/30 hover:bg-[#141418] hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500">
+                className="group block h-full rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 hover:border-black/30 hover:bg-[#E9E9EC] hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500">
                 <div className="flex items-start justify-between gap-4">
-                  <h2 className="font-display text-xl sm:text-2xl font-semibold text-zinc-50">{s.title}</h2>
-                  <ArrowUpRight size={20} className="shrink-0 text-zinc-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                  <h2 className="font-display text-xl sm:text-2xl font-semibold text-zinc-950">{s.title}</h2>
+                  <ArrowUpRight size={20} className="shrink-0 text-zinc-600 group-hover:text-zinc-950 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
                 </div>
-                <p className="mt-4 text-sm text-zinc-400 leading-relaxed">{s.desc}</p>
+                <p className="mt-4 text-sm text-zinc-600 leading-relaxed">{s.desc}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {s.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-zinc-500">{tag}</span>
+                    <span key={tag} className="rounded-full border border-black/10 px-3 py-1 text-[11px] text-zinc-500">{tag}</span>
                   ))}
                 </div>
               </Link>
@@ -42,7 +42,7 @@ export default function Solutions() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-black/10 border border-black/10 rounded-2xl overflow-hidden">
             {INDUSTRIES.map((ind, i) => (
               <Reveal key={ind} delay={i * 0.03}>
-                <div className="bg-white px-6 py-8 text-center font-display text-sm font-semibold text-zinc-700 hover:bg-zinc-950 hover:text-white transition-colors duration-500">{ind}</div>
+                <div className="bg-white px-6 py-8 text-center font-display text-sm font-semibold text-zinc-500 hover:bg-zinc-950 hover:text-white transition-colors duration-500">{ind}</div>
               </Reveal>
             ))}
           </div>

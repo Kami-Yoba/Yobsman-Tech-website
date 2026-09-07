@@ -22,12 +22,12 @@ export default function CookieConsent() {
     <div data-testid="cookie-banner" role="dialog" aria-label={t("cookies.title")}
       className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:end-6 sm:max-w-md z-[60] glass rounded-2xl p-6 shadow-2xl">
       <div className="flex items-center gap-2 mb-3">
-        <ShieldCheck size={16} className="text-zinc-400" />
-        <p className="font-display font-semibold text-sm text-zinc-100">{t("cookies.title")}</p>
+        <ShieldCheck size={16} className="text-zinc-600" />
+        <p className="font-display font-semibold text-sm text-zinc-900">{t("cookies.title")}</p>
       </div>
-      <p className="text-xs text-zinc-400 leading-relaxed mb-4">{t("cookies.text")}</p>
+      <p className="text-xs text-zinc-600 leading-relaxed mb-4">{t("cookies.text")}</p>
       {customizing && (
-        <div className="space-y-2 mb-4 text-xs text-zinc-300">
+        <div className="space-y-2 mb-4 text-xs text-zinc-700">
           <label className="flex items-center gap-2 opacity-60">
             <input type="checkbox" checked disabled /> {t("cookies.necessaryLabel")}
           </label>
@@ -43,21 +43,21 @@ export default function CookieConsent() {
       )}
       <div className="flex flex-wrap gap-2">
         <button data-testid="cookie-accept-btn" onClick={() => save({ analytics: true, marketing: true })}
-          className="rounded-full bg-white text-black text-xs font-semibold px-4 py-2 hover:bg-zinc-300 transition-colors duration-200">
+          className="rounded-full bg-zinc-950 text-white text-xs font-semibold px-4 py-2 hover:bg-zinc-800 transition-colors duration-200">
           {t("cookies.accept")}
         </button>
         <button data-testid="cookie-necessary-btn" onClick={() => save({ analytics: false, marketing: false })}
-          className="rounded-full border border-white/20 text-zinc-200 text-xs px-4 py-2 hover:border-white/50 transition-colors duration-200">
+          className="rounded-full border border-black/20 text-zinc-800 text-xs px-4 py-2 hover:border-black/50 transition-colors duration-200">
           {t("cookies.necessary")}
         </button>
         {customizing ? (
           <button data-testid="cookie-save-btn" onClick={() => save(prefs)}
-            className="rounded-full border border-white/20 text-zinc-200 text-xs px-4 py-2 hover:border-white/50 transition-colors duration-200">
+            className="rounded-full border border-black/20 text-zinc-800 text-xs px-4 py-2 hover:border-black/50 transition-colors duration-200">
             {t("cookies.save")}
           </button>
         ) : (
           <button data-testid="cookie-customize-btn" onClick={() => setCustomizing(true)}
-            className="rounded-full text-zinc-400 text-xs px-3 py-2 hover:text-white transition-colors duration-200">
+            className="rounded-full text-zinc-600 text-xs px-3 py-2 hover:text-zinc-950 transition-colors duration-200">
             {t("cookies.customize")}
           </button>
         )}

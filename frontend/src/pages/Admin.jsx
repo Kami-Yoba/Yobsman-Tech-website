@@ -106,12 +106,12 @@ export default function Admin() {
     <div data-testid="admin-page" className="pt-28 sm:pt-32 pb-24 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <p className="mono-label mb-2">Yobsman-Tech Internal</p>
-        <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-50 mb-10">{t("admin.title")}</h1>
+        <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950 mb-10">{t("admin.title")}</h1>
 
-        <div className="flex gap-1 overflow-x-auto border-b border-white/10 mb-10" role="tablist">
+        <div className="flex gap-1 overflow-x-auto border-b border-black/10 mb-10" role="tablist">
           {tabs.map((key) => (
             <button key={key} data-testid={`admin-tab-${key}`} role="tab" aria-selected={tab === key} onClick={() => setTab(key)}
-              className={`px-5 py-3 text-sm whitespace-nowrap border-b-2 -mb-px transition-[color,border-color] duration-300 ${tab === key ? "border-white text-white" : "border-transparent text-zinc-500 hover:text-zinc-200"}`}>
+              className={`px-5 py-3 text-sm whitespace-nowrap border-b-2 -mb-px transition-[color,border-color] duration-300 ${tab === key ? "border-zinc-950 text-zinc-950" : "border-transparent text-zinc-500 hover:text-zinc-800"}`}>
               {t(`admin.${key}`)}
             </button>
           ))}
@@ -120,8 +120,8 @@ export default function Admin() {
         {tab === "overview" && stats && (
           <div data-testid="admin-stats" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {Object.entries(stats).map(([k, v]) => (
-              <div key={k} className="rounded-2xl border border-white/10 bg-[#0D0D10] p-6">
-                <p className="font-display text-3xl font-bold text-zinc-50 tabular-nums">{v}</p>
+              <div key={k} className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-6">
+                <p className="font-display text-3xl font-bold text-zinc-950 tabular-nums">{v}</p>
                 <p className="mono-label mt-2">{k.replace(/_/g, " ")}</p>
               </div>
             ))}
@@ -129,15 +129,15 @@ export default function Admin() {
         )}
 
         {["quotes", "contacts", "appointments", "applications"].includes(tab) && (
-          <div data-testid={`admin-${tab}-table`} className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10 overflow-x-auto">
-            {rows.length === 0 && <p className="bg-[#0A0A0C] px-6 py-10 text-sm text-zinc-500">Nothing here yet.</p>}
+          <div data-testid={`admin-${tab}-table`} className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10 overflow-x-auto">
+            {rows.length === 0 && <p className="bg-[#F4F4F5] px-6 py-10 text-sm text-zinc-500">Nothing here yet.</p>}
             {rows.map((r) => (
-              <div key={r.id} data-testid={`admin-row-${tab}-${r.id}`} className="bg-[#0A0A0C] px-6 py-5 grid lg:grid-cols-12 gap-3 items-center">
+              <div key={r.id} data-testid={`admin-row-${tab}-${r.id}`} className="bg-[#F4F4F5] px-6 py-5 grid lg:grid-cols-12 gap-3 items-center">
                 <div className="lg:col-span-4">
-                  <p className="font-display font-semibold text-sm text-zinc-100">{r.full_name || r.name} — {r.service || r.subject || r.job_title}</p>
+                  <p className="font-display font-semibold text-sm text-zinc-900">{r.full_name || r.name} — {r.service || r.subject || r.job_title}</p>
                   <p className="text-xs text-zinc-500 mt-1 truncate">{r.email} {r.country ? `· ${r.country}` : ""}</p>
                 </div>
-                <p className="lg:col-span-5 text-xs text-zinc-400 truncate">{r.description || r.message || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
+                <p className="lg:col-span-5 text-xs text-zinc-600 truncate">{r.description || r.message || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
                 <p className="lg:col-span-2 font-mono text-[10px] text-zinc-600">{(r.created_at || "").slice(0, 10)}</p>
                 <div className="lg:col-span-1">
                   <select data-testid={`admin-status-${r.id}`} value={r.status} onChange={(e) => updateItem(tab, r.id, { status: e.target.value })}
@@ -151,11 +151,11 @@ export default function Admin() {
         )}
 
         {tab === "users" && (
-          <div data-testid="admin-users-table" className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+          <div data-testid="admin-users-table" className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
             {rows.map((r) => (
-              <div key={r.id} className="bg-[#0A0A0C] px-6 py-5 grid lg:grid-cols-12 gap-3 items-center">
+              <div key={r.id} className="bg-[#F4F4F5] px-6 py-5 grid lg:grid-cols-12 gap-3 items-center">
                 <div className="lg:col-span-5">
-                  <p className="font-display font-semibold text-sm text-zinc-100">{r.name}</p>
+                  <p className="font-display font-semibold text-sm text-zinc-900">{r.name}</p>
                   <p className="text-xs text-zinc-500 mt-1">{r.email}</p>
                 </div>
                 <p className="lg:col-span-4 font-mono text-[10px] text-zinc-600">{(r.created_at || "").slice(0, 10)}</p>
@@ -175,18 +175,18 @@ export default function Admin() {
             <div className="flex flex-wrap items-center gap-3 mb-8">
               {Object.keys(CONTENT_COLLS).map((c) => (
                 <button key={c} data-testid={`admin-coll-${c}`} onClick={() => setContentColl(c)}
-                  className={`rounded-full border px-4 py-2 text-xs transition-[border-color,color,background-color] duration-300 ${contentColl === c ? "border-white bg-white text-black" : "border-white/15 text-zinc-400 hover:border-white/50"}`}>
+                  className={`rounded-full border px-4 py-2 text-xs transition-[border-color,color,background-color] duration-300 ${contentColl === c ? "border-zinc-950 bg-zinc-950 text-white" : "border-black/15 text-zinc-600 hover:border-black/50"}`}>
                   {t(`admin.${c}`)}
                 </button>
               ))}
               <button data-testid="admin-create-toggle" onClick={() => setCreating(!creating)}
-                className="rounded-full border border-white/15 px-4 py-2 text-xs text-zinc-300 hover:border-white/50 inline-flex items-center gap-1.5 transition-colors duration-300">
+                className="rounded-full border border-black/15 px-4 py-2 text-xs text-zinc-700 hover:border-black/50 inline-flex items-center gap-1.5 transition-colors duration-300">
                 <Plus size={13} /> {t("admin.create")}
               </button>
             </div>
 
             {creating && (
-              <form onSubmit={createItem} data-testid="admin-create-form" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 mb-8 grid sm:grid-cols-2 gap-4">
+              <form onSubmit={createItem} data-testid="admin-create-form" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 mb-8 grid sm:grid-cols-2 gap-4">
                 {CONTENT_COLLS[contentColl].fields.map((f) => (
                   <Field key={f} label={f} htmlFor={`cf-${f}`}>
                     {["bio", "responsibilities", "requirements", "benefits", "content", "excerpt", "desc"].includes(f) ? (
@@ -200,11 +200,11 @@ export default function Admin() {
               </form>
             )}
 
-            <div className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+            <div className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
               {rows.map((r) => (
-                <div key={r.id} data-testid={`admin-content-row-${r.id}`} className="bg-[#0A0A0C] px-6 py-5 flex items-center justify-between gap-4">
+                <div key={r.id} data-testid={`admin-content-row-${r.id}`} className="bg-[#F4F4F5] px-6 py-5 flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="font-display font-semibold text-sm text-zinc-100 truncate">{r.title || r.name}</p>
+                    <p className="font-display font-semibold text-sm text-zinc-900 truncate">{r.title || r.name}</p>
                     <p className="text-xs text-zinc-500 mt-1 truncate">{r.department || r.position || r.category || r.code || r.desc}</p>
                   </div>
                   <button data-testid={`admin-delete-${r.id}`} onClick={() => deleteItem(contentColl, r.id)} aria-label="Delete"

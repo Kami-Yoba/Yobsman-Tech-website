@@ -17,7 +17,7 @@ export default function LanguageSelector() {
   return (
     <div ref={ref} className="relative">
       <button data-testid="nav-language-selector" onClick={() => setOpen(!open)} aria-haspopup="listbox" aria-expanded={open}
-        className="flex items-center gap-1.5 text-[13px] text-zinc-400 hover:text-white transition-colors duration-300 py-2">
+        className="flex items-center gap-1.5 text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300 py-2">
         <Globe size={15} />
         <span className="uppercase">{active?.code}</span>
         <ChevronDown size={12} className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
@@ -28,7 +28,7 @@ export default function LanguageSelector() {
           {languages.map((l) => (
             <button key={l.code} data-testid={`lang-option-${l.code}`} role="option" aria-selected={l.code === lang}
               onClick={() => { setLang(l.code); setOpen(false); }}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${l.code === lang ? "bg-white/10 text-white" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}>
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${l.code === lang ? "bg-black/10 text-zinc-950" : "text-zinc-600 hover:bg-black/5 hover:text-zinc-950"}`}>
               <span>{l.native}</span>
               {l.code === lang && <Check size={14} />}
             </button>

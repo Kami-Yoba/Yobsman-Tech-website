@@ -35,12 +35,12 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-5 gap-12">
           <div className="lg:col-span-3">
             {done ? (
-              <div data-testid="contact-success" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-12 text-center">
-                <CheckCircle size={40} className="mx-auto text-zinc-200 mb-4" />
-                <p className="text-zinc-300 leading-relaxed">{done}</p>
+              <div data-testid="contact-success" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-12 text-center">
+                <CheckCircle size={40} className="mx-auto text-zinc-800 mb-4" />
+                <p className="text-zinc-700 leading-relaxed">{done}</p>
               </div>
             ) : (
-              <form onSubmit={submit} data-testid="contact-form" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 sm:p-10 space-y-5">
+              <form onSubmit={submit} data-testid="contact-form" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 sm:p-10 space-y-5">
                 <input type="text" name="website" value={form.website} onChange={set("website")} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                 <div className="grid sm:grid-cols-2 gap-5">
                   <Field label={t("form.fullName")} htmlFor="c-name"><input id="c-name" data-testid="contact-name-input" required className={inputCls} value={form.full_name} onChange={set("full_name")} /></Field>
@@ -63,8 +63,8 @@ export default function Contact() {
                   </Field>
                 </div>
                 <Field label={t("form.message")} htmlFor="c-message"><textarea id="c-message" data-testid="contact-message-input" required rows={5} className={inputCls} value={form.message} onChange={set("message")} /></Field>
-                <label className="flex items-start gap-3 text-xs text-zinc-400 cursor-pointer">
-                  <input data-testid="contact-consent-checkbox" type="checkbox" required checked={form.consent} onChange={set("consent")} className="mt-0.5 accent-white" />
+                <label className="flex items-start gap-3 text-xs text-zinc-600 cursor-pointer">
+                  <input data-testid="contact-consent-checkbox" type="checkbox" required checked={form.consent} onChange={set("consent")} className="mt-0.5 accent-zinc-950" />
                   {t("form.consent")}
                 </label>
                 <CTAButton data-testid="contact-submit-btn" type="submit" disabled={busy}>{busy ? t("common.submitting") : t("form.sendMessage")}</CTAButton>
@@ -73,42 +73,42 @@ export default function Contact() {
           </div>
 
           <aside className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 space-y-6">
+            <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 space-y-6">
               <div>
                 <p className="mono-label mb-2">{t("contact.emailLabel")}</p>
-                <a data-testid="contact-email-link" href="mailto:info@yobsman-tech.com" className="text-zinc-100 hover:text-white text-sm underline underline-offset-4 decoration-white/30">info@yobsman-tech.com</a>
+                <a data-testid="contact-email-link" href="mailto:info@yobsman-tech.com" className="text-zinc-900 hover:text-zinc-950 text-sm underline underline-offset-4 decoration-black/30">info@yobsman-tech.com</a>
                 <br />
-                <a href="mailto:quote@yobsman-tech.com" className="text-zinc-400 hover:text-white text-sm underline underline-offset-4 decoration-white/30 mt-1 inline-block">quote@yobsman-tech.com</a>
+                <a href="mailto:quote@yobsman-tech.com" className="text-zinc-600 hover:text-zinc-950 text-sm underline underline-offset-4 decoration-black/30 mt-1 inline-block">quote@yobsman-tech.com</a>
               </div>
               <div>
                 <p className="mono-label mb-2">{t("contact.phoneLabel")}</p>
-                <p className="text-sm text-zinc-300">{t("contact.phoneValue")}</p>
+                <p className="text-sm text-zinc-700">{t("contact.phoneValue")}</p>
               </div>
               <div>
                 <p className="mono-label mb-2">{t("contact.hq")}</p>
-                <p data-testid="contact-hq" className="text-sm text-zinc-300">{t("contact.hqValue")}</p>
+                <p data-testid="contact-hq" className="text-sm text-zinc-700">{t("contact.hqValue")}</p>
               </div>
               <div>
                 <p className="mono-label mb-2">{t("contact.regions")}</p>
-                <p className="text-sm text-zinc-300">{t("contact.regionsValue")}</p>
+                <p className="text-sm text-zinc-700">{t("contact.regionsValue")}</p>
               </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8">
+            <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8">
               <p className="mono-label mb-4">{t("contact.follow")}</p>
               <div className="flex gap-3">
                 {[["LinkedIn", Linkedin], ["X", Twitter], ["Facebook", Facebook], ["Instagram", Instagram]].map(([name, Icon]) => (
-                  <a key={name} href="#" aria-label={name} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-white/40 transition-[color,border-color] duration-300">
+                  <a key={name} href="#" aria-label={name} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-zinc-500 hover:text-zinc-950 hover:border-black/40 transition-[color,border-color] duration-300">
                     <Icon size={16} />
                   </a>
                 ))}
               </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 relative overflow-hidden min-h-[180px]">
+            <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 relative overflow-hidden min-h-[180px]">
               <div className="absolute inset-0 grid-bg opacity-60" aria-hidden="true" />
               <div className="relative">
-                <span className="w-2 h-2 rounded-full bg-white pulse-dot inline-block" />
-                <p className="font-mono text-xs tracking-widest uppercase text-zinc-400 mt-3">60.1699° N, 24.9384° E</p>
-                <p className="font-display text-lg font-semibold text-zinc-100 mt-1">Espoo / Helsinki, Finland</p>
+                <span className="w-2 h-2 rounded-full bg-zinc-950 pulse-dot inline-block" />
+                <p className="font-mono text-xs tracking-widest uppercase text-zinc-600 mt-3">60.1699° N, 24.9384° E</p>
+                <p className="font-display text-lg font-semibold text-zinc-900 mt-1">Espoo / Helsinki, Finland</p>
               </div>
             </div>
           </aside>

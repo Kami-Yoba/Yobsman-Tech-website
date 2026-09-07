@@ -62,15 +62,15 @@ export default function Book() {
     return (
       <div data-testid="booking-page" className="pt-36 sm:pt-44 pb-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-8">
-          <div data-testid="booking-success" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-12 text-center">
-            <CheckCircle size={44} className="mx-auto text-zinc-200 mb-5" />
-            <h1 className="font-display text-3xl font-bold text-zinc-50 mb-4">Appointment confirmed</h1>
-            <div className="font-mono text-sm text-zinc-300 space-y-2 mb-6">
+          <div data-testid="booking-success" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-12 text-center">
+            <CheckCircle size={44} className="mx-auto text-zinc-800 mb-5" />
+            <h1 className="font-display text-3xl font-bold text-zinc-950 mb-4">Appointment confirmed</h1>
+            <div className="font-mono text-sm text-zinc-700 space-y-2 mb-6">
               <p>{confirmed.service}</p>
               <p>{confirmed.date} — {confirmed.time} ({confirmed.timezone})</p>
               <p className="text-zinc-500">30 min · UTC {confirmed.start_utc}</p>
             </div>
-            <p className="text-sm text-zinc-400">{t("book.successMsg")}</p>
+            <p className="text-sm text-zinc-600">{t("book.successMsg")}</p>
           </div>
         </div>
       </div>
@@ -85,14 +85,14 @@ export default function Book() {
           <div className="flex items-center gap-2 mb-8 font-mono text-[11px] uppercase tracking-widest">
             {[t("book.stepService"), t("book.stepWhen"), t("book.stepDetails")].map((s, i) => (
               <div key={s} className="flex items-center gap-2">
-                <span className={`w-7 h-7 rounded-full border flex items-center justify-center ${step > i ? "border-white bg-white text-black" : "border-white/20 text-zinc-500"}`}>{i + 1}</span>
-                <span className={step > i ? "text-zinc-200" : "text-zinc-600"}>{s}</span>
-                {i < 2 && <span className="w-6 h-px bg-white/15 mx-1" />}
+                <span className={`w-7 h-7 rounded-full border flex items-center justify-center ${step > i ? "border-zinc-950 bg-zinc-950 text-white" : "border-black/20 text-zinc-500"}`}>{i + 1}</span>
+                <span className={step > i ? "text-zinc-800" : "text-zinc-600"}>{s}</span>
+                {i < 2 && <span className="w-6 h-px bg-black/15 mx-1" />}
               </div>
             ))}
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 sm:p-10">
+          <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 sm:p-10">
             {step === 1 && (
               <div data-testid="booking-step-service">
                 <Field label={t("form.service")} htmlFor="b-service">
@@ -114,7 +114,7 @@ export default function Book() {
                   <Field label={t("form.date")} htmlFor="b-date">
                     <div className="relative">
                       <Calendar size={15} className="absolute start-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
-                      <input id="b-date" data-testid="booking-date-input" type="date" min={today} className={`${inputCls} ps-10 [color-scheme:dark]`} value={date} onChange={(e) => setDate(e.target.value)} />
+                      <input id="b-date" data-testid="booking-date-input" type="date" min={today} className={`${inputCls} ps-10 [color-scheme:light]`} value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
                   </Field>
                   <Field label={t("form.timezone")} htmlFor="b-tz">
@@ -128,7 +128,7 @@ export default function Book() {
                 </div>
                 {date && (
                   <div>
-                    <p className="text-xs font-medium tracking-wide text-zinc-400 mb-3 flex items-center gap-2"><Clock size={13} /> {t("form.time")} — {tz}</p>
+                    <p className="text-xs font-medium tracking-wide text-zinc-600 mb-3 flex items-center gap-2"><Clock size={13} /> {t("form.time")} — {tz}</p>
                     {slots === null ? (
                       <p className="text-sm text-zinc-500">{t("common.loading")}</p>
                     ) : slots.every((s) => !s.available) ? (
@@ -139,8 +139,8 @@ export default function Book() {
                           <button key={s.time} type="button" data-testid={`slot-${s.time.replace(":", "")}`} disabled={!s.available}
                             onClick={() => setTime(s.time)}
                             className={`rounded-lg border px-2 py-2.5 font-mono text-xs transition-[border-color,background-color,color] duration-200 ${
-                              time === s.time ? "border-white bg-white text-black" :
-                              s.available ? "border-white/15 text-zinc-300 hover:border-white/60" : "border-white/5 text-zinc-700 cursor-not-allowed line-through"}`}>
+                              time === s.time ? "border-zinc-950 bg-zinc-950 text-white" :
+                              s.available ? "border-black/15 text-zinc-700 hover:border-black/60" : "border-black/5 text-zinc-500 cursor-not-allowed line-through"}`}>
                             {s.time}
                           </button>
                         ))}
@@ -149,7 +149,7 @@ export default function Book() {
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <button data-testid="booking-back-2" onClick={() => setStep(1)} className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"><ArrowLeft size={15} /> {t("book.stepService")}</button>
+                  <button data-testid="booking-back-2" onClick={() => setStep(1)} className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-950 transition-colors duration-200"><ArrowLeft size={15} /> {t("book.stepService")}</button>
                   <CTAButton data-testid="booking-next-2" disabled={!date || !time} onClick={() => setStep(3)}>{t("book.stepDetails")} <ArrowRight size={15} /></CTAButton>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function Book() {
 
             {step === 3 && (
               <div data-testid="booking-step-details" className="space-y-5">
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 font-mono text-xs text-zinc-300">
+                <div className="rounded-xl border border-black/10 bg-black/[0.03] p-4 font-mono text-xs text-zinc-700">
                   {service} · {date} · {time} ({tz}) · 30 min
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -172,7 +172,7 @@ export default function Book() {
                 </div>
                 <Field label={t("form.notes")} htmlFor="b-notes"><textarea id="b-notes" data-testid="booking-notes-input" rows={3} className={inputCls} value={details.notes} onChange={setD("notes")} /></Field>
                 <div className="flex justify-between pt-2">
-                  <button data-testid="booking-back-3" onClick={() => setStep(2)} className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors duration-200"><ArrowLeft size={15} /> {t("book.stepWhen")}</button>
+                  <button data-testid="booking-back-3" onClick={() => setStep(2)} className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-950 transition-colors duration-200"><ArrowLeft size={15} /> {t("book.stepWhen")}</button>
                   <CTAButton data-testid="booking-confirm-btn" disabled={busy || !details.name || !details.email} onClick={submit}>
                     {busy ? t("common.submitting") : t("form.confirmBooking")}
                   </CTAButton>

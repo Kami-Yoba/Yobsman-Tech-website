@@ -42,7 +42,7 @@ export default function NetworkCanvas({ density = 55, className = "" }) {
         if (dist < 120 && dist > 0) { n.x += (dx / dist) * 0.6; n.y += (dy / dist) * 0.6; }
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.35)";
+        ctx.fillStyle = "rgba(9,9,11,0.28)";
         ctx.fill();
       }
       for (let i = 0; i < nodes.length; i++) {
@@ -53,7 +53,7 @@ export default function NetworkCanvas({ density = 55, className = "" }) {
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(255,255,255,${0.10 * (1 - d / 130)})`;
+            ctx.strokeStyle = `rgba(9,9,11,${0.09 * (1 - d / 130)})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }

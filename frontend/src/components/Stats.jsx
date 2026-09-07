@@ -22,7 +22,7 @@ function Counter({ value, suffix = "" }) {
   }, [inView, value]);
 
   return (
-    <span ref={ref} className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-50 tabular-nums">
+    <span ref={ref} className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-950 tabular-nums">
       {Number.isInteger(value) ? Math.round(display) : display.toFixed(1)}{suffix}
     </span>
   );
@@ -30,9 +30,9 @@ function Counter({ value, suffix = "" }) {
 
 export default function Stats({ items }) {
   return (
-    <div data-testid="stats-section" className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
+    <div data-testid="stats-section" className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10 rounded-2xl overflow-hidden border border-black/10">
       {items.map((s) => (
-        <div key={s.label} className="bg-[#0A0A0C] p-8 sm:p-10">
+        <div key={s.label} className="bg-[#F4F4F5] p-8 sm:p-10">
           <Counter value={s.value} suffix={s.suffix} />
           <p className="mono-label mt-3">{s.label}</p>
         </div>

@@ -33,7 +33,7 @@ export default function ResetPassword() {
     <div data-testid="reset-page" className="min-h-screen flex items-center justify-center relative px-4">
       <div className="absolute inset-0 grid-bg" aria-hidden="true" />
       <div className="relative w-full max-w-md rounded-2xl glass p-8 sm:p-10 my-32">
-        <h1 className="font-display text-3xl font-bold text-zinc-50">{t("auth.resetTitle")}</h1>
+        <h1 className="font-display text-3xl font-bold text-zinc-950">{t("auth.resetTitle")}</h1>
         {!token ? (
           <p className="text-sm text-red-400 mt-6">Invalid or missing reset token.</p>
         ) : (
@@ -43,7 +43,7 @@ export default function ResetPassword() {
             <CTAButton data-testid="reset-submit-btn" type="submit" disabled={busy} className="w-full">{busy ? t("common.submitting") : t("auth.resetBtn")}</CTAButton>
           </form>
         )}
-        <p className="mt-6 text-xs text-zinc-500"><Link to="/login" className="text-zinc-300 underline underline-offset-4 decoration-white/30">{t("nav.login")}</Link></p>
+        <p className="mt-6 text-xs text-zinc-500"><Link to="/login" className="text-zinc-700 underline underline-offset-4 decoration-black/30">{t("nav.login")}</Link></p>
       </div>
     </div>
   );

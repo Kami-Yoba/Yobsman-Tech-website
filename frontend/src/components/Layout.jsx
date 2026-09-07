@@ -25,7 +25,7 @@ export default function Layout({ children }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050507] text-zinc-200">
+    <div className="min-h-screen bg-[#FAFAFA] text-zinc-800">
       <Navbar />
       <main id="main-content">{children}</main>
       {!bare && <Footer />}

@@ -13,9 +13,9 @@ const TABS = [
 ];
 
 const STATUS_CLS = {
-  confirmed: "text-zinc-100 border-white/30", cancelled: "text-zinc-600 border-white/10 line-through",
-  completed: "text-zinc-400 border-white/15", new: "text-white border-white/40",
-  quoted: "text-zinc-200 border-white/25", closed: "text-zinc-500 border-white/10",
+  confirmed: "text-zinc-900 border-black/30", cancelled: "text-zinc-600 border-black/10 line-through",
+  completed: "text-zinc-600 border-black/15", new: "text-zinc-950 border-black/40",
+  quoted: "text-zinc-800 border-white/25", closed: "text-zinc-500 border-black/10",
 };
 
 export default function Dashboard() {
@@ -80,18 +80,18 @@ export default function Dashboard() {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div>
             <p className="mono-label mb-2">Client Portal</p>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-50">{t("dashboard.welcome")}, {user.name}</h1>
+            <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950">{t("dashboard.welcome")}, {user.name}</h1>
           </div>
           <button data-testid="dashboard-logout-btn" onClick={async () => { await logout(); navigate("/"); }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm text-zinc-300 hover:border-white/50 hover:text-white transition-[border-color,color] duration-300">
+            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-sm text-zinc-700 hover:border-black/50 hover:text-zinc-950 transition-[border-color,color] duration-300">
             <LogOut size={15} /> {t("nav.logout")}
           </button>
         </div>
 
-        <div className="flex gap-1 overflow-x-auto border-b border-white/10 mb-10" role="tablist">
+        <div className="flex gap-1 overflow-x-auto border-b border-black/10 mb-10" role="tablist">
           {[...TABS.slice(0, 3), ["profile", User], ...TABS.slice(3)].map(([key, Icon]) => (
             <button key={key} data-testid={`dash-tab-${key}`} role="tab" aria-selected={tab === key} onClick={() => setTab(key)}
-              className={`flex items-center gap-2 px-5 py-3 text-sm whitespace-nowrap border-b-2 -mb-px transition-[color,border-color] duration-300 ${tab === key ? "border-white text-white" : "border-transparent text-zinc-500 hover:text-zinc-200"}`}>
+              className={`flex items-center gap-2 px-5 py-3 text-sm whitespace-nowrap border-b-2 -mb-px transition-[color,border-color] duration-300 ${tab === key ? "border-zinc-950 text-zinc-950" : "border-transparent text-zinc-500 hover:text-zinc-800"}`}>
               <Icon size={15} /> {t(`dashboard.${key}`)}
             </button>
           ))}
@@ -104,8 +104,8 @@ export default function Dashboard() {
               [t("dashboard.upcoming"), overview?.upcoming ?? "—"],
               [`${t("dashboard.notifications")} (${t("dashboard.unread")})`, overview?.unread_notifications ?? "—"],
             ].map(([label, val]) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8">
-                <p className="font-display text-4xl font-bold text-zinc-50">{val}</p>
+              <div key={label} className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8">
+                <p className="font-display text-4xl font-bold text-zinc-950">{val}</p>
                 <p className="mono-label mt-3">{label}</p>
               </div>
             ))}
@@ -118,18 +118,18 @@ export default function Dashboard() {
             {[["upcoming", upcoming], ["past", past]].map(([label, list]) => list.length > 0 && (
               <div key={label}>
                 <p className="mono-label mb-4">{t(`dashboard.${label}`)}</p>
-                <div className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+                <div className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
                   {list.map((a) => (
-                    <div key={a.id} data-testid={`appt-row-${a.id}`} className="bg-[#0A0A0C] px-6 py-5 flex flex-wrap items-center justify-between gap-3">
+                    <div key={a.id} data-testid={`appt-row-${a.id}`} className="bg-[#F4F4F5] px-6 py-5 flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <p className="font-display font-semibold text-zinc-100">{a.service}</p>
+                        <p className="font-display font-semibold text-zinc-900">{a.service}</p>
                         <p className="font-mono text-xs text-zinc-500 mt-1">{a.date} · {a.time} ({a.timezone})</p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 ${STATUS_CLS[a.status] || "text-zinc-400 border-white/15"}`}>{a.status}</span>
+                        <span className={`text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 ${STATUS_CLS[a.status] || "text-zinc-600 border-black/15"}`}>{a.status}</span>
                         {a.status === "confirmed" && a.start_utc >= now && (
                           <button data-testid={`appt-cancel-${a.id}`} onClick={() => cancelAppt(a.id)}
-                            className="text-xs text-zinc-500 hover:text-red-300 transition-colors duration-200 underline underline-offset-4 decoration-white/20">
+                            className="text-xs text-zinc-500 hover:text-red-300 transition-colors duration-200 underline underline-offset-4 decoration-black/20">
                             {t("dashboard.cancel")}
                           </button>
                         )}
@@ -145,14 +145,14 @@ export default function Dashboard() {
         {tab === "quotes" && (
           <div data-testid="dash-quotes">
             {quotes.length === 0 ? <p className="text-sm text-zinc-500">{t("dashboard.noQuotes")}</p> : (
-              <div className="space-y-px rounded-2xl overflow-hidden border border-white/10 bg-white/10">
+              <div className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
                 {quotes.map((q) => (
-                  <div key={q.id} data-testid={`quote-row-${q.id}`} className="bg-[#0A0A0C] px-6 py-5 flex flex-wrap items-center justify-between gap-3">
+                  <div key={q.id} data-testid={`quote-row-${q.id}`} className="bg-[#F4F4F5] px-6 py-5 flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="font-display font-semibold text-zinc-100">{q.service}</p>
+                      <p className="font-display font-semibold text-zinc-900">{q.service}</p>
                       <p className="text-xs text-zinc-500 mt-1 max-w-xl truncate">{q.description}</p>
                     </div>
-                    <span className={`text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 ${STATUS_CLS[q.status] || "text-zinc-400 border-white/15"}`}>{q.status}</span>
+                    <span className={`text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 ${STATUS_CLS[q.status] || "text-zinc-600 border-black/15"}`}>{q.status}</span>
                   </div>
                 ))}
               </div>
@@ -161,19 +161,19 @@ export default function Dashboard() {
         )}
 
         {tab === "profile" && profile && (
-          <form onSubmit={saveProfile} data-testid="dash-profile-form" className="max-w-2xl rounded-2xl border border-white/10 bg-[#0D0D10] p-8 space-y-5">
+          <form onSubmit={saveProfile} data-testid="dash-profile-form" className="max-w-2xl rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <Field label={t("form.fullName")} htmlFor="p-name"><input id="p-name" data-testid="profile-name-input" className={inputCls} value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} /></Field>
               <Field label={t("form.phone")} htmlFor="p-phone"><input id="p-phone" data-testid="profile-phone-input" className={inputCls} value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} /></Field>
               <Field label={t("form.company")} htmlFor="p-company"><input id="p-company" data-testid="profile-company-input" className={inputCls} value={profile.company} onChange={(e) => setProfile({ ...profile, company: e.target.value })} /></Field>
               <Field label={t("form.country")} htmlFor="p-country"><input id="p-country" data-testid="profile-country-input" className={inputCls} value={profile.country} onChange={(e) => setProfile({ ...profile, country: e.target.value })} /></Field>
             </div>
-            <label className="flex items-center gap-3 text-sm text-zinc-300 cursor-pointer">
-              <input data-testid="profile-notify-email" type="checkbox" checked={profile.notify_email} onChange={(e) => setProfile({ ...profile, notify_email: e.target.checked })} className="accent-white" />
+            <label className="flex items-center gap-3 text-sm text-zinc-700 cursor-pointer">
+              <input data-testid="profile-notify-email" type="checkbox" checked={profile.notify_email} onChange={(e) => setProfile({ ...profile, notify_email: e.target.checked })} className="accent-zinc-950" />
               Email communications
             </label>
-            <label className="flex items-center gap-3 text-sm text-zinc-300 cursor-pointer">
-              <input data-testid="profile-notify-appt" type="checkbox" checked={profile.notify_appointments} onChange={(e) => setProfile({ ...profile, notify_appointments: e.target.checked })} className="accent-white" />
+            <label className="flex items-center gap-3 text-sm text-zinc-700 cursor-pointer">
+              <input data-testid="profile-notify-appt" type="checkbox" checked={profile.notify_appointments} onChange={(e) => setProfile({ ...profile, notify_appointments: e.target.checked })} className="accent-zinc-950" />
               Appointment reminders
             </label>
             <CTAButton data-testid="profile-save-btn" type="submit">{t("dashboard.save")}</CTAButton>
@@ -184,8 +184,8 @@ export default function Dashboard() {
           <div data-testid="dash-notifications" className="max-w-2xl space-y-3">
             {notifications.length === 0 && <p className="text-sm text-zinc-500">{t("dashboard.noNotifications")}</p>}
             {notifications.map((n) => (
-              <div key={n.id} className="rounded-xl border border-white/10 bg-[#0D0D10] p-5">
-                <p className="font-display font-semibold text-sm text-zinc-100">{n.title}</p>
+              <div key={n.id} className="rounded-xl border border-black/10 bg-[#FFFFFF] p-5">
+                <p className="font-display font-semibold text-sm text-zinc-900">{n.title}</p>
                 <p className="text-xs text-zinc-500 mt-1">{n.body}</p>
               </div>
             ))}
@@ -193,7 +193,7 @@ export default function Dashboard() {
         )}
 
         {tab === "languageTab" && profile && (
-          <div data-testid="dash-language" className="max-w-md rounded-2xl border border-white/10 bg-[#0D0D10] p-8 space-y-5">
+          <div data-testid="dash-language" className="max-w-md rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 space-y-5">
             <Field label={t("form.language")} htmlFor="d-lang">
               <select id="d-lang" data-testid="dash-language-select" className={inputCls} value={profile.language} onChange={(e) => setProfile({ ...profile, language: e.target.value })}>
                 {languages.map((l) => <option key={l.code} value={l.code}>{l.native}</option>)}

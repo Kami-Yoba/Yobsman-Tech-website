@@ -57,13 +57,13 @@ export default function Quote() {
       <section className="pb-24 sm:pb-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-8">
           {done ? (
-            <div data-testid="quote-success" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-12 sm:p-16 text-center">
-              <CheckCircle size={44} className="mx-auto text-zinc-200 mb-5" />
-              <h2 className="font-display text-2xl font-semibold text-zinc-50 mb-4">Request received</h2>
-              <p className="text-zinc-400 leading-relaxed max-w-xl mx-auto">{done}</p>
+            <div data-testid="quote-success" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-12 sm:p-16 text-center">
+              <CheckCircle size={44} className="mx-auto text-zinc-800 mb-5" />
+              <h2 className="font-display text-2xl font-semibold text-zinc-950 mb-4">Request received</h2>
+              <p className="text-zinc-600 leading-relaxed max-w-xl mx-auto">{done}</p>
             </div>
           ) : (
-            <form onSubmit={submit} data-testid="quote-form" className="rounded-2xl border border-white/10 bg-[#0D0D10] p-8 sm:p-10 space-y-5">
+            <form onSubmit={submit} data-testid="quote-form" className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 sm:p-10 space-y-5">
               <input type="text" name="website" value={form.website} onChange={set("website")} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="grid sm:grid-cols-2 gap-5">
                 <Field label={t("form.fullName")} htmlFor="q-name"><input id="q-name" data-testid="quote-name-input" required className={inputCls} value={form.full_name} onChange={set("full_name")} /></Field>
@@ -111,14 +111,14 @@ export default function Quote() {
               </div>
               <Field label={t("form.description")} htmlFor="q-desc"><textarea id="q-desc" data-testid="quote-description-input" required rows={5} className={inputCls} value={form.description} onChange={set("description")} /></Field>
               <Field label={t("form.attachment")} htmlFor="q-file">
-                <label className="flex items-center gap-3 rounded-xl border border-dashed border-white/20 px-4 py-3 text-sm text-zinc-400 hover:border-white/50 cursor-pointer transition-colors duration-300">
+                <label className="flex items-center gap-3 rounded-xl border border-dashed border-black/20 px-4 py-3 text-sm text-zinc-600 hover:border-black/50 cursor-pointer transition-colors duration-300">
                   <Upload size={15} />
                   <span data-testid="quote-file-label">{file ? file.name : "PDF, DOC, TXT — max 5MB"}</span>
                   <input id="q-file" data-testid="quote-file-input" type="file" accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg" className="sr-only" onChange={(e) => setFile(e.target.files[0] || null)} />
                 </label>
               </Field>
-              <label className="flex items-start gap-3 text-xs text-zinc-400 cursor-pointer">
-                <input data-testid="quote-consent-checkbox" type="checkbox" required checked={form.consent} onChange={set("consent")} className="mt-0.5 accent-white" />
+              <label className="flex items-start gap-3 text-xs text-zinc-600 cursor-pointer">
+                <input data-testid="quote-consent-checkbox" type="checkbox" required checked={form.consent} onChange={set("consent")} className="mt-0.5 accent-zinc-950" />
                 {t("form.consent")}
               </label>
               <CTAButton data-testid="quote-submit-btn" type="submit" disabled={busy} className="w-full sm:w-auto">

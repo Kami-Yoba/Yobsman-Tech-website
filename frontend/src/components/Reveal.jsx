@@ -37,8 +37,8 @@ export function SectionHead({ eyebrow, title, desc, align = "start", light = fal
   return (
     <Reveal className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} mb-14 sm:mb-20`}>
       {eyebrow && <p className="mono-label mb-4">{eyebrow}</p>}
-      <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08] ${light ? "text-zinc-950" : "text-zinc-50"}`}>{title}</h2>
-      {desc && <p className={`mt-5 text-base sm:text-lg leading-relaxed ${light ? "text-zinc-600" : "text-zinc-400"}`}>{desc}</p>}
+      <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.08] ${light ? "text-zinc-950" : "text-zinc-950"}`}>{title}</h2>
+      {desc && <p className={`mt-5 text-base sm:text-lg leading-relaxed ${light ? "text-zinc-600" : "text-zinc-600"}`}>{desc}</p>}
     </Reveal>
   );
 }
