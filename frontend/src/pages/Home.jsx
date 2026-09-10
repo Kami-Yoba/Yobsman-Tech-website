@@ -279,9 +279,9 @@ export default function Home() {
       <section className="py-24 sm:py-32 border-t border-black/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow={t("sections.leadEyebrow")} title={t("sections.leadTitle")} desc={t("sections.leadDesc")} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="flex flex-wrap justify-center gap-5">
             {leaders.map((m, i) => (
-              <Reveal key={m.id} delay={i * 0.06}>
+              <Reveal key={m.id} delay={i * 0.06} className="w-full max-w-xs">
                 <Link to="/leadership" data-testid={`leader-card-${i}`} className="group block rounded-2xl border border-black/10 overflow-hidden bg-[#FFFFFF] hover:border-black/30 transition-[border-color] duration-500">
                   <div className="aspect-[4/5] overflow-hidden">
                     <img src={m.photo} alt={m.name} loading="lazy" data-photo

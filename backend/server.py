@@ -817,25 +817,10 @@ SERVICES = [
 ]
 
 LEADERSHIP = [
-    {"name": "Aleksi Yobsman", "position": "Founder & Chief Executive Officer",
-     "bio": "Founded Yobsman-Tech in Espoo, Finland with a conviction that world-class engineering should have no borders. Aleksi leads global strategy, technology vision and the company's expansion across Europe, the Middle East, Africa and Asia.",
+    {"name": "Kami G. Yoba", "position": "Founder & Chief Executive Officer",
+     "bio": "Kami G. Yoba founded Yobsman-Tech and leads its global strategy and technology vision — a leadership that combines Afro-Nordic engineering culture with global operating experience, from the company's Finnish roots to clients across continents.",
      "expertise": "Technology Strategy · Global Operations · AI Systems",
-     "photo": "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=srgb&fm=jpg&w=600&q=80",
-     "linkedin": ""},
-    {"name": "Sara Lindqvist", "position": "Chief Technology Officer",
-     "bio": "Sara directs Yobsman-Tech's engineering organization and architecture standards. Previously led platform engineering teams in Helsinki and Stockholm, she now oversees software delivery, cloud infrastructure and security across all client engagements.",
-     "expertise": "Cloud Architecture · Security · Engineering Leadership",
-     "photo": "https://images.unsplash.com/photo-1584940120505-117038d90b05?crop=entropy&cs=srgb&fm=jpg&w=600&q=80",
-     "linkedin": ""},
-    {"name": "Daniel Okafor", "position": "Director, Global Delivery",
-     "bio": "Daniel manages multi-country service delivery and remote consultation operations. His teams keep Yobsman-Tech's service desk, maintenance and QA functions running around the clock for clients in more than a dozen countries.",
-     "expertise": "Service Delivery · IT Operations · QA Programs",
-     "photo": "https://images.unsplash.com/photo-1584940121819-1883a5d3b0bd?crop=entropy&cs=srgb&fm=jpg&w=600&q=80",
-     "linkedin": ""},
-    {"name": "Emma Virtanen", "position": "Director, KAGAYO Product",
-     "bio": "Emma leads the KAGAYO legal-technology subsidiary — a mobile and web platform built to make legal access radically simpler. She drives product strategy, privacy engineering and the platform's compliance-first roadmap.",
-     "expertise": "LegalTech · Product Strategy · Privacy Engineering",
-     "photo": "https://images.unsplash.com/photo-1780733058439-b8952315e59c?crop=entropy&cs=srgb&fm=jpg&w=600&q=80",
+     "photo": "/assets/founder.jpg",
      "linkedin": ""},
 ]
 

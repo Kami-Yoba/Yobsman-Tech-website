@@ -8,7 +8,7 @@ import { PageHero } from "../components/FormUI";
 function LeaderCard({ m, i }) {
   const [open, setOpen] = useState(false);
   return (
-    <Reveal delay={i * 0.06}>
+    <Reveal delay={i * 0.06} className="w-full max-w-sm">
       <article data-testid={`leadership-card-${i}`} className="group rounded-2xl border border-black/10 bg-[#FFFFFF] overflow-hidden hover:border-black/30 transition-[border-color] duration-500">
         <div className="aspect-[4/5] overflow-hidden">
           <img src={m.photo} alt={`${m.name}, ${m.position}`} loading="lazy" data-photo
@@ -48,7 +48,7 @@ export default function Leadership() {
     <div data-testid="leadership-page">
       <PageHero eyebrow={t("sections.leadEyebrow")} title={t("sections.leadTitle")} desc={t("sections.leadDesc")} />
       <section className="pb-24 sm:pb-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-wrap justify-center gap-5">
           {leaders.map((m, i) => <LeaderCard key={m.id} m={m} i={i} />)}
         </div>
       </section>
