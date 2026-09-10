@@ -1,0 +1,13 @@
+{
+  "short_name": "Yobsman-Tech",
+  "name": "Yobsman-Tech — Global IT Services",
+  "icons": [
+    { "src": "favicon.ico", "sizes": "16x16 32x32 48x48", "type": "image/x-icon" },
+    { "src": "favicon.png", "sizes": "392x392", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#FAFAFA",
+  "background_color": "#FAFAFA"
+}
