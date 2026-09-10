@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Scale, ShieldCheck, Lock, FileText, Globe, ArrowRight } from "lucide-react";
+import { Scale, ShieldCheck, Lock, FileText, Globe, ArrowRight, Play, Apple } from "lucide-react";
 import { useI18n } from "../i18n";
 import { KAGAYO_FEATURES } from "../lib/content";
 import { Reveal, SectionHead } from "../components/Reveal";
@@ -31,12 +31,32 @@ export default function Kagayo() {
                 It connects people and businesses with the legal world through one secure, elegant platform.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <button data-testid="kagayo-access-cta" className={linkBtnCls.solid} title="Application link coming soon">
+                <a href="https://www.kagayo.app" target="_blank" rel="noopener noreferrer" data-testid="kagayo-access-cta" className={linkBtnCls.solid}>
                   Access KAGAYO <ArrowRight size={16} />
-                </button>
+                </a>
                 <Link to="/contact" className={linkBtnCls.ghost}>{t("common.contactUs")}</Link>
               </div>
-              <p className="mt-5 font-mono text-[11px] tracking-widest uppercase text-zinc-600">Application URL will plug in here when live — architecture ready.</p>
+              <div className="mt-8">
+                <p className="mono-label mb-4">Get the app</p>
+                <div className="flex flex-wrap gap-3">
+                  <a href="https://www.kagayo.app" target="_blank" rel="noopener noreferrer" data-testid="kagayo-playstore-btn"
+                    className="flex items-center gap-3 rounded-xl bg-zinc-950 text-white px-5 py-3 hover:bg-zinc-800 transition-colors duration-300">
+                    <Play size={20} fill="currentColor" />
+                    <span className="text-start leading-tight">
+                      <span className="block text-[10px] uppercase tracking-widest text-zinc-400">Get it on</span>
+                      <span className="block text-sm font-semibold">Google Play</span>
+                    </span>
+                  </a>
+                  <a href="https://www.kagayo.app" target="_blank" rel="noopener noreferrer" data-testid="kagayo-appstore-btn"
+                    className="flex items-center gap-3 rounded-xl bg-zinc-950 text-white px-5 py-3 hover:bg-zinc-800 transition-colors duration-300">
+                    <Apple size={20} fill="currentColor" />
+                    <span className="text-start leading-tight">
+                      <span className="block text-[10px] uppercase tracking-widest text-zinc-400">Download on the</span>
+                      <span className="block text-sm font-semibold">App Store</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
             </Reveal>
           </div>
           <Reveal delay={0.15}>
@@ -112,7 +132,7 @@ export default function Kagayo() {
               KAGAYO is engineered on the same secure, scalable stack that powers Yobsman-Tech client platforms — cloud-native,
               API-first and designed for integration with legal-data providers as the platform grows.
             </p>
-            <Link to="/kagayo" data-testid="kagayo-learnmore-cta" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-zinc-950 text-sm font-semibold px-7 py-3.5 hover:bg-zinc-200 transition-colors duration-300 mt-8">{t("common.learnMore")} <ArrowRight size={15} /></Link>
+            <a href="https://www.kagayo.app" target="_blank" rel="noopener noreferrer" data-testid="kagayo-learnmore-cta" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-zinc-950 text-sm font-semibold px-7 py-3.5 hover:bg-zinc-200 transition-colors duration-300 mt-8">Open KAGAYO app <ArrowRight size={15} /></a>
           </Reveal>
         </div>
       </section>

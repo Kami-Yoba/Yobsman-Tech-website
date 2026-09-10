@@ -22,9 +22,10 @@ export default function Footer() {
       [t("footer.cookiePolicy"), "/cookies"], [t("footer.accessibility"), "/accessibility"]] },
   ];
   const socials = [
-    ["LinkedIn", Linkedin, "social-linkedin"], ["X", Twitter, "social-x"],
-    ["Facebook", Facebook, "social-facebook"], ["Instagram", Instagram, "social-instagram"],
-    ["YouTube", Youtube, "social-youtube"],
+    ["LinkedIn", Linkedin, "social-linkedin", "#"], ["X", Twitter, "social-x", "#"],
+    ["Facebook", Facebook, "social-facebook", "https://www.facebook.com/profile.php?id=61569349950144"],
+    ["Instagram", Instagram, "social-instagram", "#"],
+    ["YouTube", Youtube, "social-youtube", "#"],
   ];
 
   return (
@@ -35,8 +36,8 @@ export default function Footer() {
             <img src="/assets/yobsman-logo.png" alt="Yobsman-Tech" className="h-14 w-auto mb-5" />
             <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">{t("footer.tagline")}</p>
             <div className="flex gap-3 mt-6">
-              {socials.map(([name, Icon, id]) => (
-                <a key={name} href="#" data-testid={id} aria-label={name}
+              {socials.map(([name, Icon, id, url]) => (
+                <a key={name} href={url} data-testid={id} aria-label={name} {...(url !== "#" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-zinc-500 hover:text-zinc-950 hover:border-black/40 transition-[color,border-color] duration-300">
                   <Icon size={15} />
                 </a>

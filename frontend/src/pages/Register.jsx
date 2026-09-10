@@ -79,7 +79,7 @@ export default function Register() {
               <Chrome size={16} /> Google
             </button>
             <button data-testid="facebook-signin-btn" type="button"
-              onClick={() => toast.info("Facebook sign-in is being rolled out. Please use email for now.")}
+              onClick={() => toast.info("Facebook sign-in is coming soon — app credentials are being configured.")}
               className="flex items-center justify-center gap-2 rounded-xl border border-black/15 py-3 text-sm font-medium text-zinc-800 hover:border-black/50 hover:bg-black/5 transition-[border-color,background-color] duration-300">
               <Facebook size={16} /> Facebook
             </button>

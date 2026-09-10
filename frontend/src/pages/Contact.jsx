@@ -96,8 +96,8 @@ export default function Contact() {
             <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8">
               <p className="mono-label mb-4">{t("contact.follow")}</p>
               <div className="flex gap-3">
-                {[["LinkedIn", Linkedin], ["X", Twitter], ["Facebook", Facebook], ["Instagram", Instagram]].map(([name, Icon]) => (
-                  <a key={name} href="#" aria-label={name} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-zinc-500 hover:text-zinc-950 hover:border-black/40 transition-[color,border-color] duration-300">
+                {[["LinkedIn", Linkedin, "#"], ["X", Twitter, "#"], ["Facebook", Facebook, "https://www.facebook.com/profile.php?id=61569349950144"], ["Instagram", Instagram, "#"]].map(([name, Icon, url]) => (
+                  <a key={name} href={url} {...(url !== "#" ? { target: "_blank", rel: "noopener noreferrer" } : {})} aria-label={name} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-zinc-500 hover:text-zinc-950 hover:border-black/40 transition-[color,border-color] duration-300">
                     <Icon size={16} />
                   </a>
                 ))}
