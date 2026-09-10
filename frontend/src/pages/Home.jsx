@@ -203,7 +203,7 @@ export default function Home() {
           <div>
             <Reveal>
               <p className="mono-label mb-4">{t("sections.kagayoEyebrow")}</p>
-              <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-zinc-950">{t("sections.kagayoTitle")}</h2>
+              <img src="/assets/kagayo-logo.png" alt="KAGAYO — The Law Meet" data-testid="home-kagayo-logo" className="w-52 sm:w-64 mb-6" />
               <p className="mt-6 text-base sm:text-lg text-zinc-600 leading-relaxed">{t("sections.kagayoDesc")}</p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link to="/kagayo" data-testid="kagayo-discover-cta" className={linkBtnCls.solid}>{t("common.discoverKagayo")} <ArrowRight size={16} /></Link>

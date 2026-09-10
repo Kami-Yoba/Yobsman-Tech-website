@@ -818,7 +818,7 @@ SERVICES = [
 
 LEADERSHIP = [
     {"name": "Kami G. Yoba", "position": "Founder & Chief Executive Officer",
-     "bio": "Kami G. Yoba founded Yobsman-Tech and leads its global strategy and technology vision — a leadership that combines Afro-Nordic engineering culture with global operating experience, from the company's Finnish roots to clients across continents.",
+     "bio": "Kami G. Yoba is the founder of Yobsman-Tech and the KAGAYO app. He leads the group's global strategy and technology vision — a leadership that combines Afro-Nordic engineering culture with global operating experience, from the company's Finnish roots to clients across continents.",
      "expertise": "Technology Strategy · Global Operations · AI Systems",
      "photo": "/assets/founder.jpg",
      "linkedin": ""},
