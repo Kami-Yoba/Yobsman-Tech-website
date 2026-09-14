@@ -16,8 +16,8 @@ export default function Quote() {
   const [services, setServices] = useState([]);
   const [form, setForm] = useState({
     full_name: "", company: "", email: "", phone: "", country: "", contact_method: "email",
-    service: params.get("service") || "", project_type: "", budget: "", description: "",
-    timeline: "", language: "en", consent: false, website: "",
+    service: params.get("service") || "", project_type: params.get("project_type") || "", budget: params.get("budget") || "", description: params.get("description") || "",
+    timeline: params.get("timeline") || "", language: "en", consent: false, website: "",
     obc_origin: "", obc_destination: "", obc_weight: "", obc_deadline: "",
   });
   const isOBC = form.service === "On-Board Courier (OBC)";

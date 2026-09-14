@@ -12,6 +12,7 @@ const STATUS_OPTIONS = {
   contacts: ["new", "in_progress", "resolved"],
   appointments: ["confirmed", "completed", "cancelled"],
   applications: ["received", "reviewing", "interview", "rejected", "hired"],
+  documentation_leads: ["new", "contacted", "qualified", "booked", "closed"],
 };
 const ROLES = ["user", "admin", "hr", "support", "sales", "content"];
 const NEXT_STAGE = { new: "in_review", in_review: "quoted", quoted: "flight_paid", flight_paid: "in_transit", in_transit: "balance_due", balance_due: "closed" };
@@ -102,7 +103,7 @@ export default function Admin() {
     }
   };
 
-  const tabs = ["overview", "quotes", "contacts", "appointments", "applications", "users", "content"];
+  const tabs = ["overview", "quotes", "contacts", "appointments", "applications", "documentation_leads", "users", "content"];
 
   return (
     <div data-testid="admin-page" className="pt-28 sm:pt-32 pb-24 min-h-screen">
@@ -130,13 +131,13 @@ export default function Admin() {
           </div>
         )}
 
-        {["quotes", "contacts", "appointments", "applications"].includes(tab) && (
+        {["quotes", "contacts", "appointments", "applications", "documentation_leads"].includes(tab) && (
           <div data-testid={`admin-${tab}-table`} className="space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10 overflow-x-auto">
             {rows.length === 0 && <p className="bg-[#F4F4F5] px-6 py-10 text-sm text-zinc-500">Nothing here yet.</p>}
             {rows.map((r) => (
               <div key={r.id} data-testid={`admin-row-${tab}-${r.id}`} className="bg-[#F4F4F5] px-6 py-5 grid lg:grid-cols-12 gap-3 items-center">
                 <div className="lg:col-span-4">
-                  <p className="font-display font-semibold text-sm text-zinc-900">{r.full_name || r.name} — {r.service || r.subject || r.job_title}</p>
+                  <p className="font-display font-semibold text-sm text-zinc-900">{r.full_name || r.name} — {r.service || r.service_type || r.subject || r.job_title}</p>
                   <p className="text-xs text-zinc-500 mt-1 truncate">{r.email} {r.country ? `· ${r.country}` : ""}</p>
                   {r.mission_token && (
                     <a data-testid={`admin-track-${r.id}`} href={`/track/${r.mission_token}`} target="_blank" rel="noopener noreferrer"
@@ -145,7 +146,7 @@ export default function Admin() {
                     </a>
                   )}
                 </div>
-                <p className="lg:col-span-5 text-xs text-zinc-600 truncate">{r.description || r.message || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
+                <p className="lg:col-span-5 text-xs text-zinc-600 truncate">{r.description || r.message || (Array.isArray(r.checklist) ? r.checklist.join(" • ") : "") || r.cover_letter || `${r.date || ""} ${r.time || ""} ${r.timezone || ""}`}</p>
                 <p className="lg:col-span-2 font-mono text-[10px] text-zinc-600">{(r.created_at || "").slice(0, 10)}</p>
                 <div className="lg:col-span-1 flex flex-col gap-2 items-start">
                   <select data-testid={`admin-status-${r.id}`} value={r.status} onChange={(e) => updateItem(tab, r.id, { status: e.target.value })}

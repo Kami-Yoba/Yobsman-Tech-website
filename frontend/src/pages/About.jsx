@@ -21,7 +21,7 @@ export default function About() {
   return (
     <div data-testid="about-page">
       <PageHero eyebrow="About Yobsman-Tech"
-        title="A Finnish technology company with a global operating vision"
+        title="An AFRO - Finnish technology company with a global operating vision"
         desc="Yobsman-Tech is a global information technology company established in Finland — engineering software, AI, data and IT operations for organizations across multiple countries." />
 
       <section className="pb-24">

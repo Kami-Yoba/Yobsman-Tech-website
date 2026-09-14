@@ -46,19 +46,21 @@ Build a premium, futuristic, monochrome (black/grey/white) corporate website for
 - 2026-09-10: Browser icon set to the user's attached Yobsman bolt mark — favicon.png (trimmed square) + multi-size favicon.ico + apple-touch-icon.png generated; manifest.json created with the icon.
 - 2026-09-14: KAGAYO app demo video (user-provided screen recording, compressed 22MB→2.2MB, black intro trimmed, poster frame) now plays inside the phone + browser mockups on the KAGAYO page and the Home KAGAYO section, replacing static mockups. Dark-mode inversion excludes video. Founder photo replaced with the new attached portrait (assets/founder.jpg). New service SRV-10 "Documentation Assistance" (immigration, tax, document drafting, application submission) — auto-appears in Services/Home/Quote/Book via API, plus contact dropdown and footer.
 - 2026-09-14: Documentation Assistance now has a dedicated `/documentation-assistance` detail page styled like OBC: five everyday-life services (immigration, tax, drafting, application submission, daily-life paperwork), four-step process, support cards, and Book/Quote CTAs that preselect SRV-10. Services card and footer link route to the page; content translated across all 18 languages. KAGAYO page hero now shows only the centered mobile demo video; the Home KAGAYO section intentionally remains unchanged.
+- 2026-09-14: Smart Document Checklist added to `/documentation-assistance`: five-step guided questionnaire (paperwork type, country/authority, stage, deadline, contact/consent) generates a localized personalized checklist, supports copy, prefills the Quote form with the checklist, and links to preselected booking. Valid responses persist as `documentation_leads`, appear in the admin “Checklist Leads” tab, and support admin status updates. About hero wording changed to “An AFRO - Finnish technology company with a global operating vision”.
 
 ## Verification status (2026-09-14)
+- 2026-09-14 testing-agent pass (iteration_2): checklist API persistence/validation, end-to-end questionnaire generation, Quote description prefill, Book service preselection, admin Checklist Leads tab and status update, Finnish/Arabic/French localization with Arabic RTL, exact About wording, and KAGAYO mobile-only regression all verified.
+- Backend regression suite passed: `pytest -q backend/tests/test_documentation_checklist.py` (2/2). Production frontend build passed (`CI=true yarn build`).
 - 2026-09-14 testing-agent pass (iteration_1): Documentation Assistance page, five service cards, Book/Quote preselection, Services and footer links, Finnish/Arabic/French localization and Arabic RTL, KAGAYO mobile-only demo, and unchanged Home videos all verified.
-- Production frontend build passed (`CI=true yarn build`).
 - Earlier curl-verified: services/jobs content, register, login, me, quote submit, contact submit, availability, booking, my-appointments, admin stats/lists, unauthenticated admin block (401)
 - Earlier screenshot-verified: hero, global presence, services, manifesto, KAGAYO page, RTL Arabic, booking flow end-to-end (confirmed), admin login → command center, users tab, mobile nav
 - Email delivery: MOCKED (SMTP_HOST empty — emails logged) until user provides SMTP credentials
 
 ## Backlog
 - P0: Real SMTP credentials (user to provide: SMTP_HOST/PORT/USER/PASS) → live email to info@/quote@yobsman-tech.com
-- P1: Google + Facebook OAuth (architecture ready, needs app credentials)
-- P1: Full professional translations for all 18 languages (currently core UI only for 17)
-- P1: Legal pages content (Privacy Policy, Terms, Cookie Policy, Accessibility statement)
+- P1: Facebook OAuth (Google OAuth is live; Facebook needs user-provided Facebook Developers App ID/Secret)
+- P1: Full professional human translation review for all 18 languages (Smart Checklist and Documentation Assistance are seeded; remaining long-form pages still need review)
+- P1: KAGAYO direct Google Play and Apple App Store listing URLs
 - P2: Calendar sync (Google/Outlook), appointment reschedule flow, email reminders
 - P2: AI chat assistant, live chat/WhatsApp/CRM integrations
 - P2: Admin WYSIWYG editing UX, image uploads for leadership/partners via CMS

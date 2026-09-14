@@ -7,6 +7,7 @@ import {
 import { useI18n } from "../i18n";
 import { Reveal, SectionHead } from "../components/Reveal";
 import { PageHero, linkBtnCls } from "../components/FormUI";
+import SmartChecklist from "../components/SmartChecklist";
 
 const DOC_SERVICE = "Documentation Assistance";
 
@@ -103,6 +104,8 @@ export default function DocumentationAssistance() {
           </div>
         </div>
       </section>
+
+      <SmartChecklist />
 
       <section data-testid="doc-support-section" className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">

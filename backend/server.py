@@ -247,6 +247,19 @@ class ContactIn(BaseModel):
     website: str = ""  # honeypot
 
 
+class ChecklistLeadIn(BaseModel):
+    name: str = Field(min_length=2, max_length=80)
+    email: EmailStr
+    service_type: str = Field(min_length=2, max_length=40)
+    country: str = Field(min_length=2, max_length=120)
+    stage: str = Field(min_length=2, max_length=40)
+    urgency: str = Field(min_length=2, max_length=40)
+    checklist: list[str] = Field(min_length=1, max_length=30)
+    language: str = Field(default="en", max_length=8)
+    consent: bool
+    website: str = ""  # honeypot
+
+
 class AppointmentIn(BaseModel):
     service: str = Field(min_length=2, max_length=80)
     date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
@@ -526,6 +539,35 @@ async def submit_contact(data: ContactIn, request: Request):
             "message": "Thank you. Your enquiry has been received — our team will respond shortly."}
 
 
+@api.post("/documentation-checklist")
+async def submit_documentation_checklist(data: ChecklistLeadIn, request: Request):
+    rate_limit(f"doc-checklist:{request.client.host}", 5, 300)
+    if data.website:
+        return {"ok": True}
+    if not data.consent:
+        raise HTTPException(422, "Consent to the privacy policy is required")
+    doc = data.model_dump()
+    doc.pop("website", None)
+    doc["email"] = doc["email"].lower()
+    doc.update({"id": new_id(), "status": "new", "source": "documentation_checklist",
+                "created_at": now().isoformat()})
+    await db.documentation_leads.insert_one(doc)
+    checklist_html = "".join(f"<li>{item}</li>" for item in doc["checklist"])
+    summary = (f"<p><b>Name:</b> {doc['name']}</p><p><b>Email:</b> {doc['email']}</p>"
+               f"<p><b>Paperwork:</b> {doc['service_type']}</p><p><b>Country/authority:</b> {doc['country']}</p>"
+               f"<p><b>Stage:</b> {doc['stage']}</p><p><b>Deadline:</b> {doc['urgency']}</p>"
+               f"<p><b>Checklist:</b></p><ol>{checklist_html}</ol>")
+    email_status = await send_email(QUOTE_EMAIL,
+        f"Documentation checklist lead — {doc['service_type']} — {doc['name']}",
+        email_template("New documentation checklist lead", summary))
+    asyncio.create_task(send_email(doc["email"], "Your documentation checklist — Yobsman-Tech",
+        email_template("Your personalized checklist",
+            f"<p>Hello {doc['name']},</p><p>Your personalized Documentation Assistance checklist is ready:</p><ol>{checklist_html}</ol>")))
+    doc.pop("_id", None)
+    return {"ok": True, "id": doc["id"], "email_status": email_status,
+            "message": "Your personalized checklist has been saved. Our documentation team can now follow up."}
+
+
 # ---------------- Appointments ----------------
 SLOT_MINUTES = 30
 BUSINESS_START, BUSINESS_END = 9, 17
@@ -721,11 +763,12 @@ async def audit(admin: dict, action: str, target: str):
 async def admin_stats(request: Request):
     await require_admin(request)
     counts = {}
-    for coll in ("users", "quotes", "contacts", "appointments", "applications", "jobs",
+    for coll in ("users", "quotes", "contacts", "appointments", "applications", "documentation_leads", "jobs",
                  "leadership", "partners", "posts"):
         counts[coll] = await db[coll].count_documents({})
     counts["quotes_new"] = await db.quotes.count_documents({"status": "new"})
     counts["contacts_new"] = await db.contacts.count_documents({"status": "new"})
+    counts["documentation_leads_new"] = await db.documentation_leads.count_documents({"status": "new"})
     counts["appointments_upcoming"] = await db.appointments.count_documents(
         {"status": "confirmed", "start_utc": {"$gte": now().isoformat()}})
     return counts
@@ -734,7 +777,7 @@ async def admin_stats(request: Request):
 @api.get("/admin/list/{coll}")
 async def admin_list(coll: str, request: Request):
     await require_admin(request)
-    allowed = {"quotes", "contacts", "appointments", "applications", "users",
+    allowed = {"quotes", "contacts", "appointments", "applications", "documentation_leads", "users",
                "services", "leadership", "partners", "jobs", "posts", "audit_logs"}
     if coll not in allowed:
         raise HTTPException(404, "Unknown collection")
@@ -745,7 +788,7 @@ async def admin_list(coll: str, request: Request):
 @api.patch("/admin/item/{coll}/{item_id}")
 async def admin_update(coll: str, item_id: str, request: Request):
     admin = await require_admin(request)
-    allowed = {"quotes", "contacts", "appointments", "applications", "users",
+    allowed = {"quotes", "contacts", "appointments", "applications", "documentation_leads", "users",
                "services", "leadership", "partners", "jobs", "posts"}
     if coll not in allowed:
         raise HTTPException(404, "Unknown collection")
