@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Scale, ShieldCheck, Lock, FileText, Globe, ArrowRight, Play, Apple } from "lucide-react";
+import { ShieldCheck, Lock, FileText, Globe, ArrowRight, Play, Apple } from "lucide-react";
 import { useI18n } from "../i18n";
 import { KAGAYO_FEATURES } from "../lib/content";
 import { Reveal, SectionHead } from "../components/Reveal";
@@ -64,22 +64,18 @@ export default function Kagayo() {
               <div className="absolute -inset-10 bg-black/[0.05] blur-3xl rounded-full" aria-hidden="true" />
               <div className="relative hidden md:block w-[420px] rounded-2xl border border-black/15 bg-[#F4F4F5] p-2.5 shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-700">
                 <div className="rounded-xl bg-black border border-black/5 overflow-hidden">
-                  <div className="h-8 flex items-center gap-1.5 px-4 border-b border-black/5">
-                    <span className="w-2 h-2 rounded-full bg-black/15" /><span className="w-2 h-2 rounded-full bg-black/15" /><span className="w-2 h-2 rounded-full bg-black/15" />
+                  <div className="h-8 flex items-center gap-1.5 px-4 border-b border-white/10 bg-zinc-950">
+                    <span className="w-2 h-2 rounded-full bg-white/20" /><span className="w-2 h-2 rounded-full bg-white/20" /><span className="w-2 h-2 rounded-full bg-white/20" />
+                    <span className="ms-3 flex-1 h-4 rounded-md bg-white/10" />
                   </div>
-                  <div className="p-8 flex flex-col items-center gap-5 min-h-[240px] justify-center">
-                    <img src="/assets/kagayo-logo-light.png" alt="" className="w-32 opacity-90" />
-                    <div className="w-full space-y-2">{[90, 70, 80].map((w) => <div key={w} className="h-2 rounded-full bg-black/10" style={{ width: `${w}%` }} />)}</div>
-                  </div>
+                  <video src="/assets/kagayo-demo.mp4" poster="/assets/kagayo-demo-poster.jpg" autoPlay muted loop playsInline preload="metadata"
+                    data-testid="kagayo-web-demo" className="w-full aspect-[4/3] object-cover" aria-label="KAGAYO app demo on web" />
                 </div>
               </div>
               <div className="relative w-52 sm:w-56 rounded-[2.2rem] border border-black/15 bg-[#F4F4F5] p-2.5 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 float-slow">
-                <div className="rounded-[1.8rem] bg-black border border-black/5 aspect-[9/19] flex flex-col items-center justify-center gap-5 p-5 overflow-hidden">
-                  <img src="/assets/kagayo-logo-light.png" alt="" className="w-24 opacity-95" />
-                  <div className="w-full space-y-2">{[85, 60, 72].map((w) => <div key={w} className="h-1.5 rounded-full bg-black/10" style={{ width: `${w}%` }} />)}</div>
-                  <div className="w-full rounded-full bg-white text-black text-center text-[9px] font-bold py-2 tracking-widest uppercase flex items-center justify-center gap-1">
-                    <Scale size={10} /> The Law Meet
-                  </div>
+                <div className="rounded-[1.8rem] bg-black border border-black/5 aspect-[9/19] overflow-hidden">
+                  <video src="/assets/kagayo-demo.mp4" poster="/assets/kagayo-demo-poster.jpg" autoPlay muted loop playsInline preload="metadata"
+                    data-testid="kagayo-mobile-demo" className="w-full h-full object-cover" aria-label="KAGAYO app demo on mobile" />
                 </div>
               </div>
             </div>

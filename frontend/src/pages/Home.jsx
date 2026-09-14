@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, ArrowUpRight, MapPin, Scale } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { useI18n } from "../i18n";
 import { api } from "../lib/api";
 import { HUBS, WHY, SOLUTIONS, INDUSTRIES, MARQUEE_ITEMS, iconFor } from "../lib/content";
@@ -215,19 +215,9 @@ export default function Home() {
             <div className="relative flex justify-center">
               <div className="absolute -inset-10 bg-black/[0.05] blur-3xl rounded-full" aria-hidden="true" />
               <div className="relative w-64 sm:w-72 rounded-[2.5rem] border border-black/15 bg-[#F4F4F5] p-3 shadow-2xl float-slow">
-                <div className="rounded-[2rem] bg-black overflow-hidden border border-black/5 aspect-[9/19] flex flex-col">
-                  <div className="h-6 flex items-center justify-center"><div className="w-16 h-1.5 rounded-full bg-black/10" /></div>
-                  <div className="flex-1 flex flex-col items-center justify-center p-6 gap-6">
-                    <img src="/assets/kagayo-logo-light.png" alt="KAGAYO — The Law Meet" className="w-28 opacity-95" />
-                    <div className="w-full space-y-2.5">
-                      {[85, 65, 75].map((w) => (
-                        <div key={w} className="h-2 rounded-full bg-black/10" style={{ width: `${w}%` }} />
-                      ))}
-                    </div>
-                    <div className="w-full rounded-full bg-white text-black text-center text-[10px] font-bold py-2.5 tracking-widest uppercase flex items-center justify-center gap-1.5">
-                      <Scale size={11} /> The Law Meet
-                    </div>
-                  </div>
+                <div className="rounded-[2rem] bg-black overflow-hidden border border-black/5 aspect-[9/19]">
+                  <video src="/assets/kagayo-demo.mp4" poster="/assets/kagayo-demo-poster.jpg" autoPlay muted loop playsInline preload="metadata"
+                    data-testid="home-kagayo-demo" className="w-full h-full object-cover" aria-label="KAGAYO app demo on mobile" />
                 </div>
               </div>
             </div>

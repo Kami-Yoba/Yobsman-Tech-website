@@ -814,6 +814,8 @@ SERVICES = [
      "desc": "Professional technology consultation delivered remotely to clients across different countries and time zones."},
     {"code": "SRV-09", "icon": "Plane", "title": "On-Board Courier (OBC)",
      "desc": "Time-critical hand-carry delivery by vetted courier partners. The requester pays the flight cost upfront; all remaining service costs are settled only after proof of delivery."},
+    {"code": "SRV-10", "icon": "Files", "title": "Documentation Assistance",
+     "desc": "Everyday documentation support for life's important matters: immigration assistance, tax assistance, document drafting and application submission support — handled with care and confidentiality."},
 ]
 
 LEADERSHIP = [

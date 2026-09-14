@@ -151,7 +151,8 @@ html[data-theme="dark"] body {
 html[data-theme="dark"] .theme-root {
     filter: invert(1) hue-rotate(180deg);
 }
-html[data-theme="dark"] .theme-root img[data-photo] {
+html[data-theme="dark"] .theme-root img[data-photo],
+html[data-theme="dark"] .theme-root video {
     filter: invert(1) hue-rotate(180deg);
 }
 html[data-theme="dark"] [data-testid="navbar"],

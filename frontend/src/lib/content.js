@@ -1,10 +1,10 @@
 import {
-  Headphones, TrendingUp, Code2, Monitor, Brain, Smartphone, BadgeCheck, Globe, Wrench, Plane,
+  Headphones, TrendingUp, Code2, Monitor, Brain, Smartphone, BadgeCheck, Globe, Wrench, Plane, Files,
 } from "lucide-react";
 
 export const ICONS = {
   Headset: Headphones, ChartLineUp: TrendingUp, Code: Code2, Desktop: Monitor,
-  Brain, DeviceMobile: Smartphone, SealCheck: BadgeCheck, GlobeHemisphereWest: Globe, Plane,
+  Brain, DeviceMobile: Smartphone, SealCheck: BadgeCheck, GlobeHemisphereWest: Globe, Plane, Files,
 };
 export const iconFor = (name) => ICONS[name] || Wrench;
 
