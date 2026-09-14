@@ -25,6 +25,7 @@ import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import Admin from "@/pages/Admin";
 import Obc from "@/pages/Obc";
+import DocumentationAssistance from "@/pages/DocumentationAssistance";
 import Legal from "@/pages/Legal";
 import Track from "@/pages/Track";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
@@ -71,6 +72,7 @@ function AppRoutes() {
         <Route path="/quote" element={<Quote />} />
         <Route path="/book" element={<Book />} />
         <Route path="/obc" element={<Obc />} />
+        <Route path="/documentation-assistance" element={<DocumentationAssistance />} />
         <Route path="/track/:token" element={<Track />} />
         <Route path="/privacy" element={<Legal page="privacy" />} />
         <Route path="/terms" element={<Legal page="terms" />} />

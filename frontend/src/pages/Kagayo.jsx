@@ -60,19 +60,9 @@ export default function Kagayo() {
             </Reveal>
           </div>
           <Reveal delay={0.15}>
-            <div className="relative flex justify-center items-center gap-6">
+            <div className="relative flex justify-center items-center">
               <div className="absolute -inset-10 bg-black/[0.05] blur-3xl rounded-full" aria-hidden="true" />
-              <div className="relative hidden md:block w-[420px] rounded-2xl border border-black/15 bg-[#F4F4F5] p-2.5 shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-700">
-                <div className="rounded-xl bg-black border border-black/5 overflow-hidden">
-                  <div className="h-8 flex items-center gap-1.5 px-4 border-b border-white/10 bg-zinc-950">
-                    <span className="w-2 h-2 rounded-full bg-white/20" /><span className="w-2 h-2 rounded-full bg-white/20" /><span className="w-2 h-2 rounded-full bg-white/20" />
-                    <span className="ms-3 flex-1 h-4 rounded-md bg-white/10" />
-                  </div>
-                  <video src="/assets/kagayo-demo.mp4" poster="/assets/kagayo-demo-poster.jpg" autoPlay muted loop playsInline preload="metadata"
-                    data-testid="kagayo-web-demo" className="w-full aspect-[4/3] object-cover" aria-label="KAGAYO app demo on web" />
-                </div>
-              </div>
-              <div className="relative w-52 sm:w-56 rounded-[2.2rem] border border-black/15 bg-[#F4F4F5] p-2.5 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 float-slow">
+              <div className="relative w-52 sm:w-60 rounded-[2.2rem] border border-black/15 bg-[#F4F4F5] p-2.5 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700 float-slow">
                 <div className="rounded-[1.8rem] bg-black border border-black/5 aspect-[9/19] overflow-hidden">
                   <video src="/assets/kagayo-demo.mp4" poster="/assets/kagayo-demo-poster.jpg" autoPlay muted loop playsInline preload="metadata"
                     data-testid="kagayo-mobile-demo" className="w-full h-full object-cover" aria-label="KAGAYO app demo on mobile" />

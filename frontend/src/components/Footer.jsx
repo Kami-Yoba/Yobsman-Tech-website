@@ -13,7 +13,7 @@ export default function Footer() {
       ["Software Development", "/services"], ["AI Integration", "/services"],
       ["Mobile Development", "/services"], ["QA & Testing", "/services"],
       ["IT Consultation", "/services"], ["On-Board Courier (OBC)", "/obc"],
-      ["Documentation Assistance", "/services"]] },
+      ["Documentation Assistance", "/documentation-assistance"]] },
     { title: t("footer.products"), links: [
       ["KAGAYO — The Law Meet", "/kagayo"], ["Insights", "/insights"]] },
     { title: t("footer.support"), links: [

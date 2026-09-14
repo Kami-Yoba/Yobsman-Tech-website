@@ -23,6 +23,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-px rounded-2xl overflow-hidden border border-black/10 bg-black/10">
           {services.map((s, i) => {
             const Icon = iconFor(s.icon);
+            const detailPath = s.code === "SRV-10" ? "/documentation-assistance" : null;
             return (
               <Reveal key={s.id} delay={i * 0.03}>
                 <div data-testid={`service-row-${s.code}`}
@@ -34,7 +35,13 @@ export default function Services() {
                     </div>
                   </div>
                   <div className="md:col-span-6">
-                    <h2 className="font-display text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-tight">{s.title}</h2>
+                    {detailPath ? (
+                      <Link to={detailPath} data-testid="service-detail-SRV-10" className="inline-flex items-center gap-2 font-display text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-tight hover:text-zinc-600 transition-colors duration-300">
+                        {s.title} <ArrowUpRight size={22} />
+                      </Link>
+                    ) : (
+                      <h2 className="font-display text-2xl sm:text-3xl font-semibold text-zinc-950 tracking-tight">{s.title}</h2>
+                    )}
                     <p className="mt-3 text-sm sm:text-base text-zinc-600 leading-relaxed max-w-xl">{s.desc}</p>
                   </div>
                   <div className="md:col-span-4 flex flex-col items-stretch md:items-end gap-3">

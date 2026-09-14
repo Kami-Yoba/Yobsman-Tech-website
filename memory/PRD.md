@@ -45,10 +45,13 @@ Build a premium, futuristic, monochrome (black/grey/white) corporate website for
 - 2026-09-10: KAGAYO deep-link live — "Access KAGAYO" and "Open KAGAYO app" CTAs point to https://www.kagayo.app (new tab). Google Play + App Store download badges added on the KAGAYO hero (currently linking to www.kagayo.app until real store listing URLs exist). Facebook page https://www.facebook.com/profile.php?id=61569349950144 wired as the social link in footer + contact page. Facebook LOGIN still MOCKED — user shared a page URL, not an App ID/Secret (needs developers.facebook.com app credentials).
 - 2026-09-10: Browser icon set to the user's attached Yobsman bolt mark — favicon.png (trimmed square) + multi-size favicon.ico + apple-touch-icon.png generated; manifest.json created with the icon.
 - 2026-09-14: KAGAYO app demo video (user-provided screen recording, compressed 22MB→2.2MB, black intro trimmed, poster frame) now plays inside the phone + browser mockups on the KAGAYO page and the Home KAGAYO section, replacing static mockups. Dark-mode inversion excludes video. Founder photo replaced with the new attached portrait (assets/founder.jpg). New service SRV-10 "Documentation Assistance" (immigration, tax, document drafting, application submission) — auto-appears in Services/Home/Quote/Book via API, plus contact dropdown and footer.
+- 2026-09-14: Documentation Assistance now has a dedicated `/documentation-assistance` detail page styled like OBC: five everyday-life services (immigration, tax, drafting, application submission, daily-life paperwork), four-step process, support cards, and Book/Quote CTAs that preselect SRV-10. Services card and footer link route to the page; content translated across all 18 languages. KAGAYO page hero now shows only the centered mobile demo video; the Home KAGAYO section intentionally remains unchanged.
 
-## Verification status (2026-09-07)
-- curl-verified: services/jobs content, register, login, me, quote submit, contact submit, availability, booking, my-appointments, admin stats/lists, unauthenticated admin block (401)
-- Screenshot-verified: hero, global presence, services, manifesto, KAGAYO page, RTL Arabic, booking flow end-to-end (confirmed), admin login → command center, users tab, mobile nav
+## Verification status (2026-09-14)
+- 2026-09-14 testing-agent pass (iteration_1): Documentation Assistance page, five service cards, Book/Quote preselection, Services and footer links, Finnish/Arabic/French localization and Arabic RTL, KAGAYO mobile-only demo, and unchanged Home videos all verified.
+- Production frontend build passed (`CI=true yarn build`).
+- Earlier curl-verified: services/jobs content, register, login, me, quote submit, contact submit, availability, booking, my-appointments, admin stats/lists, unauthenticated admin block (401)
+- Earlier screenshot-verified: hero, global presence, services, manifesto, KAGAYO page, RTL Arabic, booking flow end-to-end (confirmed), admin login → command center, users tab, mobile nav
 - Email delivery: MOCKED (SMTP_HOST empty — emails logged) until user provides SMTP credentials
 
 ## Backlog
