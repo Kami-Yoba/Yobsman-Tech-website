@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeft, LogOut, Menu, X, User, Sun, Moon } from "lucide-react";
+import { ArrowLeft, ChevronDown, LogOut, Menu, User, X, Sun, Moon } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "../i18n";
 import { useAuth } from "../context/AuthContext";
@@ -12,6 +12,73 @@ const LINKS = [
   ["kagayo", "/kagayo"], ["leadership", "/leadership"], ["partners", "/partners"],
   ["careers", "/careers"], ["insights", "/insights"], ["contact", "/contact"],
 ];
+const STAFF_ROLES = ["admin", "super_admin", "hr", "support", "sales", "content"];
+
+function ProfileMenu({ user, onSignOut, prefix, compact = false }) {
+  const { t } = useI18n();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const isStaff = STAFF_ROLES.includes(user.role);
+  const destination = isStaff ? "/admin" : "/dashboard";
+  const firstName = (user.name || "Account").trim().split(/\s+/)[0];
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = (event) => {
+      if (!event.target.closest("[data-profile-root]")) setOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", close);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("mousedown", close);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  const goToAccount = () => {
+    setOpen(false);
+    navigate(destination);
+  };
+
+  const signOut = async () => {
+    setOpen(false);
+    await onSignOut();
+  };
+
+  return (
+    <div data-profile-root className="relative">
+      <button type="button" data-testid={`${prefix}-profile-btn`} onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="menu"
+        className="flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-2.5 py-2 text-zinc-700 hover:border-black/30 hover:text-zinc-950 transition-[border-color,color,background-color] duration-300">
+        <span className="w-6 h-6 rounded-full bg-zinc-950 text-white flex items-center justify-center text-[11px] font-semibold">
+          {firstName.slice(0, 1).toUpperCase()}
+        </span>
+        {!compact && <span className="hidden lg:inline text-[13px] font-medium whitespace-nowrap">{firstName}</span>}
+        <ChevronDown size={13} className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div data-testid={`${prefix}-profile-menu`} role="menu"
+          className="absolute right-0 top-full mt-3 w-64 rounded-2xl border border-black/10 bg-[#FAFAFA]/95 backdrop-blur-2xl shadow-2xl p-3 z-[70]">
+          <div className="px-3 py-3 border-b border-black/5">
+            <p data-testid={`${prefix}-profile-name`} className="font-display text-sm font-semibold text-zinc-950">{user.name}</p>
+            <p data-testid={`${prefix}-profile-email`} className="text-xs text-zinc-500 mt-1 truncate">{user.email}</p>
+          </div>
+          <button type="button" data-testid={`${prefix}-profile-account-link`} onClick={goToAccount} role="menuitem"
+            className="mt-2 w-full flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-zinc-700 hover:bg-zinc-950 hover:text-white transition-colors duration-200">
+            <User size={15} /> {isStaff ? t("nav.admin") : t("nav.dashboard")}
+          </button>
+          <button type="button" data-testid={`${prefix}-profile-signout`} onClick={signOut} role="menuitem"
+            className="w-full flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-zinc-700 hover:bg-zinc-950 hover:text-white transition-colors duration-200">
+            <LogOut size={15} /> {t("nav.logout")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const { t } = useI18n();
@@ -72,37 +139,29 @@ export default function Navbar() {
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <LanguageSelector />
-          <Link to="/book" data-testid="nav-book-btn" className="text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
-            {t("nav.book")}
-          </Link>
           {user ? (
-            <>
-              <Link to={user.role === "admin" ? "/admin" : "/dashboard"} data-testid="nav-account-btn"
-                className="flex items-center gap-2 text-[13px] text-zinc-700 hover:text-zinc-950 transition-colors duration-300">
-                <User size={15} /> {user.role === "admin" ? t("nav.admin") : t("nav.dashboard")}
-              </Link>
-              <button type="button" data-testid="nav-signout-btn" onClick={signOut}
-                className="flex items-center gap-2 text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
-                <LogOut size={15} /> {t("nav.logout")}
-              </button>
-            </>
+            <ProfileMenu user={user} onSignOut={signOut} prefix="nav" />
           ) : (
             <Link to="/login" data-testid="nav-login-btn" className="text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
               {t("nav.login")}
             </Link>
           )}
-          <Link to="/quote" data-testid="nav-quote-btn"
-            className="rounded-full bg-zinc-950 text-white text-[13px] font-semibold px-5 py-2 hover:bg-zinc-800 hover:shadow-[0_0_24px_rgba(9,9,11,0.2)] transition-[background-color,box-shadow] duration-300">
-            {t("nav.quote")}
-          </Link>
         </div>
 
-        <div className="flex lg:hidden items-center gap-3">
+        <div className="flex lg:hidden items-center gap-2">
           <button data-testid="theme-toggle-mobile" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
             className="p-2 text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <LanguageSelector />
+          {user ? (
+            <ProfileMenu user={user} onSignOut={signOut} prefix="mobile" compact />
+          ) : (
+            <Link to="/login" data-testid="mobile-login-link" aria-label={t("nav.login")}
+              className="p-2 rounded-full text-zinc-700 hover:text-zinc-950 hover:bg-black/5 transition-[color,background-color] duration-200">
+              <User size={19} />
+            </Link>
+          )}
           <button data-testid="nav-menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}
             className="p-2 text-zinc-700 hover:text-zinc-950 transition-colors duration-200">
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -119,22 +178,6 @@ export default function Navbar() {
                 {t(`nav.${key}`)}
               </button>
             ))}
-            <div className="flex gap-3 p-3 border-t border-black/5 mt-1">
-              <button data-testid="mobile-nav-login" onClick={() => { setOpen(false); navigate(user ? (user.role === "admin" ? "/admin" : "/dashboard") : "/login"); }}
-                className="flex-1 rounded-full border border-black/20 text-zinc-950 text-sm py-3 hover:border-black/60 transition-colors duration-200">
-                {user ? t("nav.dashboard") : t("nav.login")}
-              </button>
-              <button data-testid="mobile-nav-quote" onClick={() => { setOpen(false); navigate("/quote"); }}
-                className="flex-1 rounded-full bg-zinc-950 text-white text-sm font-semibold py-3 hover:bg-zinc-800 transition-colors duration-200">
-                {t("nav.quote")}
-              </button>
-            </div>
-            {user && (
-              <button data-testid="mobile-nav-signout" onClick={signOut}
-                className="mx-3 mb-3 flex items-center justify-center gap-2 rounded-full border border-black/20 text-zinc-700 text-sm py-3 hover:border-black/60 hover:text-zinc-950 transition-colors duration-200">
-                <LogOut size={15} /> {t("nav.logout")}
-              </button>
-            )}
           </div>
         </div>
       )}

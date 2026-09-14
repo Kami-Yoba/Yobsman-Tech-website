@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Calendar, FileText, Bell, User, Globe, LogOut } from "lucide-react";
+import { Calendar, FileText, Bell, User, Globe } from "lucide-react";
 import { api, errMsg } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
 import { useI18n } from "../i18n";
@@ -20,7 +20,7 @@ const STATUS_CLS = {
 
 export default function Dashboard() {
   const { t, languages, setLang } = useI18n();
-  const { user, setUser, logout } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [tab, setTab] = useState("overview");
   const [overview, setOverview] = useState(null);
@@ -77,15 +77,9 @@ export default function Dashboard() {
   return (
     <div data-testid="dashboard-page" className="pt-28 sm:pt-32 pb-24 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
-          <div>
-            <p className="mono-label mb-2">Client Portal</p>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950">{t("dashboard.welcome")}, {user.name}</h1>
-          </div>
-          <button data-testid="dashboard-logout-btn" onClick={async () => { navigate("/", { replace: true }); await logout(); }}
-            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-sm text-zinc-700 hover:border-black/50 hover:text-zinc-950 transition-[border-color,color] duration-300">
-            <LogOut size={15} /> {t("nav.logout")}
-          </button>
+        <div className="mb-10">
+          <p className="mono-label mb-2">Client Portal</p>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950">{t("dashboard.welcome")}, {user.name}</h1>
         </div>
 
         <div className="flex gap-1 overflow-x-auto border-b border-black/10 mb-10" role="tablist">
