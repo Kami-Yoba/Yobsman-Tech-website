@@ -53,3 +53,16 @@ export const MARQUEE_ITEMS = [
   "KAGAYO — The Law Meet", "Software Engineering", "18 Languages", "Remote Consultation",
   "Quality Assured", "GDPR by Design",
 ];
+
+
+export const serviceSlug = (title) => title.toLowerCase()
+  .replace(/&/g, " and ")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/-and-/g, "-")
+  .replace(/^-+|-+$/g, "");
+
+export const servicePath = (service) => {
+  if (service.code === "SRV-09") return "/obc";
+  if (service.code === "SRV-10") return "/documentation-assistance";
+  return `/services/${serviceSlug(service.title)}`;
+};

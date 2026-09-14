@@ -1,0 +1,29 @@
+{
+  "summary": "Verified sign-out (customer + admin, desktop + mobile), Back-icon navigation, Home service-card destinations, Services page 10-row destinations, and 4 generic ServiceDetail pages (Software Development, Data Analysis, AI Integration, Remote IT Consultation). Invalid slug redirects to /services. Regression: /obc and /documentation-assistance still render. One functional issue found: Back icon on a directly-loaded detail page does NOT fall back to Home; it navigates to about:blank because window.history.length includes the initial blank entry.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Navbar back button", "issue": "goBack() uses window.history.length > 1 which is truthy for direct navigations (initial about:blank counts as an entry), so on a fresh tab opened at /services/software-development, clicking Back navigates to about:blank instead of falling back to Home ('/'). Spec explicitly requires Home fallback for direct links.", "selector": "[data-testid='nav-back-btn']", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_3.json"],
+  "action_items": [
+    "Fix Navbar.goBack fallback for direct links. Recommended: use react-router's useNavigationType() === 'POP' with location.key === 'default' (fresh entry) OR track an internal-navigation ref, then navigate('/') when no in-app history exists. Example: `const navType = useNavigationType(); const isFresh = location.key === 'default'; ... if (!isFresh) navigate(-1); else navigate('/');`"
+  ],
+  "critical_code_review_comments": [
+    "Navbar.jsx goBack: window.history.length includes the browser's initial entry (about:blank), so >1 check is unreliable for detecting in-app history. Use react-router state (location.key === 'default') instead.",
+    "AuthContext.logout swallows errors silently (`catch {}`). Acceptable for UX, but consider logging in dev to detect broken logout endpoint.",
+    "After signout from /dashboard or /admin, users land on /login rather than / because the protected page redirects on user===false racing navigate('/'). Not a spec failure (session is cleared and /api/auth/me returns 401) but spec said 'lands on Home'. Consider adding an early `navigate('/','replace')` before setUser(false), or gate the redirect in Dashboard/Admin to skip if pathname changed.",
+    "ServiceDetail Navigate to /services on unknown slug works correctly; verified with /services/does-not-exist-xyz."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "92%"},
+  "test_credentials": "Customer: demo.client@yobsman-test.com / DemoClient2026! (verified); Admin: admin@yobsman-tech.com / YobsmanAdmin2026! (verified). Both sessions cleared via POST /api/auth/logout; /api/auth/me returns 401 after logout.",
+  "seed_data_creation": "None.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Verified all Home service cards route to specific pages: SRV-01..08 -> /services/<slug>, SRV-09 -> /obc, SRV-10 -> /documentation-assistance. Same for Services page rows. Detail pages for software-development, data-analysis, ai-integration, remote-it-consultation each render 5 included cards, 4 process steps, 4 outcome cards; Book/Quote CTAs prefill ?service=<Title>. Sign-out works for both roles on desktop and mobile; /api/auth/me returns 401 after logout. Back button hidden on Home (location.pathname==='/'), visible on all non-home pages. KNOWN BUG: on a directly-loaded detail page (fresh tab) the Back button leads to about:blank because window.history.length===2 (about:blank + current page). Reproduced at /services/software-development in a fresh browser context. Facebook heartbeat 401s remain out of scope.",
+  "rca of the issue": "Navbar.goBack() logic: `if (window.history.length > 1) navigate(-1); else navigate('/')`. When the user opens the detail URL directly, the browser session's history stack begins with about:blank (or the previous cross-site page) plus the current page, so history.length is >=2 and navigate(-1) goes there. Correct detection of an 'in-app' first entry requires react-router's location.key === 'default' or a top-level ref that increments on internal navigations. Reproduction: open a new tab, visit https://yobsman-preview.preview.emergentagent.com/services/software-development, wait for load, click the back-arrow icon in the navbar -> browser navigates to about:blank rather than /."
+}

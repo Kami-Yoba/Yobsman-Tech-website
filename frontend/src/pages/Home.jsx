@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { useI18n } from "../i18n";
 import { api } from "../lib/api";
-import { HUBS, WHY, SOLUTIONS, INDUSTRIES, MARQUEE_ITEMS, iconFor } from "../lib/content";
+import { HUBS, WHY, SOLUTIONS, INDUSTRIES, MARQUEE_ITEMS, iconFor, servicePath } from "../lib/content";
 import { MaskedLines, Reveal, SectionHead } from "../components/Reveal";
 import NetworkCanvas from "../components/NetworkCanvas";
 import Marquee from "../components/Marquee";
@@ -152,7 +152,7 @@ export default function Home() {
               const Icon = iconFor(s.icon);
               return (
                 <Reveal key={s.id} delay={i * 0.05}>
-                  <Link to="/services" data-testid={`service-card-${s.code}`}
+                  <Link to={servicePath(s)} data-testid={`service-card-${s.code}`}
                     className="group block h-full rounded-2xl border border-black/10 bg-[#FFFFFF] p-7 hover:border-black/30 hover:bg-[#E9E9EC] hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500">
                     <span className="mono-label">{s.code}</span>
                     <div className="mt-6 w-11 h-11 rounded-xl border border-black/10 bg-black/5 flex items-center justify-center group-hover:border-black/30 transition-colors duration-500">

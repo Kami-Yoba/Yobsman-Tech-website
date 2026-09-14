@@ -82,7 +82,7 @@ export default function Dashboard() {
             <p className="mono-label mb-2">Client Portal</p>
             <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-950">{t("dashboard.welcome")}, {user.name}</h1>
           </div>
-          <button data-testid="dashboard-logout-btn" onClick={async () => { await logout(); navigate("/"); }}
+          <button data-testid="dashboard-logout-btn" onClick={async () => { navigate("/", { replace: true }); await logout(); }}
             className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-sm text-zinc-700 hover:border-black/50 hover:text-zinc-950 transition-[border-color,color] duration-300">
             <LogOut size={15} /> {t("nav.logout")}
           </button>

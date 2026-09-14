@@ -8,6 +8,7 @@ import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
+import ServiceDetail from "@/pages/ServiceDetail";
 import Solutions from "@/pages/Solutions";
 import Kagayo from "@/pages/Kagayo";
 import Partners from "@/pages/Partners";
@@ -60,6 +61,7 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/solutions" element={<Solutions />} />
         <Route path="/kagayo" element={<Kagayo />} />
         <Route path="/partners" element={<Partners />} />

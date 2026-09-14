@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Menu, X, User, Sun, Moon } from "lucide-react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeft, LogOut, Menu, X, User, Sun, Moon } from "lucide-react";
+import { toast } from "sonner";
 import { useI18n } from "../i18n";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -14,11 +15,12 @@ const LINKS = [
 
 export default function Navbar() {
   const { t } = useI18n();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -27,12 +29,33 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const goBack = () => {
+    setOpen(false);
+    if (location.key === "default") navigate("/");
+    else navigate(-1);
+  };
+
+  const signOut = async () => {
+    setOpen(false);
+    navigate("/", { replace: true });
+    await logout();
+    toast.success(t("nav.signedOut"));
+  };
+
   return (
     <header data-testid="navbar" className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,box-shadow] duration-500 ${scrolled || open ? "bg-[#FAFAFA]/85 backdrop-blur-2xl border-b border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]" : "bg-transparent border-b border-transparent"}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-4" aria-label="Main navigation">
-        <Link to="/" data-testid="nav-logo" className="flex items-center gap-3 shrink-0" onClick={() => setOpen(false)}>
-          <img src="/assets/yobsman-logo.png" alt="Yobsman-Tech" className="h-11 sm:h-14 w-auto" />
-        </Link>
+        <div className="flex items-center gap-2 shrink-0">
+          {location.pathname !== "/" && (
+            <button type="button" data-testid="nav-back-btn" onClick={goBack} aria-label={t("nav.back")}
+              className="p-2 rounded-full text-zinc-600 hover:text-zinc-950 hover:bg-black/5 transition-[color,background-color] duration-300">
+              <ArrowLeft size={18} />
+            </button>
+          )}
+          <Link to="/" data-testid="nav-logo" className="flex items-center gap-3 shrink-0" onClick={() => setOpen(false)}>
+            <img src="/assets/yobsman-logo.png" alt="Yobsman-Tech" className="h-11 sm:h-14 w-auto" />
+          </Link>
+        </div>
 
         <div className="hidden lg:flex items-center gap-6">
           {LINKS.slice(0, 7).map(([key, to]) => (
@@ -53,10 +76,16 @@ export default function Navbar() {
             {t("nav.book")}
           </Link>
           {user ? (
-            <Link to={user.role === "admin" ? "/admin" : "/dashboard"} data-testid="nav-account-btn"
-              className="flex items-center gap-2 text-[13px] text-zinc-700 hover:text-zinc-950 transition-colors duration-300">
-              <User size={15} /> {user.role === "admin" ? t("nav.admin") : t("nav.dashboard")}
-            </Link>
+            <>
+              <Link to={user.role === "admin" ? "/admin" : "/dashboard"} data-testid="nav-account-btn"
+                className="flex items-center gap-2 text-[13px] text-zinc-700 hover:text-zinc-950 transition-colors duration-300">
+                <User size={15} /> {user.role === "admin" ? t("nav.admin") : t("nav.dashboard")}
+              </Link>
+              <button type="button" data-testid="nav-signout-btn" onClick={signOut}
+                className="flex items-center gap-2 text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
+                <LogOut size={15} /> {t("nav.logout")}
+              </button>
+            </>
           ) : (
             <Link to="/login" data-testid="nav-login-btn" className="text-[13px] text-zinc-600 hover:text-zinc-950 transition-colors duration-300">
               {t("nav.login")}
@@ -100,6 +129,12 @@ export default function Navbar() {
                 {t("nav.quote")}
               </button>
             </div>
+            {user && (
+              <button data-testid="mobile-nav-signout" onClick={signOut}
+                className="mx-3 mb-3 flex items-center justify-center gap-2 rounded-full border border-black/20 text-zinc-700 text-sm py-3 hover:border-black/60 hover:text-zinc-950 transition-colors duration-200">
+                <LogOut size={15} /> {t("nav.logout")}
+              </button>
+            )}
           </div>
         </div>
       )}

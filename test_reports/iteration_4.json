@@ -1,0 +1,24 @@
+{
+  "summary": "Focused retest of iteration_3 fixes. All 7 targeted checks PASS: (1) direct-link Back on /services/software-development in a fresh browser context lands on Home (not about:blank); (2) Home -> service detail -> Back returns to Home; (3) customer navbar sign-out -> Home, Login visible, /api/auth/me=401; (4) admin navbar sign-out -> Home, Login visible, /api/auth/me=401; (5) dashboard-logout-btn -> Home (not /login), /api/auth/me=401; (6) mobile signout -> Home, /api/auth/me=401; (7) /services/software-development still renders full content. The HIGH bug from iteration_3 is fixed and no regressions observed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_4.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Navbar.goBack now correctly uses react-router location.key === 'default' to detect fresh entry — good fix.",
+    "Signout order (navigate Home before logout) resolves the protected-page race that previously sent users to /login. Confirmed both navbar signout and dashboard-logout-btn now land on '/'.",
+    "Facebook OAuth heartbeat 401 console noise remains (mocked, out of scope per request)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "Customer: demo.client@yobsman-test.com / DemoClient2026! (verified); Admin: admin@yobsman-tech.com / YobsmanAdmin2026! (verified).",
+  "seed_data_creation": "None.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "iteration_3 HIGH bug (direct-link Back -> about:blank) is fully fixed via location.key==='default' check. Signout landing race also fixed by navigating Home BEFORE calling logout() in both Navbar.signOut and Dashboard.dashboard-logout-btn onClick. All 7 retest scenarios pass in fresh browser contexts across desktop and mobile viewports.",
+  "rca of the issue": "Not applicable — retest confirms fix. Original RCA in iteration_3."
+}
