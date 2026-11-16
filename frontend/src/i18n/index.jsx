@@ -4,6 +4,7 @@ import { translations } from "./translations";
 import { legalObc } from "./legalObc";
 import { documentation } from "./documentation";
 import { docChecklist } from "./checklist";
+import { servicePages } from "./servicePages";
 import { LANGUAGES } from "./languages";
 
 const I18nContext = createContext(null);
@@ -30,7 +31,7 @@ export function I18nProvider({ children }) {
   }, [lang, active.dir]);
 
   const t = useCallback((key) => {
-    const merged = lang !== "en" ? { ...translations[lang], ...legalObc[lang], ...documentation[lang], ...docChecklist[lang] } : null;
+    const merged = lang !== "en" ? { ...translations[lang], ...legalObc[lang], ...documentation[lang], ...docChecklist[lang], ...servicePages[lang] } : null;
     const local = merged ? lookup(merged, key) : undefined;
     if (local !== undefined) return local;
     const fallback = lookup(en, key);

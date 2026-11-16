@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle, ClipboardList, Copy, Send } from "lucide-react";
 import { toast } from "sonner";
 import { api, errMsg } from "../lib/api";
+import { useAuth } from "../context/AuthContext";
 import { useI18n } from "../i18n";
 import { Reveal, SectionHead } from "./Reveal";
 import { Field, inputCls, linkBtnCls } from "./FormUI";
@@ -17,6 +18,7 @@ const localizedList = (value, key) => (value && Array.isArray(value[key]) ? valu
 
 export default function SmartChecklist() {
   const { t, lang } = useI18n();
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
@@ -24,6 +26,16 @@ export default function SmartChecklist() {
     service_type: "", country: "", stage: "", urgency: "",
     name: "", email: "", consent: false, website: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setAnswers((current) => ({
+        ...current,
+        name: current.name || user.name || "",
+        email: current.email || user.email || "",
+      }));
+    }
+  }, [user]);
 
   const servicesT = t("docChecklist.services");
   const stagesT = t("docChecklist.stages");

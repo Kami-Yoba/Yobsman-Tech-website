@@ -549,7 +549,9 @@ async def submit_documentation_checklist(data: ChecklistLeadIn, request: Request
     doc = data.model_dump()
     doc.pop("website", None)
     doc["email"] = doc["email"].lower()
+    user = await optional_user(request)
     doc.update({"id": new_id(), "status": "new", "source": "documentation_checklist",
+                "user_id": user["id"] if user else None,
                 "created_at": now().isoformat()})
     await db.documentation_leads.insert_one(doc)
     checklist_html = "".join(f"<li>{item}</li>" for item in doc["checklist"])
@@ -642,7 +644,9 @@ async def my_overview(request: Request):
     upcoming = await db.appointments.count_documents({"user_id": user["id"], "status": "confirmed",
                                                       "start_utc": {"$gte": now().isoformat()}})
     notifications = await db.notifications.count_documents({"user_id": user["id"], "read": False})
-    return {"user": user, "appointments": appts, "upcoming": upcoming, "unread_notifications": notifications}
+    checklists = await db.documentation_leads.count_documents({"user_id": user["id"]})
+    return {"user": user, "appointments": appts, "upcoming": upcoming,
+            "unread_notifications": notifications, "checklists": checklists}
 
 
 @api.get("/my/appointments")
@@ -667,6 +671,12 @@ async def cancel_appointment(appt_id: str, request: Request):
 async def my_quotes(request: Request):
     user = await get_current_user(request)
     return await db.quotes.find({"email": user["email"]}, {"_id": 0}).sort("created_at", -1).to_list(100)
+
+
+@api.get("/my/checklists")
+async def my_checklists(request: Request):
+    user = await get_current_user(request)
+    return await db.documentation_leads.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", -1).to_list(100)
 
 
 @api.patch("/my/profile")
@@ -859,6 +869,8 @@ SERVICES = [
      "desc": "Time-critical hand-carry delivery by vetted courier partners. The requester pays the flight cost upfront; all remaining service costs are settled only after proof of delivery."},
     {"code": "SRV-10", "icon": "Files", "title": "Documentation Assistance",
      "desc": "Everyday documentation support for life's important matters: immigration assistance, tax assistance, document drafting and application submission support — handled with care and confidentiality."},
+    {"code": "SRV-11", "icon": "Radio", "title": "TikTok LIVE Partner Network",
+     "desc": "Creator network development, TikTok LIVE readiness, coaching, compliance guidance, monetization workflows and performance support for live creators and partners."},
 ]
 
 LEADERSHIP = [

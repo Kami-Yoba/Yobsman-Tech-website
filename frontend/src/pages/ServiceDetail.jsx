@@ -29,19 +29,25 @@ export default function ServiceDetail() {
 
   if (!detail) return <Navigate to="/services" replace />;
 
-  const title = service?.title || detail.title;
-  const desc = service?.desc || detail.desc;
+  const translated = t(`servicePages.${slug}`);
+  const page = translated && typeof translated === "object" ? translated : detail;
+  const title = page.title || service?.title || detail.title;
+  const desc = page.desc || service?.desc || detail.desc;
+  const intro = page.intro || detail.intro;
+  const included = page.included || detail.included;
+  const process = page.process || detail.process;
+  const outcomes = page.outcomes || detail.outcomes;
   const Icon = iconFor(service?.icon || "Code");
 
   return (
     <div data-testid="service-detail-page">
-      <PageHero eyebrow={`${detail.code} — ${t("serviceDetail.eyebrow")}`} title={title} desc={`${desc} ${detail.intro}`} />
+      <PageHero eyebrow={`${detail.code} — ${t("serviceDetail.eyebrow")}`} title={title} desc={`${desc} ${intro}`} />
 
       <section data-testid="service-included-section" className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow={t("serviceDetail.includedEyebrow")} title={t("serviceDetail.includedTitle")} desc={t("serviceDetail.includedDesc")} />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {detail.included.map((item, i) => (
+            {included.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.05}>
                 <div data-testid={`service-included-card-${i + 1}`} className="rounded-2xl border border-black/10 bg-white p-8 h-full hover:border-black/30 hover:-translate-y-1 transition-[border-color,transform] duration-500">
                   <CheckCircle size={22} className="text-zinc-500" />
@@ -71,7 +77,7 @@ export default function ServiceDetail() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead light eyebrow={t("serviceDetail.processEyebrow")} title={t("serviceDetail.processTitle")} desc={t("serviceDetail.processDesc")} />
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {detail.process.map((step, i) => (
+            {process.map((step, i) => (
               <Reveal key={step.title} delay={i * 0.06}>
                 <div data-testid={`service-process-step-${i + 1}`} className="rounded-2xl bg-white border border-black/10 p-8 h-full hover:border-black/30 transition-colors duration-300">
                   <span className="font-mono text-sm text-zinc-400">{String(i + 1).padStart(2, "0")}</span>
@@ -88,7 +94,7 @@ export default function ServiceDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <SectionHead eyebrow={t("serviceDetail.outcomesEyebrow")} title={t("serviceDetail.outcomesTitle")} desc={t("serviceDetail.outcomesDesc")} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {detail.outcomes.map((item, i) => {
+            {outcomes.map((item, i) => {
               const OutcomeIcon = OUTCOME_ICONS[i % OUTCOME_ICONS.length];
               return (
                 <Reveal key={item.title} delay={i * 0.06}>

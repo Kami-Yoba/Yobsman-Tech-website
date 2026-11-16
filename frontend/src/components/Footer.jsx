@@ -9,11 +9,12 @@ export default function Footer() {
       [t("footer.about"), "/about"], [t("footer.leadership"), "/leadership"],
       [t("footer.careers"), "/careers"], [t("footer.partners"), "/partners"]] },
     { title: t("footer.services"), links: [
-      ["IT Support", "/services"], ["Data Analysis", "/services"],
-      ["Software Development", "/services"], ["AI Integration", "/services"],
-      ["Mobile Development", "/services"], ["QA & Testing", "/services"],
-      ["IT Consultation", "/services"], ["On-Board Courier (OBC)", "/obc"],
-      ["Documentation Assistance", "/documentation-assistance"]] },
+      ["IT Support", "/services/it-support-service-desk"], ["Data Analysis", "/services/data-analysis"],
+      ["Software Development", "/services/software-development"], ["AI Integration", "/services/ai-integration"],
+      ["Mobile Development", "/services/mobile-application-development"], ["QA & Testing", "/services/quality-assurance-testing"],
+      ["IT Consultation", "/services/remote-it-consultation"], ["On-Board Courier (OBC)", "/obc"],
+      ["Documentation Assistance", "/documentation-assistance"],
+      ["TikTok LIVE Partner Network", "/services/tiktok-live-partner-network"]] },
     { title: t("footer.products"), links: [
       ["KAGAYO — The Law Meet", "/kagayo"], ["Insights", "/insights"]] },
     { title: t("footer.support"), links: [

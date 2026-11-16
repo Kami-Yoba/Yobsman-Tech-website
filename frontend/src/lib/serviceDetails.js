@@ -199,4 +199,29 @@ export const SERVICE_DETAILS = {
       { title: "Actionable next steps", desc: "Every consultation ends with priorities, owners and practical recommendations." },
     ],
   },
+  "tiktok-live-partner-network": {
+    code: "SRV-11",
+    title: "TikTok LIVE Partner Network",
+    desc: "Creator network development, TikTok LIVE readiness, coaching, compliance guidance, monetization workflows and performance support for live creators and partners.",
+    intro: "A structured partner network for organizations and creators building professional, consistent and measurable TikTok LIVE operations.",
+    included: [
+      { title: "Network design", desc: "We define the creator network model, partner roles, operating standards and onboarding journey." },
+      { title: "Creator onboarding", desc: "Structured intake, readiness checks, profile guidance and activation steps for new LIVE creators." },
+      { title: "LIVE coaching", desc: "Practical training for content planning, audience engagement, broadcast consistency and creator growth." },
+      { title: "Compliance guidance", desc: "Operational guidance for platform policies, brand safety, privacy-aware workflows and responsible live content." },
+      { title: "Performance operations", desc: "KPI tracking, creator reviews, campaign support and reporting that help the network improve over time." },
+    ],
+    process: [
+      { title: "Map", desc: "We clarify your network goals, target creators, markets and operating model." },
+      { title: "Onboard", desc: "Creators and partners receive a clear readiness journey with practical standards and support." },
+      { title: "Coach", desc: "The network improves through training, content guidance, reviews and operating routines." },
+      { title: "Grow", desc: "Performance insight helps identify strong creators, improve consistency and scale responsibly." },
+    ],
+    outcomes: [
+      { title: "Faster creator activation", desc: "A clear onboarding path helps creators move from interest to LIVE readiness." },
+      { title: "More consistent broadcasts", desc: "Training and standards improve quality, cadence and audience experience." },
+      { title: "Safer network operations", desc: "Policy awareness and review routines reduce avoidable brand and platform risk." },
+      { title: "Measurable growth", desc: "KPIs and reporting show which creators, formats and markets are gaining traction." },
+    ],
+  },
 };

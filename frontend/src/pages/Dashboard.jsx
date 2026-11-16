@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Calendar, FileText, Bell, User, Globe } from "lucide-react";
+import { Calendar, FileText, Bell, User, Globe, ClipboardList } from "lucide-react";
 import { api, errMsg } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
 import { useI18n } from "../i18n";
@@ -9,13 +9,21 @@ import { Field, inputCls, CTAButton } from "../components/FormUI";
 
 const TABS = [
   ["overview", User], ["appointments", Calendar], ["quotes", FileText],
-  ["notifications", Bell], ["languageTab", Globe],
+  ["checklists", ClipboardList], ["profile", User], ["notifications", Bell], ["languageTab", Globe],
 ];
 
 const STATUS_CLS = {
   confirmed: "text-zinc-900 border-black/30", cancelled: "text-zinc-600 border-black/10 line-through",
   completed: "text-zinc-600 border-black/15", new: "text-zinc-950 border-black/40",
   quoted: "text-zinc-800 border-white/25", closed: "text-zinc-500 border-black/10",
+};
+
+const CHECKLIST_TYPES = {
+  immigration: "Immigration assistance",
+  tax: "Tax assistance",
+  drafting: "Document drafting",
+  submission: "Application submission",
+  everyday: "Everyday-life paperwork",
 };
 
 export default function Dashboard() {
@@ -26,6 +34,7 @@ export default function Dashboard() {
   const [overview, setOverview] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [quotes, setQuotes] = useState([]);
+  const [checklists, setChecklists] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [profile, setProfile] = useState(null);
 
@@ -36,6 +45,7 @@ export default function Dashboard() {
       api.get("/my/overview").then((r) => setOverview(r.data)).catch(() => {});
       api.get("/my/appointments").then((r) => setAppointments(r.data)).catch(() => {});
       api.get("/my/quotes").then((r) => setQuotes(r.data)).catch(() => {});
+      api.get("/my/checklists").then((r) => setChecklists(r.data)).catch(() => {});
       setProfile({ name: user.name, phone: user.phone || "", company: user.company || "", country: user.country || "", language: user.language || "en", notify_email: user.notify_email !== false, notify_appointments: user.notify_appointments !== false });
     }
   }, [user, navigate]);
@@ -83,7 +93,7 @@ export default function Dashboard() {
         </div>
 
         <div className="flex gap-1 overflow-x-auto border-b border-black/10 mb-10" role="tablist">
-          {[...TABS.slice(0, 3), ["profile", User], ...TABS.slice(3)].map(([key, Icon]) => (
+          {TABS.map(([key, Icon]) => (
             <button key={key} data-testid={`dash-tab-${key}`} role="tab" aria-selected={tab === key} onClick={() => setTab(key)}
               className={`flex items-center gap-2 px-5 py-3 text-sm whitespace-nowrap border-b-2 -mb-px transition-[color,border-color] duration-300 ${tab === key ? "border-zinc-950 text-zinc-950" : "border-transparent text-zinc-500 hover:text-zinc-800"}`}>
               <Icon size={15} /> {t(`dashboard.${key}`)}
@@ -148,6 +158,43 @@ export default function Dashboard() {
                     </div>
                     <span className={`text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 ${STATUS_CLS[q.status] || "text-zinc-600 border-black/15"}`}>{q.status}</span>
                   </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {tab === "checklists" && (
+          <div data-testid="dash-checklists">
+            {checklists.length === 0 ? (
+              <div className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 max-w-2xl">
+                <p className="text-sm text-zinc-500">{t("dashboard.noChecklists")}</p>
+                <Link to="/documentation-assistance" data-testid="dash-checklists-create-link" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-zinc-950 hover:text-zinc-600 transition-colors duration-300">
+                  {t("dashboard.createChecklist")} <ClipboardList size={15} />
+                </Link>
+              </div>
+            ) : (
+              <div className="grid lg:grid-cols-2 gap-5">
+                {checklists.map((item) => (
+                  <article key={item.id} data-testid={`checklist-card-${item.id}`} className="rounded-2xl border border-black/10 bg-[#FFFFFF] p-7">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="font-display text-xl font-semibold text-zinc-950">{CHECKLIST_TYPES[item.service_type] || item.service_type}</p>
+                        <p className="text-xs text-zinc-500 mt-1">{item.country} · {item.stage} · {item.urgency}</p>
+                      </div>
+                      <span className="text-[11px] font-mono uppercase tracking-widest border rounded-full px-3 py-1 text-zinc-600 border-black/15">
+                        {new Date(item.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <ol className="mt-6 space-y-3">
+                      {item.checklist.map((task, i) => (
+                        <li key={`${item.id}-${i}`} data-testid={`dash-checklist-item-${item.id}-${i + 1}`} className="flex gap-3 text-sm text-zinc-600 leading-relaxed">
+                          <span className="font-mono text-[11px] text-zinc-400 pt-0.5">{String(i + 1).padStart(2, "0")}</span>
+                          <span>{task}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </article>
                 ))}
               </div>
             )}

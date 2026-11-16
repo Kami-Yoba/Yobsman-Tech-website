@@ -37,6 +37,7 @@ def test_documentation_checklist_lead_is_stored_and_cleaned_up():
         assert stored["email"] == payload["email"]
         assert stored["source"] == "documentation_checklist"
         assert stored["status"] == "new"
+        assert stored["user_id"] is None
         db.documentation_leads.delete_one({"id": body["id"]})
     finally:
         client.close()
@@ -57,3 +58,41 @@ def test_documentation_checklist_requires_consent():
     }
     response = requests.post(f"{API_BASE}/documentation-checklist", json=payload, timeout=20)
     assert response.status_code == 422
+
+
+def test_signed_in_checklist_is_available_from_user_dashboard_api():
+    session = requests.Session()
+    login = session.post(
+        f"{API_BASE}/auth/login",
+        json={"email": "demo.client@yobsman-test.com", "password": "DemoClient2026!"},
+        timeout=20,
+    )
+    assert login.status_code == 200, login.text
+    user_id = login.json()["id"]
+    auth_headers = {"Authorization": f"Bearer {session.cookies.get('access_token')}"}
+    payload = {
+        "name": "Demo Client",
+        "email": "demo.client@yobsman-test.com",
+        "service_type": "immigration",
+        "country": "Finland — Migri",
+        "stage": "ready",
+        "urgency": "week",
+        "checklist": ["Prepare passport.", "Review residence permit application."],
+        "language": "en",
+        "consent": True,
+        "website": "",
+    }
+    created = session.post(f"{API_BASE}/documentation-checklist", json=payload, headers=auth_headers, timeout=20)
+    assert created.status_code == 200, created.text
+    lead_id = created.json()["id"]
+
+    mine = session.get(f"{API_BASE}/my/checklists", headers=auth_headers, timeout=20)
+    assert mine.status_code == 200, mine.text
+    found = [item for item in mine.json() if item["id"] == lead_id]
+    assert found and found[0]["user_id"] == user_id
+
+    client = MongoClient(os.environ["MONGO_URL"])
+    try:
+        client[os.environ["DB_NAME"]].documentation_leads.delete_one({"id": lead_id})
+    finally:
+        client.close()
