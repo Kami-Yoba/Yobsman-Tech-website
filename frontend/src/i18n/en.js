@@ -319,6 +319,11 @@ export const en = {
     outcomesDesc: "The focus is practical business value: reliability, clarity, speed and systems that continue to work after delivery.",
     ctaTitle: "Ready to discuss this service?",
     ctaDesc: "Book a consultation or request a quote — this service is preselected for you.",
+    joinFree: "Join Free",
+    tiktokCtaTitle: "Ready to go LIVE?",
+    tiktokCtaDesc: "Joining the TikTok LIVE Partner Network is completely free — send us a join request and we will guide your onboarding.",
+    tiktokCardTitle: "Want to become a LIVE creator?",
+    tiktokCardDesc: "Membership is free. Book an intro call and we will walk you through onboarding, readiness and your first LIVE.",
   },
   docChecklist: {
     eyebrow: "Smart Document Checklist",

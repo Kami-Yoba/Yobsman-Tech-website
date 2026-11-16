@@ -213,6 +213,7 @@ export const servicePages = {
         title: "TikTok LIVE -kumppaniverkosto",
         desc: "Sisällöntuottajaverkoston kehitys, TikTok LIVE -valmius, valmennus, ohjeistus, kaupallistamisen työnkulut ja suorituskyvyn tuki.",
         intro: "Rakenteinen kumppaniverkosto organisaatioille ja sisällöntuottajille, jotka rakentavat ammattimaista TikTok LIVE -toimintaa.",
+        joinFree: "Liity ilmaiseksi",
         included: [
           { title: "Verkoston suunnittelu", desc: "Määritämme verkoston mallin, roolit, toimintastandardit ja onboarding-polun." },
           { title: "Sisällöntuottajien onboarding", desc: "Strukturoitu liittyminen, valmiustarkistukset, profiiliohjaus ja aktivointiaskeleet." },
@@ -422,6 +423,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE-partnernätverk", desc: "Utveckling av skaparnätverk, TikTok LIVE-beredskap, coaching, policyvägledning, intäktsflöden och prestationsstöd.", intro: "Ett strukturerat partnernätverk för organisationer och skapare som bygger professionell TikTok LIVE-verksamhet.",
+        joinFree: "Gå med gratis",
         included: [
           { title: "Nätverksdesign", desc: "Vi definierar nätverksmodell, partnerroller, standarder och onboardingresa." },
           { title: "Skaparonboarding", desc: "Strukturerat intag, beredskapskontroller, profilvägledning och aktiveringssteg." },
@@ -631,6 +633,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "شبكة شركاء TikTok LIVE", desc: "تطوير شبكة منشئي المحتوى، الجاهزية لـ TikTok LIVE، التدريب، إرشاد الامتثال، سير تحقيق الدخل ودعم الأداء.", intro: "شبكة شركاء منظمة للمؤسسات ومنشئي المحتوى لبناء عمليات TikTok LIVE احترافية وقابلة للقياس.",
+        joinFree: "انضم مجاناً",
         included: [
           { title: "تصميم الشبكة", desc: "نحدد نموذج شبكة المنشئين وأدوار الشركاء ومعايير التشغيل ورحلة الانضمام." },
           { title: "انضمام المنشئين", desc: "استقبال منظم وفحوصات جاهزية وإرشاد للملف وخطوات التفعيل." },
@@ -840,6 +843,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE 合作伙伴网络", desc: "创作者网络建设、TikTok LIVE 准备、培训、合规指导、变现流程和表现支持。", intro: "为机构和创作者建立专业、稳定且可衡量的 TikTok LIVE 运营网络。",
+        joinFree: "免费加入",
         included: [
           { title: "网络设计", desc: "定义创作者网络模式、合作伙伴角色、运营标准和加入流程。" },
           { title: "创作者入驻", desc: "为新的 LIVE 创作者提供结构化接收、准备检查、资料指导和激活步骤。" },
@@ -1048,6 +1052,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Red de socios TikTok LIVE", desc: "Desarrollo de red de creadores, preparación para TikTok LIVE, coaching, cumplimiento, monetización y rendimiento.", intro: "Una red de socios estructurada para organizaciones y creadores que construyen operaciones TikTok LIVE profesionales.",
+        joinFree: "Únete gratis",
         included: [
           { title: "Diseño de red", desc: "Definimos modelo, roles, estándares operativos y recorrido de incorporación." },
           { title: "Incorporación de creadores", desc: "Alta estructurada, controles de preparación, guía de perfil y activación." },
@@ -1257,6 +1262,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Rete partner TikTok LIVE", desc: "Sviluppo rete creator, preparazione TikTok LIVE, coaching, conformità, monetizzazione e supporto alle prestazioni.", intro: "Una rete partner strutturata per organizzazioni e creator che costruiscono operazioni TikTok LIVE professionali.",
+        joinFree: "Iscriviti gratis",
         included: [
           { title: "Design della rete", desc: "Definiamo modello, ruoli partner, standard operativi e onboarding." },
           { title: "Onboarding creator", desc: "Ingresso strutturato, controlli readiness, guida profilo e attivazione." },
@@ -1466,6 +1472,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Rede de parceiros TikTok LIVE", desc: "Desenvolvimento de rede de criadores, preparação TikTok LIVE, coaching, conformidade, monetização e desempenho.", intro: "Uma rede de parceiros estruturada para organizações e criadores que constroem operações TikTok LIVE profissionais.",
+        joinFree: "Adira gratuitamente",
         included: [
           { title: "Desenho da rede", desc: "Definimos modelo, papéis, padrões operacionais e onboarding." },
           { title: "Onboarding de criadores", desc: "Entrada estruturada, verificações, orientação de perfil e ativação." },
@@ -1675,6 +1682,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Réseau partenaire TikTok LIVE", desc: "Développement de réseau de créateurs, préparation TikTok LIVE, coaching, conformité, monétisation et performance.", intro: "Un réseau partenaire structuré pour organisations et créateurs qui construisent des opérations TikTok LIVE professionnelles.",
+        joinFree: "Rejoignez gratuitement",
         included: [
           { title: "Conception du réseau", desc: "Nous définissons modèle, rôles, standards opérationnels et parcours d'onboarding." },
           { title: "Onboarding créateurs", desc: "Entrée structurée, contrôles de préparation, conseil profil et activation." },
@@ -1884,6 +1892,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE Partnernetzwerk", desc: "Creator-Netzwerkaufbau, TikTok LIVE-Bereitschaft, Coaching, Compliance, Monetarisierung und Performance-Support.", intro: "Ein strukturiertes Partnernetzwerk für Organisationen und Creator, die professionelle TikTok LIVE-Aktivitäten aufbauen.",
+        joinFree: "Kostenlos beitreten",
         included: [
           { title: "Netzwerkdesign", desc: "Wir definieren Modell, Partnerrollen, Betriebsstandards und Onboarding." },
           { title: "Creator-Onboarding", desc: "Strukturierte Aufnahme, Readiness-Checks, Profilberatung und Aktivierung." },
@@ -2092,6 +2101,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE partnernetwerk", desc: "Creator-netwerkontwikkeling, TikTok LIVE-gereedheid, coaching, compliance, monetisatie en performance-support.", intro: "Een gestructureerd partnernetwerk voor organisaties en creators die professionele TikTok LIVE-activiteiten opbouwen.",
+        joinFree: "Gratis deelnemen",
         included: [
           { title: "Netwerkontwerp", desc: "We definiëren netwerkmodel, partnerrollen, operationele standaarden en onboarding." },
           { title: "Creator-onboarding", desc: "Gestructureerde intake, gereedheidscontroles, profielbegeleiding en activering." },
@@ -2303,6 +2313,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE-partnernettverk", desc: "Utvikling av skapernettverk, TikTok LIVE-beredskap, coaching, retningslinjer, inntektsflyt og prestasjonsstøtte.", intro: "Et strukturert partnernettverk for organisasjoner og skapere som bygger profesjonell TikTok LIVE-drift.",
+        joinFree: "Bli med gratis",
         included: [
           { title: "Nettverksdesign", desc: "Vi definerer nettverksmodell, partnerroller, standarder og onboarding." },
           { title: "Skaperonboarding", desc: "Strukturert inntak, beredskapssjekk, profilveiledning og aktivering." },
@@ -2512,6 +2523,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE-partnernetværk", desc: "Udvikling af skabernetværk, TikTok LIVE-beredskab, coaching, compliance, indtjeningsflows og performance-support.", intro: "Et struktureret partnernetværk for organisationer og skabere, der bygger professionel TikTok LIVE-drift.",
+        joinFree: "Tilmeld dig gratis",
         included: [
           { title: "Netværksdesign", desc: "Vi definerer netværksmodel, partnerroller, driftsstandarder og onboarding." },
           { title: "Skaberonboarding", desc: "Struktureret optag, beredskabstjek, profilvejledning og aktivering." },
@@ -2721,6 +2733,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Sieć partnerska TikTok LIVE", desc: "Rozwój sieci twórców, gotowość TikTok LIVE, coaching, compliance, procesy monetyzacji i wsparcie wyników.", intro: "Ustrukturyzowana sieć partnerska dla organizacji i twórców budujących profesjonalne operacje TikTok LIVE.",
+        joinFree: "Dołącz za darmo",
         included: [
           { title: "Projekt sieci", desc: "Definiujemy model sieci, role partnerów, standardy operacyjne i onboarding." },
           { title: "Onboarding twórców", desc: "Ustrukturyzowany odbiór, kontrole gotowości, porady profilowe i aktywacja." },
@@ -2930,6 +2943,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE Partner Ağı", desc: "İçerik üreticisi ağı geliştirme, TikTok LIVE hazırlığı, koçluk, uyumluluk, gelir akışları ve performans desteği.", intro: "Profesyonel ve ölçülebilir TikTok LIVE operasyonları kuran kurumlar ve üreticiler için yapılandırılmış partner ağı.",
+        joinFree: "Ücretsiz katıl",
         included: [
           { title: "Ağ tasarımı", desc: "Üretici ağı modelini, partner rollerini, operasyon standartlarını ve katılım yolculuğunu tanımlarız." },
           { title: "Üretici katılımı", desc: "Yeni LIVE üreticileri için yapılandırılmış kabul, hazırlık kontrolleri, profil rehberliği ve aktivasyon." },
@@ -3139,6 +3153,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Mtandao wa Washirika wa TikTok LIVE", desc: "Ujenzi wa mtandao wa waundaji, utayari wa TikTok LIVE, mafunzo, mwongozo wa kanuni, mtiririko wa mapato na msaada wa utendaji.", intro: "Mtandao wa washirika uliopangwa kwa mashirika na waundaji wanaojenga shughuli za kitaalamu za TikTok LIVE.",
+        joinFree: "Jiunge bure",
         included: [
           { title: "Ubunifu wa mtandao", desc: "Tunabainisha mfano wa mtandao, majukumu ya washirika, viwango na safari ya onboarding." },
           { title: "Onboarding ya waundaji", desc: "Upokeaji uliopangwa, ukaguzi wa utayari, mwongozo wa wasifu na hatua za uanzishaji." },
@@ -3348,6 +3363,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "Партнёрская сеть TikTok LIVE", desc: "Развитие сети авторов, готовность к TikTok LIVE, коучинг, соответствие правилам, монетизация и поддержка показателей.", intro: "Структурированная партнёрская сеть для организаций и авторов, строящих профессиональные операции TikTok LIVE.",
+        joinFree: "Присоединяйтесь бесплатно",
         included: [
           { title: "Дизайн сети", desc: "Определяем модель сети, роли партнёров, стандарты работы и путь onboarding." },
           { title: "Onboarding авторов", desc: "Структурированный приём, проверка готовности, рекомендации по профилю и активация." },
@@ -3557,6 +3573,7 @@ export const servicePages = {
       },
       "tiktok-live-partner-network": {
         title: "TikTok LIVE पार्टनर नेटवर्क", desc: "क्रिएटर नेटवर्क विकास, TikTok LIVE तैयारी, कोचिंग, अनुपालन मार्गदर्शन, मुद्रीकरण वर्कफ़्लो और प्रदर्शन सहायता।", intro: "व्यावसायिक और मापने योग्य TikTok LIVE संचालन बनाने वाले संगठनों और क्रिएटर्स के लिए संरचित पार्टनर नेटवर्क।",
+        joinFree: "मुफ़्त में शामिल हों",
         included: [
           { title: "नेटवर्क डिज़ाइन", desc: "हम क्रिएटर नेटवर्क मॉडल, पार्टनर भूमिकाएँ, संचालन मानक और onboarding यात्रा तय करते हैं।" },
           { title: "क्रिएटर onboarding", desc: "नए LIVE क्रिएटर्स के लिए संरचित प्रवेश, तैयारी जाँच, प्रोफ़ाइल मार्गदर्शन और सक्रियण।" },

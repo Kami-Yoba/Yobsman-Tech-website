@@ -34,6 +34,7 @@ export const SOLUTIONS = [
   { title: "Technical Support", desc: "Service desk, troubleshooting and maintenance for teams of any size.", tags: ["Service Desk", "SLA", "Remote"] },
   { title: "Remote Technology Consulting", desc: "Expert guidance delivered remotely, in your timezone and your language.", tags: ["Advisory", "CTO-as-a-Service", "Global"] },
   { title: "On-Board Courier (OBC)", desc: "Time-critical hand-carry delivery via vetted courier partners — flight cost upfront, balance after proof of delivery.", tags: ["OBC", "Hand-carry", "Time-critical"] },
+  { title: "TikTok LIVE Partner Network", desc: "A free-to-join creator network with onboarding, LIVE coaching, compliance guidance and performance support.", tags: ["Creators", "TikTok LIVE", "Free to join"], path: "/services/tiktok-live-partner-network" },
 ];
 
 export const INDUSTRIES = [
@@ -66,3 +67,9 @@ export const servicePath = (service) => {
   if (service.code === "SRV-10") return "/documentation-assistance";
   return `/services/${serviceSlug(service.title)}`;
 };
+
+export const TIKTOK_JOIN_URL = "/contact?" + new URLSearchParams({
+  service: "TikTok LIVE Partner Network",
+  subject: "Join the TikTok LIVE Partner Network",
+  message: "I would like to join the free TikTok LIVE Partner Network. Please contact me with the onboarding steps.",
+}).toString();

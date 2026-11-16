@@ -888,6 +888,7 @@ PARTNERS = [
     {"name": "Arctic AI Labs", "desc": "Applied AI research partner for machine-learning integration projects.", "url": ""},
     {"name": "EuroNet Solutions", "desc": "Enterprise networking and infrastructure partner across the EU.", "url": ""},
     {"name": "Gulf Tech Ventures", "desc": "Regional delivery partner for MENA technology programs.", "url": ""},
+    {"name": "TikTok", "desc": "Platform ecosystem partner for the TikTok LIVE Partner Network, creator onboarding and live-content growth programs.", "url": "https://www.tiktok.com/"},
 ]
 
 JOBS = [
@@ -974,8 +975,15 @@ async def seed_content():
         await db.services.insert_many(new_services)
     if await db.leadership.count_documents({}) == 0:
         await db.leadership.insert_many([{**m, "id": new_id(), "order": i + 1} for i, m in enumerate(LEADERSHIP)])
-    if await db.partners.count_documents({}) == 0:
-        await db.partners.insert_many([{**p, "id": new_id(), "order": i + 1} for i, p in enumerate(PARTNERS)])
+    existing_partner_names = {p["name"] async for p in db.partners.find({}, {"name": 1})}
+    partner_order = await db.partners.count_documents({})
+    new_partners = []
+    for partner in PARTNERS:
+        if partner["name"] not in existing_partner_names:
+            partner_order += 1
+            new_partners.append({**partner, "id": new_id(), "order": partner_order})
+    if new_partners:
+        await db.partners.insert_many(new_partners)
     if await db.jobs.count_documents({}) == 0:
         await db.jobs.insert_many([{**j, "id": new_id(), "posted_at": now().isoformat()} for j in JOBS])
     if await db.posts.count_documents({}) == 0:

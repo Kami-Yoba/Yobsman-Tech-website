@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { api } from "../lib/api";
 import { useI18n } from "../i18n";
-import { iconFor, servicePath } from "../lib/content";
+import { iconFor, servicePath, TIKTOK_JOIN_URL } from "../lib/content";
 import { Reveal } from "../components/Reveal";
 import { PageHero, linkBtnCls } from "../components/FormUI";
 
@@ -44,9 +44,15 @@ export default function Services() {
                     <Link to={`/book?service=${encodeURIComponent(s.title)}`} data-testid={`service-book-${s.code}`} className={`${linkBtnCls.ghost} justify-center`}>
                       {t("common.bookAppointment")} <ArrowUpRight size={15} />
                     </Link>
-                    <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`service-quote-${s.code}`} className={`${linkBtnCls.solid} justify-center`}>
-                      {t("common.requestQuote")} <ArrowRight size={15} />
-                    </Link>
+                    {s.code === "SRV-11" ? (
+                      <Link to={TIKTOK_JOIN_URL} data-testid={`service-join-${s.code}`} className={`${linkBtnCls.solid} justify-center`}>
+                        {t("serviceDetail.joinFree")} <ArrowRight size={15} />
+                      </Link>
+                    ) : (
+                      <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`service-quote-${s.code}`} className={`${linkBtnCls.solid} justify-center`}>
+                        {t("common.requestQuote")} <ArrowRight size={15} />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </Reveal>

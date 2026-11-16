@@ -17,7 +17,7 @@ export default function Solutions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid md:grid-cols-2 gap-5">
           {SOLUTIONS.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.04}>
-              <Link to={`/quote?service=${encodeURIComponent(s.title)}`} data-testid={`solution-card-${i}`}
+              <Link to={s.path || `/quote?service=${encodeURIComponent(s.title)}`} data-testid={`solution-card-${i}`}
                 className="group block h-full rounded-2xl border border-black/10 bg-[#FFFFFF] p-8 hover:border-black/30 hover:bg-[#E9E9EC] hover:-translate-y-1 transition-[border-color,background-color,transform] duration-500">
                 <div className="flex items-start justify-between gap-4">
                   <h2 className="font-display text-xl sm:text-2xl font-semibold text-zinc-950">{s.title}</h2>

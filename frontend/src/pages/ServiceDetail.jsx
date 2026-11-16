@@ -38,6 +38,17 @@ export default function ServiceDetail() {
   const process = page.process || detail.process;
   const outcomes = page.outcomes || detail.outcomes;
   const Icon = iconFor(service?.icon || "Code");
+  const isTikTok = slug === "tiktok-live-partner-network";
+  const joinLabel = page.joinFree || t("serviceDetail.joinFree");
+  const ctaTitle = isTikTok ? t("serviceDetail.tiktokCtaTitle") : t("serviceDetail.ctaTitle");
+  const ctaDesc = isTikTok ? t("serviceDetail.tiktokCtaDesc") : t("serviceDetail.ctaDesc");
+  const cardTitle = isTikTok ? t("serviceDetail.tiktokCardTitle") : t("serviceDetail.cardTitle");
+  const cardDesc = isTikTok ? t("serviceDetail.tiktokCardDesc") : t("serviceDetail.cardDesc");
+  const joinUrl = "/contact?" + new URLSearchParams({
+    service: "TikTok LIVE Partner Network",
+    subject: "Join the TikTok LIVE Partner Network",
+    message: "I would like to join the free TikTok LIVE Partner Network. Please contact me with the onboarding steps.",
+  }).toString();
 
   return (
     <div data-testid="service-detail-page">
@@ -60,11 +71,11 @@ export default function ServiceDetail() {
               <div data-testid="service-included-cta-card" className="rounded-2xl bg-zinc-950 text-white p-8 h-full flex flex-col justify-between">
                 <div>
                   <Icon size={24} className="text-zinc-300" />
-                  <h3 className="font-display text-2xl font-semibold mt-5">{t("serviceDetail.cardTitle")}</h3>
-                  <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{t("serviceDetail.cardDesc")}</p>
+                  <h3 className="font-display text-2xl font-semibold mt-5">{cardTitle}</h3>
+                  <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{cardDesc}</p>
                 </div>
-                <Link to={`/book?service=${encodeURIComponent(title)}`} data-testid="service-card-book-link" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-zinc-300 transition-colors duration-300">
-                  {t("common.bookAppointment")} <ArrowRight size={16} />
+                <Link to={isTikTok ? joinUrl : `/book?service=${encodeURIComponent(title)}`} data-testid="service-card-book-link" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-zinc-300 transition-colors duration-300">
+                  {isTikTok ? joinLabel : t("common.bookAppointment")} <ArrowRight size={16} />
                 </Link>
               </div>
             </Reveal>
@@ -109,12 +120,16 @@ export default function ServiceDetail() {
           </div>
           <Reveal className="mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-6 rounded-2xl border border-black/10 bg-black/[0.03] p-8 sm:p-10">
             <div className="flex-1">
-              <h3 className="font-display text-2xl font-semibold text-zinc-950">{t("serviceDetail.ctaTitle")}</h3>
-              <p className="text-sm text-zinc-600 mt-2">{t("serviceDetail.ctaDesc")}</p>
+              <h3 className="font-display text-2xl font-semibold text-zinc-950">{ctaTitle}</h3>
+              <p className="text-sm text-zinc-600 mt-2">{ctaDesc}</p>
             </div>
             <div className="flex flex-wrap gap-4">
               <Link to={`/book?service=${encodeURIComponent(title)}`} data-testid="service-detail-book-cta" className={linkBtnCls.solid}>{t("common.bookAppointment")} <ArrowRight size={16} /></Link>
-              <Link to={`/quote?service=${encodeURIComponent(title)}`} data-testid="service-detail-quote-cta" className={linkBtnCls.ghost}>{t("common.requestQuote")}</Link>
+              {isTikTok ? (
+                <Link to={joinUrl} data-testid="service-detail-join-cta" className={linkBtnCls.ghost}>{joinLabel}</Link>
+              ) : (
+                <Link to={`/quote?service=${encodeURIComponent(title)}`} data-testid="service-detail-quote-cta" className={linkBtnCls.ghost}>{t("common.requestQuote")}</Link>
+              )}
             </div>
           </Reveal>
         </div>

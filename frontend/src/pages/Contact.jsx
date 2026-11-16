@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { CheckCircle, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { toast } from "sonner";
 import { api, errMsg } from "../lib/api";
@@ -7,7 +8,14 @@ import { PageHero, Field, inputCls, CTAButton } from "../components/FormUI";
 
 export default function Contact() {
   const { t } = useI18n();
-  const [form, setForm] = useState({ full_name: "", email: "", phone: "", company: "", country: "", subject: "", service: "", message: "", contact_method: "email", consent: false, website: "" });
+  const [searchParams] = useSearchParams();
+  const [form, setForm] = useState({
+    full_name: "", email: "", phone: "", company: "", country: "",
+    subject: searchParams.get("subject") || "",
+    service: searchParams.get("service") || "",
+    message: searchParams.get("message") || "",
+    contact_method: "email", consent: false, website: "",
+  });
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(null);
 
@@ -52,7 +60,7 @@ export default function Contact() {
                   <Field label={t("form.serviceInterest")} htmlFor="c-service">
                     <select id="c-service" data-testid="contact-service-select" className={inputCls} value={form.service} onChange={set("service")}>
                       <option value="">—</option>
-                      {["IT Support / Service Desk", "Data Analysis", "Software Development", "Computer Maintenance", "AI Integration", "Mobile Application Development", "Quality Assurance & Testing", "Remote IT Consultation", "On-Board Courier (OBC)", "Documentation Assistance", "KAGAYO"].map((s) => <option key={s} value={s}>{s}</option>)}
+                      {["IT Support / Service Desk", "Data Analysis", "Software Development", "Computer Maintenance", "AI Integration", "Mobile Application Development", "Quality Assurance & Testing", "Remote IT Consultation", "On-Board Courier (OBC)", "Documentation Assistance", "KAGAYO", "TikTok LIVE Partner Network"].map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </Field>
                   <Field label={t("form.contactMethod")} htmlFor="c-method">
